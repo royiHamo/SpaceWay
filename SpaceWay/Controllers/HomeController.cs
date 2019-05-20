@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace SpaceWay.Controllers
 {
+    //test
     public class HomeController : Controller
     {
         public ActionResult Index()
