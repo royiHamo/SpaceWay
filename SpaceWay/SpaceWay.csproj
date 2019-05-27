@@ -126,10 +126,26 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Context\SpaceWayDbContext.cs" />
+    <Compile Include="Controllers\AircraftsController.cs" />
+    <Compile Include="Controllers\FlightsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PassengersController.cs" />
+    <Compile Include="Controllers\ReservationsController.cs" />
+    <Compile Include="Controllers\StationsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905271126243_first.cs" />
+    <Compile Include="Migrations\201905271126243_first.Designer.cs">
+      <DependentUpon>201905271126243_first.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Aircraft.cs" />
+    <Compile Include="Models\Flight.cs" />
+    <Compile Include="Models\Passenger.cs" />
+    <Compile Include="Models\Reservation.cs" />
+    <Compile Include="Models\Station.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -168,10 +184,34 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Stations\Create.cshtml" />
+    <Content Include="Views\Stations\Delete.cshtml" />
+    <Content Include="Views\Stations\Details.cshtml" />
+    <Content Include="Views\Stations\Edit.cshtml" />
+    <Content Include="Views\Stations\Index.cshtml" />
+    <Content Include="Views\Passengers\Create.cshtml" />
+    <Content Include="Views\Passengers\Delete.cshtml" />
+    <Content Include="Views\Passengers\Details.cshtml" />
+    <Content Include="Views\Passengers\Edit.cshtml" />
+    <Content Include="Views\Passengers\Index.cshtml" />
+    <Content Include="Views\Reservations\Create.cshtml" />
+    <Content Include="Views\Reservations\Delete.cshtml" />
+    <Content Include="Views\Reservations\Details.cshtml" />
+    <Content Include="Views\Reservations\Edit.cshtml" />
+    <Content Include="Views\Reservations\Index.cshtml" />
+    <Content Include="Views\Aircrafts\Create.cshtml" />
+    <Content Include="Views\Aircrafts\Delete.cshtml" />
+    <Content Include="Views\Aircrafts\Details.cshtml" />
+    <Content Include="Views\Aircrafts\Edit.cshtml" />
+    <Content Include="Views\Aircrafts\Index.cshtml" />
+    <Content Include="Views\Flights\Create.cshtml" />
+    <Content Include="Views\Flights\Delete.cshtml" />
+    <Content Include="Views\Flights\Details.cshtml" />
+    <Content Include="Views\Flights\Edit.cshtml" />
+    <Content Include="Views\Flights\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -185,6 +225,11 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201905271126243_first.resx">
+      <DependentUpon>201905271126243_first.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

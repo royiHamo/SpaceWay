@@ -1,0 +1,66 @@
+﻿@model SpaceWay.Models.Reservation
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Reservation</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Passenger.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Passenger.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OrderDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OutFlightID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OutFlightID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InFlightID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InFlightID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumOfTickets)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumOfTickets)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalPrice)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ReservationID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
