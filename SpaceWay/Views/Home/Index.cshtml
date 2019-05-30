@@ -1,20 +1,18 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-<head>
+
 <script type="text/javascript">
-            function welcome() {
-                alert("A");
-                @*if (@Session["Username"] != null) {*@
-                //    document.write("<h1> Welcome, @Session["Username"]</h1>");
-                 //   alert("if");
-                //}
-                //else
-                  //  document.write("<h1>test</h1>");
-            }
-          //  window.onload = welcome;
+    window.onload = function () {
+       var session ='<%=Session["Username"] %>';
+        alert(session);
+      // if ('<%=Session["Username"]%>' == null) { alert("true") };
+       //  if (@Session["Username"] != null) {
+         //          document.write("Welcome, @Session["Username"]");
+           //     }
+    };
+      
 </script>
-</head>
 
 <div class="jumbotron">
     <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>

@@ -60,6 +60,36 @@ namespace SpaceWay.Controllers
             }
         }
 
+        // GET: Search
+        public ActionResult Search(List<Passenger> l)
+        {
+            if(l!=null)
+            return View(l);
+            List<Passenger> temp = new List<Passenger>();
+            temp.Add(new Passenger());
+            return View(temp);
+        }
+
+        [HttpPost]
+        public ActionResult Search(int input, FormCollection fc)
+        {
+            var result = fc["search"];
+
+            if (result.Equals("stars"))
+            {
+                return View(db.Passengers.ToList().Where(p => p.Stars >= input).ToList());
+            }
+            if (result.Equals("reservations"))
+            {
+                return View(db.Passengers.ToList().Where(p => p.Reservations.Count() >= input).ToList());
+            }
+            if (result.Equals("name"))
+            {
+                return View(db.Passengers.ToList().Where(p => p.Name.Contains(input.ToString())).ToList());
+            }
+            return View(new List<Passenger>());
+        }
+
         // GET: Passengers/Details/5
         public ActionResult Details(int? id)
         {

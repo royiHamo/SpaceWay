@@ -144,6 +144,10 @@
     <Compile Include="Migrations\201905301156561_second.Designer.cs">
       <DependentUpon>201905301156561_second.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905301750004_second1.cs" />
+    <Compile Include="Migrations\201905301750004_second1.Designer.cs">
+      <DependentUpon>201905301750004_second1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Aircraft.cs" />
     <Compile Include="Models\Flight.cs" />
@@ -214,6 +218,7 @@
     <Content Include="Views\Flights\Edit.cshtml" />
     <Content Include="Views\Flights\Index.cshtml" />
     <Content Include="Views\Passengers\Login.cshtml" />
+    <Content Include="Views\Passengers\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -237,6 +242,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905301156561_second.resx">
       <DependentUpon>201905301156561_second.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905301750004_second1.resx">
+      <DependentUpon>201905301750004_second1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

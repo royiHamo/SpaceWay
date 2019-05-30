@@ -1,0 +1,75 @@
+﻿@model IEnumerable<SpaceWay.Models.Passenger>
+
+@{
+    ViewBag.Title = "Search";
+}
+
+<h2>Search</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div>
+         Search by:
+        <fieldset id="search">
+            <input type="radio" id="stars" value="stars" name="search" /><label>min stars</label>
+            <input type="radio" id="reservations" value="reservations" name="search" /><label>min reservations</label>
+            <input type="radio" id="name" value="name" name="search" /><label>name</label>
+            <input type="text" id="input" />
+            <input type="submit" value="submit" class="btn btn-default"/>
+        </fieldset>
+    </div>
+    }
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Username)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Password)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Stars)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsAdmin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalDistance)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Password)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stars)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsAdmin)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalDistance)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.PassengerID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.PassengerID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.PassengerID })
+            </td>
+        </tr>
+    }
+
+</table>
