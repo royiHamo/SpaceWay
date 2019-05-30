@@ -16,9 +16,48 @@ namespace SpaceWay.Controllers
         private SpaceWayDbContext db = new SpaceWayDbContext();
 
         // GET: Passengers
-        public ActionResult Index()
+        public ActionResult Index(string Username)
         {
-            return View(db.Passengers.ToList());
+            if (Session["Username"] != null)
+            {
+                ViewBag.Username = Username;
+                return View();
+                //return RedirectToAction("Index", "Home", new { Username = Session["Username"].ToString() });
+            }
+            return View();
+        }
+
+        public ActionResult Login()
+        {
+            if(Session["Username"] != null)
+            {
+                return RedirectToAction("Index", "Home", new { Username = Session["Username"].ToString() });
+            }
+            else
+            {
+            return View();
+            } 
+        }
+
+        [HttpPost]
+        public ActionResult Login(string UN, string PW)
+        {
+            var passengerLoggedIn = db.Passengers.SingleOrDefault(x => x.Username == UN && x.Password == PW);
+
+            if(passengerLoggedIn != null)
+            {
+                ViewBag.message = "loggedin";
+                ViewBag.triedOnce = "yes";
+
+                Session["Username"] =UN;
+
+                return RedirectToAction("Index", "Home", new { Username = UN });
+            }
+            else
+            {
+                ViewBag.triedOnce = "yes";
+                return View();
+            }
         }
 
         // GET: Passengers/Details/5
@@ -51,9 +90,17 @@ namespace SpaceWay.Controllers
         {
             if (ModelState.IsValid)
             {
+                foreach(Passenger p in db.Passengers.ToList()) 
+                {
+                    if (p.Username == passenger.Username)
+                    {
+                        ModelState.AddModelError("Username", "Username already exists");
+                        return View();
+                    }
+                }
                 db.Passengers.Add(passenger);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Home");
             }
 
             return View(passenger);
