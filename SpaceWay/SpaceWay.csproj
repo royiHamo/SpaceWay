@@ -148,6 +148,10 @@
     <Compile Include="Migrations\201905301750004_second1.Designer.cs">
       <DependentUpon>201905301750004_second1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905302113591_second2.cs" />
+    <Compile Include="Migrations\201905302113591_second2.Designer.cs">
+      <DependentUpon>201905302113591_second2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Aircraft.cs" />
     <Compile Include="Models\Flight.cs" />
@@ -245,6 +249,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905301750004_second1.resx">
       <DependentUpon>201905301750004_second1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905302113591_second2.resx">
+      <DependentUpon>201905302113591_second2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

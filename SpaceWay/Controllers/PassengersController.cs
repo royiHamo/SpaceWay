@@ -65,27 +65,33 @@ namespace SpaceWay.Controllers
         {
             if(l!=null)
             return View(l);
-            List<Passenger> temp = new List<Passenger>();
-            temp.Add(new Passenger());
-            return View(temp);
+            return View(new List<Passenger>());
         }
 
         [HttpPost]
-        public ActionResult Search(int input, FormCollection fc)
+        public ActionResult Search(string input, FormCollection fc)
         {
             var result = fc["search"];
-
+            if(result == null)
+            {
+                return View(new List<Passenger>());
+            }
             if (result.Equals("stars"))
             {
-                return View(db.Passengers.ToList().Where(p => p.Stars >= input).ToList());
+                return View(db.Passengers.ToList().Where(p => p.Stars >= Int32.Parse(input)).ToList());
             }
             if (result.Equals("reservations"))
             {
-                return View(db.Passengers.ToList().Where(p => p.Reservations.Count() >= input).ToList());
+                List<Passenger> passengers = db.Passengers.ToList().Where(p => p.Reservations != null).ToList();
+                if(passengers != null)
+                {
+                return View(passengers.Where(p => p.Reservations.Count() >= Int32.Parse(input)).ToList());
+                }
+                return View(new List<Passenger>());
             }
             if (result.Equals("name"))
             {
-                return View(db.Passengers.ToList().Where(p => p.Name.Contains(input.ToString())).ToList());
+                return View(db.Passengers.ToList().Where(p => p.Name.Contains(input)).ToList());
             }
             return View(new List<Passenger>());
         }

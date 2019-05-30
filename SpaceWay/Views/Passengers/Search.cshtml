@@ -9,13 +9,14 @@
 {
     @Html.AntiForgeryToken()
     <div>
-         Search by:
+         
         <fieldset id="search">
+            <label>Search by:</label>
             <input type="radio" id="stars" value="stars" name="search" /><label>min stars</label>
             <input type="radio" id="reservations" value="reservations" name="search" /><label>min reservations</label>
             <input type="radio" id="name" value="name" name="search" /><label>name</label>
-            <input type="text" id="input" />
-            <input type="submit" value="submit" class="btn btn-default"/>
+            <input type="text" id="input" name="input" />
+            <input type="submit" value="submit" class="btn btn-default" />
         </fieldset>
     </div>
     }
