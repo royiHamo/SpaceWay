@@ -10,6 +10,7 @@ namespace SpaceWay.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.LoggedInUser = Session["Username"];
             return View();
         }
 

@@ -46,12 +46,8 @@ namespace SpaceWay.Controllers
 
             if(passengerLoggedIn != null)
             {
-                ViewBag.message = "loggedin";
-                ViewBag.triedOnce = "yes";
-
-                Session["Username"] =UN;
-
-                return RedirectToAction("Index", "Home", new { Username = UN });
+                Session["Username"] = UN;
+                return RedirectToAction("Index", "Home");
             }
             else
             {
@@ -60,8 +56,14 @@ namespace SpaceWay.Controllers
             }
         }
 
-        // GET: Search
-        public ActionResult Search(List<Passenger> l)
+        public  ActionResult Logout()
+        {
+            Session["Username"] = null;
+            return RedirectToAction("Index", "Home");
+        }
+
+            // GET: Search
+            public ActionResult Search(List<Passenger> l)
         {
             if(l!=null)
             return View(l);
@@ -111,6 +113,14 @@ namespace SpaceWay.Controllers
             return View(passenger);
         }
 
+        public ActionResult PassengerProfile()
+        {
+            var usernameSession = Session["Username"].ToString();
+            var passengerLoggedIn = db.Passengers.SingleOrDefault(x => x.Username == usernameSession);
+
+            return View(passengerLoggedIn);
+        }
+
         // GET: Passengers/Create
         public ActionResult Create()
         {
@@ -126,16 +136,14 @@ namespace SpaceWay.Controllers
         {
             if (ModelState.IsValid)
             {
-                foreach(Passenger p in db.Passengers.ToList()) 
-                {
-                    if (p.Username == passenger.Username)
+                    if (db.Passengers.Any(x => x.Username == passenger.Username))
                     {
                         ModelState.AddModelError("Username", "Username already exists");
                         return View();
                     }
-                }
                 db.Passengers.Add(passenger);
                 db.SaveChanges();
+                Session["Username"] = passenger.Username;
                 return RedirectToAction("Index","Home");
             }
 

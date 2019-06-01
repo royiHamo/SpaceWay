@@ -221,8 +221,13 @@
     <Content Include="Views\Flights\Details.cshtml" />
     <Content Include="Views\Flights\Edit.cshtml" />
     <Content Include="Views\Flights\Index.cshtml" />
-    <Content Include="Views\Passengers\Login.cshtml" />
+    <CodeAnalysisDictionary Include="Views\Passengers\Login.cshtml" />
     <Content Include="Views\Passengers\Search.cshtml" />
+    <Content Include="Views\Shared\LoggedInNavBar.cshtml" />
+    <Content Include="Views\Shared\NotLoggedInNavBar.cshtml" />
+    <Content Include="Views\Passengers\PassengerProfile.cshtml">
+      <BrowseToURL>~/Passengers/PassengerProfile</BrowseToURL>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
