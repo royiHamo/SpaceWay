@@ -44,16 +44,34 @@ namespace SpaceWay.Controllers
         {
             var passengerLoggedIn = db.Passengers.SingleOrDefault(x => x.Username == UN && x.Password == PW);
 
-            if(passengerLoggedIn != null)
+            if (ModelState.IsValid)
             {
-                Session["Username"] = UN;
-                return RedirectToAction("Index", "Home");
+                if (passengerLoggedIn == null)
+                {
+                    var passengerNotLoggedIn = db.Passengers.SingleOrDefault(x => x.Username == UN);
+                    if (passengerNotLoggedIn==null)
+                    {
+                        ModelState.AddModelError("Username", "Username does not exists");
+                    }
+                    else if (!(passengerNotLoggedIn.Password == PW))
+                    {
+                        ModelState.AddModelError("Password", "Password does not correct");
+                    }
+                    return View();
+                }
+                else
+                {
+                    Session["Username"] = UN;
+                    Session["isAdmin"] = "0";
+                    if (passengerLoggedIn.IsAdmin)
+                        Session["isAdmin"] = "1";
+
+                    return RedirectToAction("Index", "Home");
+                }
             }
-            else
-            {
-                ViewBag.triedOnce = "yes";
-                return View();
-            }
+           else
+            return View();
+            
         }
 
         public  ActionResult Logout()
@@ -136,6 +154,7 @@ namespace SpaceWay.Controllers
         {
             if (ModelState.IsValid)
             {
+                
                     if (db.Passengers.Any(x => x.Username == passenger.Username))
                     {
                         ModelState.AddModelError("Username", "Username already exists");
@@ -144,6 +163,9 @@ namespace SpaceWay.Controllers
                 db.Passengers.Add(passenger);
                 db.SaveChanges();
                 Session["Username"] = passenger.Username;
+                Session["isAdmin"] = "0";
+                if (passenger.IsAdmin)
+                    Session["isAdmin"] = "1";
                 return RedirectToAction("Index","Home");
             }
 

@@ -1,8 +1,11 @@
-﻿<li>@Html.ActionLink("Search", "Search", "Passengers")</li>
-<li>@Html.ActionLink("Profile", "PassengerProfile", "Passengers")</li>
-<li>@Html.ActionLink("Logout", "Logout", "Passengers")</li>
+﻿@{
+    bool checkAdmin()
+    {   
+        if (Session["isAdmin"]=="1")
+            return true;
+        return false;
+    }
 
-@{
     var welcomeText = "";
     if (Session["Username"] != null)
     {
@@ -10,4 +13,10 @@
     }
 
 }
+
+<li >@if (checkAdmin()==true) { @Html.ActionLink("Search", "Search", "Passengers") }</li>
+<li>@Html.ActionLink("Profile", "PassengerProfile", "Passengers")</li>
+<li>@Html.ActionLink("Logout", "Logout", "Passengers")</li>
+
+
 <li><font color="white">@welcomeText</font></li>
