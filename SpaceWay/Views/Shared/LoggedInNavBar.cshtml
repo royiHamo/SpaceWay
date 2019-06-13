@@ -1,13 +1,16 @@
-﻿<li>@Html.ActionLink("Search", "Search", "Passengers")</li>
-<li>@Html.ActionLink("Profile", "PassengerProfile", "Passengers")</li>
+﻿<li>@Html.ActionLink("Profile", "PassengerProfile", "Passengers")</li>
+<li>@Html.ActionLink("Book A Flight", "SearchFlight", "Flights")</li>
+<li>@Html.ActionLink("My Reservations", "MyReservations", "Reservations")</li>
 <li>@Html.ActionLink("Logout", "Logout", "Passengers")</li>
 
-@{
-    var welcomeText = "";
-    if (Session["Username"] != null)
-    {
-        welcomeText = "Welcome " + Session["Username"];
+
+    @{
+        var welcomeText = "";
+        if (Session["Username"] != null)
+        {
+            welcomeText = "Welcome " + Session["Username"];
+        }
+
     }
 
-}
-<li><font color="white">@welcomeText</font></li>
+    <li><font color="white">@welcomeText</font></li>

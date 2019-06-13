@@ -1,0 +1,18 @@
+﻿@model SpaceWay.Models.Flight
+
+@{
+    ViewBag.Title = "SearchFlight";
+}
+
+<h2>SearchFlight</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div>
+        <hr />
+        <div><select id="originDD" name="@Html.NameFor(c => c.Origin)"></select></div>
+    </div>
+
+    }

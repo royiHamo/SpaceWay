@@ -61,8 +61,13 @@ namespace SpaceWay.Controllers
             ViewBag.PassengerID = new SelectList(db.Passengers, "PassengerID", "Name", reservation.PassengerID);
             return View(reservation);
         }
+        public ActionResult MyReservations(int? id)
+        {
+            return View(db.Reservations.Where(p=> p.PassengerID==id).ToList());
+        }
 
-        // GET: Reservations/Edit/5
+       
+         // GET: Reservations/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)

@@ -152,6 +152,18 @@
     <Compile Include="Migrations\201905302113591_second2.Designer.cs">
       <DependentUpon>201905302113591_second2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906061641287_M2.cs" />
+    <Compile Include="Migrations\201906061641287_M2.Designer.cs">
+      <DependentUpon>201906061641287_M2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906061730040_M21.cs" />
+    <Compile Include="Migrations\201906061730040_M21.Designer.cs">
+      <DependentUpon>201906061730040_M21.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906061746558_M22.cs" />
+    <Compile Include="Migrations\201906061746558_M22.Designer.cs">
+      <DependentUpon>201906061746558_M22.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Aircraft.cs" />
     <Compile Include="Models\Flight.cs" />
@@ -216,11 +228,6 @@
     <Content Include="Views\Aircrafts\Details.cshtml" />
     <Content Include="Views\Aircrafts\Edit.cshtml" />
     <Content Include="Views\Aircrafts\Index.cshtml" />
-    <Content Include="Views\Flights\Create.cshtml" />
-    <Content Include="Views\Flights\Delete.cshtml" />
-    <Content Include="Views\Flights\Details.cshtml" />
-    <Content Include="Views\Flights\Edit.cshtml" />
-    <Content Include="Views\Flights\Index.cshtml" />
     <CodeAnalysisDictionary Include="Views\Passengers\Login.cshtml" />
     <Content Include="Views\Passengers\Search.cshtml" />
     <Content Include="Views\Shared\LoggedInNavBar.cshtml" />
@@ -228,6 +235,13 @@
     <Content Include="Views\Passengers\PassengerProfile.cshtml">
       <BrowseToURL>~/Passengers/PassengerProfile</BrowseToURL>
     </Content>
+    <Content Include="Views\Reservations\MyReservations.cshtml" />
+    <Content Include="Views\Flights\SearchFlight.cshtml" />
+    <Content Include="Views\Flights\Create.cshtml" />
+    <Content Include="Views\Flights\Delete.cshtml" />
+    <Content Include="Views\Flights\Details.cshtml" />
+    <Content Include="Views\Flights\Edit.cshtml" />
+    <Content Include="Views\Flights\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -257,6 +271,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905302113591_second2.resx">
       <DependentUpon>201905302113591_second2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906061641287_M2.resx">
+      <DependentUpon>201906061641287_M2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906061730040_M21.resx">
+      <DependentUpon>201906061730040_M21.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906061746558_M22.resx">
+      <DependentUpon>201906061746558_M22.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
