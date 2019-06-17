@@ -43,6 +43,21 @@
         </dd>
 
         <dt>
+            @Html.DisplayName("Origin:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Stations.ToList()[0].Name)
+        </dd>
+        <dt>
+            @Html.DisplayName("Destination:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Stations.ToList()[1].Name)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.Departure)
         </dt>
 

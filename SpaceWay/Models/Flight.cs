@@ -13,18 +13,19 @@ namespace SpaceWay.Models
         public int NumOfPassengers { get; set; } // <= seats
         public int AircraftID { get; set; }
         public Aircraft Aircraft { get; set; }
+
         //public int StationID { get; set; }
         //public Station Origin { get; set; }  //origin station 
         //public int StationID { get; set; }
         //public Station Destination { get; set; }//destination station
-        public ICollection<Station> Stations { get; set; }
+
+        public ICollection<Station> Stations { get; set; } = new List<Station>(new Station[2]);//origin & destination
         public double Duration { get; set; }
         public double Distance { get; set; }
         [DataType(DataType.DateTime)]
         public DateTime Departure { get; set; }
         [DataType(DataType.DateTime)]
         public DateTime Arrival { get; set; }
-        public int Price { get; set; }
-
+        public double Price { get; set; } 
     }
 }

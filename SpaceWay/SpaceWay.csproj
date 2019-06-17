@@ -164,6 +164,18 @@
     <Compile Include="Migrations\201906061746558_M22.Designer.cs">
       <DependentUpon>201906061746558_M22.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906151522157_M23.cs" />
+    <Compile Include="Migrations\201906151522157_M23.Designer.cs">
+      <DependentUpon>201906151522157_M23.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906171151149_M24.cs" />
+    <Compile Include="Migrations\201906171151149_M24.Designer.cs">
+      <DependentUpon>201906171151149_M24.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906171158411_M25.cs" />
+    <Compile Include="Migrations\201906171158411_M25.Designer.cs">
+      <DependentUpon>201906171158411_M25.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Aircraft.cs" />
     <Compile Include="Models\Flight.cs" />
@@ -236,12 +248,13 @@
       <BrowseToURL>~/Passengers/PassengerProfile</BrowseToURL>
     </Content>
     <Content Include="Views\Reservations\MyReservations.cshtml" />
-    <Content Include="Views\Flights\SearchFlight.cshtml" />
     <Content Include="Views\Flights\Create.cshtml" />
     <Content Include="Views\Flights\Delete.cshtml" />
     <Content Include="Views\Flights\Details.cshtml" />
     <Content Include="Views\Flights\Edit.cshtml" />
     <Content Include="Views\Flights\Index.cshtml" />
+    <Content Include="Views\Flights\SearchFlight.cshtml" />
+    <Content Include="Views\Flights\SearchFlightResults.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -280,6 +293,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906061746558_M22.resx">
       <DependentUpon>201906061746558_M22.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906151522157_M23.resx">
+      <DependentUpon>201906151522157_M23.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906171151149_M24.resx">
+      <DependentUpon>201906171151149_M24.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906171158411_M25.resx">
+      <DependentUpon>201906171158411_M25.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

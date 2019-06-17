@@ -24,6 +24,12 @@
             @Html.DisplayNameFor(model => model.Distance)
         </th>
         <th>
+            @Html.DisplayName("Origin")
+        </th>
+        <th>
+            @Html.DisplayName("Destination")
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Departure)
         </th>
         <th>
@@ -50,6 +56,12 @@
             @Html.DisplayFor(modelItem => item.Distance)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.Stations.ToList()[0].Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Stations.ToList()[1].Name)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Departure)
         </td>
         <td>
@@ -59,9 +71,9 @@
             @Html.DisplayFor(modelItem => item.Price)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.FlightID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.FlightID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.FlightID })
+            @Html.ActionLink("Edit", "Edit", new { id = item.FlightID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.FlightID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.FlightID })
         </td>
     </tr>
 }

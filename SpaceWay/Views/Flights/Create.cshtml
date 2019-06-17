@@ -47,6 +47,29 @@
         </div>
     </div>
 
+    @*<div class="form-group">
+        @Html.LabelFor(model => model.Stations.ToList()[0], htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Stations.ToList()[0].Name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Stations.ToList()[0], "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Stations.ToList()[1], htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Stations.ToList()[1].Name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Stations.ToList()[0], "", new { @class = "text-danger" })
+        </div>
+    </div>*@
+
+    <div>
+        <hr />
+        @Html.DropDownListFor(model => model.Stations.ToList()[0].Name, new SelectList((List<SpaceWay.Models.Station>)ViewData["Stations"], "StationID", "Name"), "Origin")
+        @Html.DropDownListFor(model => model.Stations.ToList()[1].Name, new SelectList((List<SpaceWay.Models.Station>)ViewData["Stations"], "StationID", "Name"), "Destination")
+    </div>
+
+
+
     <div class="form-group">
         @Html.LabelFor(model => model.Departure, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
@@ -60,21 +83,6 @@
         <div class="col-md-10">
             @Html.EditorFor(model => model.Arrival, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.Arrival, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Stations,"StationID", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("StationID", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.Stations, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Stations.ToList()[1], htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Stations.ToList()[1], new { htmlAttributes = new { @class = "form-control" } })
         </div>
     </div>
 

@@ -1,0 +1,150 @@
+﻿@model IEnumerable<SpaceWay.Models.Flight>
+
+@{
+    ViewBag.Title = "SearchFlightResults";
+}
+
+<h2>SearchFlightResults</h2>
+
+<h4>Choose Outbound Flight:</h4>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Aircraft.AircraftID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumOfPassengers)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Duration)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Distance)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Departure)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Arrival)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+
+        <th></th>
+    </tr>
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "outbound" }))
+    {
+        <div>
+            <fieldset id="selectedOutbound">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Aircraft.AircraftID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NumOfPassengers)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Duration)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Distance)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Departure)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Arrival)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Price)
+                        </td>
+                        <td>
+                            <input type="radio" id="@item.FlightID" value="@item.FlightID" name="selectedOutbound" />
+                        </td>
+
+                    </tr>
+                }
+            </fieldset>
+        </div>
+    }
+
+</table>
+
+<h4>Choose Inbound Flight:</h4>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Aircraft.AircraftID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumOfPassengers)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Duration)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Distance)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Departure)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Arrival)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+
+        <th></th>
+    </tr>
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "inbound" }))
+    {
+        <div>
+            <fieldset id="selectedInbound">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Aircraft.AircraftID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NumOfPassengers)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Duration)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Distance)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Departure)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Arrival)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Price)
+                        </td>
+                        <td>
+                            <input type="radio" id="@item.FlightID" value="@item.FlightID" name="selectedInbound" />
+                        </td>
+
+                    </tr>
+                }
+            </fieldset>
+            
+        </div>
+    }
+
+</table>
+<script>
+    submitForms = function () {
+        document.getElementById("inbound").submit();
+        document.getElementById("outbound").submit();
+    }
+</script>
+<input type="button" value="Submit" onclick="submitForms()" />

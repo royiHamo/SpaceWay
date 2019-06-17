@@ -98,14 +98,14 @@ namespace SpaceWay.Controllers
             }
             if (result.Equals("stars"))
             {
-                return View(db.Passengers.ToList().Where(p => p.Stars >= Int32.Parse(input)).ToList());
+                return View(db.Passengers.ToList().Where(p => p.Stars >= int.Parse(input)).ToList());
             }
             if (result.Equals("reservations"))
             {
                 List<Passenger> passengers = db.Passengers.ToList().Where(p => p.Reservations != null).ToList();
                 if(passengers != null)
                 {
-                return View(passengers.Where(p => p.Reservations.Count() >= Int32.Parse(input)).ToList());
+                return View(passengers.Where(p => p.Reservations.Count() >= int.Parse(input)).ToList());
                 }
                 return View(new List<Passenger>());
             }

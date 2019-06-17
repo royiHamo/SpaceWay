@@ -14,7 +14,8 @@
 
 }
 
-<li >@if (checkAdmin()==true) { @Html.ActionLink("Search", "Search", "Passengers") }</li>
+<li >@if (checkAdmin()==true) { @Html.ActionLink("Passengers", "Search", "Passengers") }</li>
+<li>@Html.ActionLink("Book A Flight", "SearchFlight", "Flights")}</li>
 <li>@Html.ActionLink("Profile", "PassengerProfile", "Passengers")</li>
 <li>@Html.ActionLink("Logout", "Logout", "Passengers")</li>
 
