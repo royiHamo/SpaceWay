@@ -11,8 +11,8 @@
 
     <div>
         <hr />
-        @Html.DropDownListFor(model => model.Stations.ToList()[0].Name , new SelectList((List<SpaceWay.Models.Station>)ViewData["Stations"], "StationID", "Name"), "Origin")
-        @Html.DropDownListFor(model => model.Stations.ToList()[1].Name , new SelectList((List<SpaceWay.Models.Station>)ViewData["Stations"], "StationID", "Name"), "Destination")
+        @Html.DropDownListFor(model => model.Stations.ToList()[0].Name , new SelectList((List<SpaceWay.Models.Station>)ViewData["Stations"], "Name", "Name"), "Origin")
+        @Html.DropDownListFor(model => model.Stations.ToList()[1].Name , new SelectList((List<SpaceWay.Models.Station>)ViewData["Stations"], "Name", "Name"), "Destination")
         <label>Departing:</label><input type="date" />
         <label>Returning:</label><input type="date" />
         <div class="form-group">

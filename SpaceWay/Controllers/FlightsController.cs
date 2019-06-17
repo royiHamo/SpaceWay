@@ -44,7 +44,7 @@ namespace SpaceWay.Controllers
             ViewBag.StationID = new SelectList(db.Stations, "StationID", "StationID");
             ViewData["Stations"] = db.Stations.ToList();
 
-            Flight f = new Flight();
+            //Flight f = new Flight();
             //f.Stations = new List<Station>();
             //Station s1 = new Station();
             //Station s2 = new Station();
@@ -55,17 +55,30 @@ namespace SpaceWay.Controllers
             //db.SaveChanges();
             //f.Stations.Add(s1);
             //f.Stations.Add(s2);
-            
-            return View(f);
+
+            return View();
         }
 
         // POST: Flights/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Flight flight)
-        { 
+        {
+            //flight.Stations = new List<Station>(new Station[2]);
+            //Station s1 = new Station();
+            //Station s2 = new Station();
+            //s1.Name = "orig";
+            //s2.Name = "dest";
+            //flight.Stations.Add(s1);
+            //flight.Stations.Add(s2);
+            flight.Stations.ToList()[0].Name = "Test Origin";
+            flight.Stations.ToList()[1].Name = "Test Dest";
+
+
             if (ModelState.IsValid)
             {
                 db.Flights.Add(flight);
@@ -73,7 +86,7 @@ namespace SpaceWay.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.AircraftID = new SelectList(db.Aircrafts, "AircraftID", "AircraftID", flight.AircraftID);
+            //ViewBag.AircraftID = new SelectList(db.Aircrafts, "AircraftID", "AircraftID", flight.AircraftID);
             return View(flight);
         }
 

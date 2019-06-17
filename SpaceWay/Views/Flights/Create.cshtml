@@ -62,11 +62,11 @@
         </div>
     </div>*@
 
-    <div>
+    @*<div>
         <hr />
-        @Html.DropDownListFor(model => model.Stations.ToList()[0].Name, new SelectList((List<SpaceWay.Models.Station>)ViewData["Stations"], "StationID", "Name"), "Origin")
-        @Html.DropDownListFor(model => model.Stations.ToList()[1].Name, new SelectList((List<SpaceWay.Models.Station>)ViewData["Stations"], "StationID", "Name"), "Destination")
-    </div>
+        @Html.DropDownListFor(model => model.Stations.ToList()[0].Name, new SelectList((List<SpaceWay.Models.Station>)ViewData["Stations"], "Name", "Name"), "Origin", new { @class = "form-control" } )
+        @Html.DropDownListFor(model => model.Stations.ToList()[1].Name, new SelectList((List<SpaceWay.Models.Station>)ViewData["Stations"], "Name", "Name"), "Destination", new { @class = "form-control" })
+    </div>*@
 
 
 

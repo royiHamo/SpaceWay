@@ -176,6 +176,10 @@
     <Compile Include="Migrations\201906171158411_M25.Designer.cs">
       <DependentUpon>201906171158411_M25.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906172020598_M26.cs" />
+    <Compile Include="Migrations\201906172020598_M26.Designer.cs">
+      <DependentUpon>201906172020598_M26.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Aircraft.cs" />
     <Compile Include="Models\Flight.cs" />
@@ -302,6 +306,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906171158411_M25.resx">
       <DependentUpon>201906171158411_M25.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906172020598_M26.resx">
+      <DependentUpon>201906172020598_M26.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
