@@ -180,6 +180,34 @@
     <Compile Include="Migrations\201906172020598_M26.Designer.cs">
       <DependentUpon>201906172020598_M26.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906172026561_M27.cs" />
+    <Compile Include="Migrations\201906172026561_M27.Designer.cs">
+      <DependentUpon>201906172026561_M27.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906181701198_M28.cs" />
+    <Compile Include="Migrations\201906181701198_M28.Designer.cs">
+      <DependentUpon>201906181701198_M28.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906191905082_m7.cs" />
+    <Compile Include="Migrations\201906191905082_m7.Designer.cs">
+      <DependentUpon>201906191905082_m7.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906192030515_m71.cs" />
+    <Compile Include="Migrations\201906192030515_m71.Designer.cs">
+      <DependentUpon>201906192030515_m71.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906201153361_m72.cs" />
+    <Compile Include="Migrations\201906201153361_m72.Designer.cs">
+      <DependentUpon>201906201153361_m72.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906212024450_m73.cs" />
+    <Compile Include="Migrations\201906212024450_m73.Designer.cs">
+      <DependentUpon>201906212024450_m73.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906212036144_m74.cs" />
+    <Compile Include="Migrations\201906212036144_m74.Designer.cs">
+      <DependentUpon>201906212036144_m74.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Aircraft.cs" />
     <Compile Include="Models\Flight.cs" />
@@ -193,12 +221,82 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\grayscale.css" />
+    <Content Include="Content\css\grayscale.min.css" />
+    <Content Include="Content\img\bg-masthead.jpg" />
+    <Content Include="Content\img\bg-masthead2.jpg" />
+    <Content Include="Content\img\bg-signup.jpg" />
+    <Content Include="Content\img\demo-image-01.jpg" />
+    <Content Include="Content\img\demo-image-02.jpg" />
+    <Content Include="Content\img\ipad.jpg" />
+    <Content Include="Content\img\ipad.png" />
+    <Content Include="Content\img\source.txt" />
+    <Content Include="Content\js\grayscale.js" />
+    <Content Include="Content\js\grayscale.min.js" />
+    <Content Include="Content\vendor\bootstrap\css\bootstrap-grid.css" />
+    <Content Include="Content\vendor\bootstrap\css\bootstrap-grid.min.css" />
+    <Content Include="Content\vendor\bootstrap\css\bootstrap-reboot.css" />
+    <Content Include="Content\vendor\bootstrap\css\bootstrap-reboot.min.css" />
+    <Content Include="Content\vendor\bootstrap\css\bootstrap.css" />
+    <Content Include="Content\vendor\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Content\vendor\bootstrap\js\bootstrap.bundle.js" />
+    <Content Include="Content\vendor\bootstrap\js\bootstrap.bundle.min.js" />
+    <Content Include="Content\vendor\bootstrap\js\bootstrap.js" />
+    <Content Include="Content\vendor\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Content\vendor\fontawesome-free\css\all.css" />
+    <Content Include="Content\vendor\fontawesome-free\css\all.min.css" />
+    <Content Include="Content\vendor\fontawesome-free\css\brands.css" />
+    <Content Include="Content\vendor\fontawesome-free\css\brands.min.css" />
+    <Content Include="Content\vendor\fontawesome-free\css\fontawesome.css" />
+    <Content Include="Content\vendor\fontawesome-free\css\fontawesome.min.css" />
+    <Content Include="Content\vendor\fontawesome-free\css\regular.css" />
+    <Content Include="Content\vendor\fontawesome-free\css\regular.min.css" />
+    <Content Include="Content\vendor\fontawesome-free\css\solid.css" />
+    <Content Include="Content\vendor\fontawesome-free\css\solid.min.css" />
+    <Content Include="Content\vendor\fontawesome-free\css\svg-with-js.css" />
+    <Content Include="Content\vendor\fontawesome-free\css\svg-with-js.min.css" />
+    <Content Include="Content\vendor\fontawesome-free\css\v4-shims.css" />
+    <Content Include="Content\vendor\fontawesome-free\css\v4-shims.min.css" />
+    <Content Include="Content\vendor\fontawesome-free\webfonts\fa-brands-400.svg" />
+    <Content Include="Content\vendor\fontawesome-free\webfonts\fa-regular-400.svg" />
+    <Content Include="Content\vendor\fontawesome-free\webfonts\fa-solid-900.svg" />
+    <Content Include="Content\vendor\jquery-easing\jquery.easing.compatibility.js" />
+    <Content Include="Content\vendor\jquery-easing\jquery.easing.js" />
+    <Content Include="Content\vendor\jquery-easing\jquery.easing.min.js" />
+    <Content Include="Content\vendor\jquery\jquery.js" />
+    <Content Include="Content\vendor\jquery\jquery.min.js" />
+    <Content Include="Content\vendor\jquery\jquery.slim.js" />
+    <Content Include="Content\vendor\jquery\jquery.slim.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\vendor\bootstrap\css\bootstrap-grid.css.map" />
+    <Content Include="Content\vendor\bootstrap\css\bootstrap-grid.min.css.map" />
+    <Content Include="Content\vendor\bootstrap\css\bootstrap-reboot.css.map" />
+    <Content Include="Content\vendor\bootstrap\css\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\vendor\bootstrap\css\bootstrap.css.map" />
+    <Content Include="Content\vendor\bootstrap\css\bootstrap.min.css.map" />
+    <Content Include="Content\vendor\bootstrap\js\bootstrap.bundle.js.map" />
+    <Content Include="Content\vendor\bootstrap\js\bootstrap.bundle.min.js.map" />
+    <Content Include="Content\vendor\bootstrap\js\bootstrap.js.map" />
+    <Content Include="Content\vendor\bootstrap\js\bootstrap.min.js.map" />
+    <Content Include="Content\vendor\fontawesome-free\webfonts\fa-brands-400.eot" />
+    <Content Include="Content\vendor\fontawesome-free\webfonts\fa-brands-400.ttf" />
+    <Content Include="Content\vendor\fontawesome-free\webfonts\fa-brands-400.woff" />
+    <Content Include="Content\vendor\fontawesome-free\webfonts\fa-brands-400.woff2" />
+    <Content Include="Content\vendor\fontawesome-free\webfonts\fa-regular-400.eot" />
+    <Content Include="Content\vendor\fontawesome-free\webfonts\fa-regular-400.ttf" />
+    <Content Include="Content\vendor\fontawesome-free\webfonts\fa-regular-400.woff" />
+    <Content Include="Content\vendor\fontawesome-free\webfonts\fa-regular-400.woff2" />
+    <Content Include="Content\vendor\fontawesome-free\webfonts\fa-solid-900.eot" />
+    <Content Include="Content\vendor\fontawesome-free\webfonts\fa-solid-900.ttf" />
+    <Content Include="Content\vendor\fontawesome-free\webfonts\fa-solid-900.woff" />
+    <Content Include="Content\vendor\fontawesome-free\webfonts\fa-solid-900.woff2" />
+    <Content Include="Content\vendor\jquery\jquery.min.map" />
+    <Content Include="Content\vendor\jquery\jquery.slim.min.map" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -234,11 +332,6 @@
     <Content Include="Views\Passengers\Details.cshtml" />
     <Content Include="Views\Passengers\Edit.cshtml" />
     <Content Include="Views\Passengers\Index.cshtml" />
-    <Content Include="Views\Reservations\Create.cshtml" />
-    <Content Include="Views\Reservations\Delete.cshtml" />
-    <Content Include="Views\Reservations\Details.cshtml" />
-    <Content Include="Views\Reservations\Edit.cshtml" />
-    <Content Include="Views\Reservations\Index.cshtml" />
     <Content Include="Views\Aircrafts\Create.cshtml" />
     <Content Include="Views\Aircrafts\Delete.cshtml" />
     <Content Include="Views\Aircrafts\Details.cshtml" />
@@ -251,7 +344,6 @@
     <Content Include="Views\Passengers\PassengerProfile.cshtml">
       <BrowseToURL>~/Passengers/PassengerProfile</BrowseToURL>
     </Content>
-    <Content Include="Views\Reservations\MyReservations.cshtml" />
     <Content Include="Views\Flights\Create.cshtml" />
     <Content Include="Views\Flights\Delete.cshtml" />
     <Content Include="Views\Flights\Details.cshtml" />
@@ -259,9 +351,19 @@
     <Content Include="Views\Flights\Index.cshtml" />
     <Content Include="Views\Flights\SearchFlight.cshtml" />
     <Content Include="Views\Flights\SearchFlightResults.cshtml" />
+    <Content Include="Views\Reservations\AdminCreate.cshtml" />
+    <Content Include="Views\Reservations\Delete.cshtml" />
+    <Content Include="Views\Reservations\Details.cshtml" />
+    <Content Include="Views\Reservations\Edit.cshtml" />
+    <Content Include="Views\Reservations\Index.cshtml" />
+    <Content Include="Views\Reservations\MyReservations.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
+    <Content Include="Views\Reservations\NewReservation.cshtml" />
+    <Content Include="Views\Reservations\Payment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\vendor\bootstrap\css\Original\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -309,6 +411,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906172020598_M26.resx">
       <DependentUpon>201906172020598_M26.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906172026561_M27.resx">
+      <DependentUpon>201906172026561_M27.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906181701198_M28.resx">
+      <DependentUpon>201906181701198_M28.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906191905082_m7.resx">
+      <DependentUpon>201906191905082_m7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906192030515_m71.resx">
+      <DependentUpon>201906192030515_m71.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906201153361_m72.resx">
+      <DependentUpon>201906201153361_m72.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906212024450_m73.resx">
+      <DependentUpon>201906212024450_m73.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906212036144_m74.resx">
+      <DependentUpon>201906212036144_m74.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

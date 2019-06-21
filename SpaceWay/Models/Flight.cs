@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -11,29 +12,33 @@ namespace SpaceWay.Models
     {
         public int FlightID { get; set; }
         public int NumOfPassengers { get; set; } // <= seats
+        
+        //ForeignKey
         public int AircraftID { get; set; }
         public Aircraft Aircraft { get; set; }
 
-        //public int StationID { get; set; }
-        //public Station Origin { get; set; }  //origin station 
-        //public int StationID { get; set; }
-        //public Station Destination { get; set; }//destination station
+        //Origin & Destination
+        //[ForeignKey("Station")]
+        public int OriginID { get; set; }
+        public Station Origin { get; set; }
 
-        public ICollection<Station> Stations { get; set; } //origin & destination
+        //[ForeignKey("Station")]
+        public int DestinationID { get; set; }
+        public Station Destination { get; set; }
+        
         public double Duration { get; set; }
         public double Distance { get; set; }
         [DataType(DataType.DateTime)]
         public DateTime Departure { get; set; }
         [DataType(DataType.DateTime)]
         public DateTime Arrival { get; set; }
-        public double Price { get; set; } 
+        public double Price { get; set; }
 
-        public Flight()
-        {
-            Stations = new List<Station>(2);
-            Stations.Add(new Station());
-            Stations.Add(new Station());
+       
+            //Stations = new List<Station>(2);
+            //Stations.Add(new Station());
+            //Stations.Add(new Station());
 
-        }
+        
     }
 }

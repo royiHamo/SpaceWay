@@ -27,6 +27,22 @@
         </dd>
 
         <dt>
+            @Html.DisplayNameFor(model => model.OriginID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OriginID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DestinationID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DestinationID)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.Duration)
         </dt>
 
@@ -40,21 +56,6 @@
 
         <dd>
             @Html.DisplayFor(model => model.Distance)
-        </dd>
-
-        <dt>
-            @Html.DisplayName("Origin:")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Stations.ToList()[0].Name)
-        </dd>
-        <dt>
-            @Html.DisplayName("Destination:")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Stations.ToList()[1].Name)
         </dd>
 
         <dt>

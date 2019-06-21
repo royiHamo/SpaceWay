@@ -1,0 +1,88 @@
+﻿@model SpaceWay.Models.Reservation
+
+<div>
+    <h4>Reservation</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Passenger.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Passenger.Name)
+        </dd>
+        <dt>
+            <b>@Html.Label("Outbound:")</b>
+        </dt>
+        <dd>
+
+        </dd>
+        <dt>
+            @Html.Label("From ")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Outbound.Origin.Name)
+            @Html.DisplayFor(model => model.Outbound.Departure)
+        </dd>
+        <dt>
+            @Html.Label("To ")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Outbound.Destination.Name)
+            @Html.DisplayFor(model => model.Outbound.Arrival)
+        </dd>
+        <div>
+            <hr />
+        </div>
+        @*-------------------------------------------------------------*@
+
+        <dt>
+            <b>@Html.Label("Inbound:")</b>
+        </dt>
+        <dd>
+
+        </dd>
+        <dt>
+            @Html.Label("From ")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Inbound.Origin.Name)
+            @Html.DisplayFor(model => model.Outbound.Departure)
+        </dd>
+        <dt>
+            @Html.Label("To ")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Inbound.Destination.Name)
+            @Html.DisplayFor(model => model.Outbound.Arrival)
+        </dd>
+
+    </dl>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.Label("Number Of Passengers")
+                </dt>
+
+                <dd>
+                    @Html.EditorFor(model => model.NumOfTickets)
+                </dd>
+            </dl>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Go to Payment" class="btn btn-default" />
+            </div>
+        </div>
+    }
+
+
+</div>
+

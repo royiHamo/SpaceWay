@@ -37,19 +37,19 @@ namespace SpaceWay.Controllers
             return View(reservation);
         }
 
-        // GET: Reservations/Create
-        public ActionResult Create()
+        // GET: Reservations/ClientCreate
+        public ActionResult ClientCreate()
         {
             ViewBag.PassengerID = new SelectList(db.Passengers, "PassengerID", "Name");
             return View();
         }
 
-        // POST: Reservations/Create
+        // POST: Reservations/ClientCreate
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ReservationID,PassengerID,OrderDate,OutFlightID,InFlightID,NumOfTickets,TotalPrice")] Reservation reservation)
+        public ActionResult ClientCreate([Bind(Include = "ReservationID,PassengerID,OrderDate,OutboundID,InboundID,NumOfTickets,TotalPrice")] Reservation reservation)
         {
             if (ModelState.IsValid)
             {
@@ -61,13 +61,123 @@ namespace SpaceWay.Controllers
             ViewBag.PassengerID = new SelectList(db.Passengers, "PassengerID", "Name", reservation.PassengerID);
             return View(reservation);
         }
-        public ActionResult MyReservations(int? id)
+
+        //GET: Reservations/NewReservation
+        public ActionResult NewReservation(int Outid, int Inid)
         {
-            return View(db.Reservations.Where(p=> p.PassengerID==id).ToList());
+            //assigning stations to flight by ids
+
+            //outbound flight stations assigning
+            Flight outbound = db.Flights.ToList().FirstOrDefault(f => f.FlightID == Outid);
+            outbound.Origin = db.Stations.ToList().FirstOrDefault(s => s.StationID == outbound.OriginID);           //delete when flight create is fixed
+            outbound.Destination = db.Stations.ToList().FirstOrDefault(s => s.StationID == outbound.DestinationID);//delete when flight create is fixed
+
+            //inbound flight stations assigning
+            Flight inbound = db.Flights.ToList().FirstOrDefault(f => f.FlightID == Inid);
+            inbound.Origin = db.Stations.ToList().FirstOrDefault(s => s.StationID == inbound.OriginID);
+            inbound.Destination = db.Stations.ToList().FirstOrDefault(s => s.StationID == inbound.DestinationID);
+
+            Reservation toDisplay = new Reservation();
+            toDisplay.OrderDate = DateTime.Now;
+            var usernameSession = Session["Username"].ToString();
+            toDisplay.Passenger = db.Passengers.First(p => p.Username.Equals(usernameSession));
+            //assigning flights  and flightsIDs to reservation
+            toDisplay.OutboundID = outbound.FlightID;
+            toDisplay.Outbound = outbound;
+            Session["outID"] = toDisplay.OutboundID;
+            toDisplay.InboundID = inbound.FlightID;
+            toDisplay.Inbound = inbound;
+            Session["inID"] = toDisplay.InboundID; 
+            ViewData["res"] = toDisplay;
+            return View(toDisplay);
         }
 
-       
-         // GET: Reservations/Edit/5
+        ////POST: Reservations/NewReservation
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult NewReservation([Bind(Include = "ReservationID,PassengerID,OrderDate,OutboundID,InboundID,NumOfTickets,TotalPrice")]Reservation finalReservation)
+        {
+
+
+            finalReservation.OutboundID = Convert.ToInt16(Session["outID"]);
+            finalReservation.InboundID = Convert.ToInt16(Session["inID"]);
+
+            finalReservation.Outbound = db.Flights.ToList().FirstOrDefault(f => f.FlightID == finalReservation.OutboundID);
+            finalReservation.Outbound.Origin = db.Stations.ToList().FirstOrDefault(s => s.StationID == finalReservation.Outbound.OriginID);           //delete when flight create is fixed
+            finalReservation.Outbound.Destination = db.Stations.ToList().FirstOrDefault(s => s.StationID == finalReservation.Outbound.DestinationID);//delete when flight create is fixed
+
+
+            finalReservation.Inbound = db.Flights.ToList().FirstOrDefault(f => f.FlightID == finalReservation.InboundID);
+            finalReservation.Inbound.Origin = db.Stations.ToList().FirstOrDefault(s => s.StationID == finalReservation.Inbound.OriginID);
+            finalReservation.Inbound.Destination = db.Stations.ToList().FirstOrDefault(s => s.StationID == finalReservation.Inbound.DestinationID);
+
+            return RedirectToAction("Payment", finalReservation);
+        }
+
+        //GET: Reservations/Payment
+        public ActionResult Payment(Reservation finalReservation)
+        {
+            finalReservation.OutboundID = Convert.ToInt16(Session["outID"]);
+            finalReservation.InboundID = Convert.ToInt16(Session["inID"]);
+
+            finalReservation.Outbound = db.Flights.ToList().FirstOrDefault(f => f.FlightID == finalReservation.OutboundID);
+            finalReservation.Outbound.Origin = db.Stations.ToList().FirstOrDefault(s => s.StationID == finalReservation.Outbound.OriginID);           //delete when flight create is fixed
+            finalReservation.Outbound.Destination = db.Stations.ToList().FirstOrDefault(s => s.StationID == finalReservation.Outbound.DestinationID);//delete when flight create is fixed
+
+
+            finalReservation.Inbound = db.Flights.ToList().FirstOrDefault(f => f.FlightID == finalReservation.InboundID);
+            finalReservation.Inbound.Origin = db.Stations.ToList().FirstOrDefault(s => s.StationID == finalReservation.Inbound.OriginID);
+            finalReservation.Inbound.Destination = db.Stations.ToList().FirstOrDefault(s => s.StationID == finalReservation.Inbound.DestinationID);
+
+            //updating TotalPrice by NumOfTickets chosen
+            finalReservation.TotalPrice = finalReservation.NumOfTickets * (finalReservation.Outbound.Price + finalReservation.Inbound.Price);
+            return View(finalReservation);
+        }
+
+        //POST: Reservations/Payment
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Payment()
+        {
+            return RedirectToAction("Index", "Home");
+        }
+
+
+        // GET: Reservations/AdminCreate
+        public ActionResult AdminCreate()
+        {
+            ViewBag.PassengerID = new SelectList(db.Passengers, "PassengerID", "Name");
+            ViewBag.FlightID = new SelectList(db.Flights, "FlightID", "FlightID");
+            return View();
+        }
+
+        // POST: Reservations/AdminCreate
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AdminCreate([Bind(Include = "ReservationID,PassengerID,OrderDate,OutboundID,InboundID,NumOfTickets,TotalPrice")] Reservation reservation)
+        {
+            ViewBag.FlightID = new SelectList(db.Flights, "FlightID", "FlightID");
+            if (ModelState.IsValid)
+            {
+                db.Reservations.Add(reservation);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.PassengerID = new SelectList(db.Passengers, "PassengerID", "Name", reservation.PassengerID);
+            return View(reservation);
+        }
+
+        public ActionResult MyReservations(int? id)
+        {
+            return View(db.Reservations.Where(p => p.PassengerID == id).ToList());
+        }
+
+
+        // GET: Reservations/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -88,7 +198,7 @@ namespace SpaceWay.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ReservationID,PassengerID,OrderDate,OutFlightID,InFlightID,NumOfTickets,TotalPrice")] Reservation reservation)
+        public ActionResult Edit([Bind(Include = "ReservationID,PassengerID,OrderDate,OutboundID,InboundID,NumOfTickets,TotalPrice")] Reservation reservation)
         {
             if (ModelState.IsValid)
             {

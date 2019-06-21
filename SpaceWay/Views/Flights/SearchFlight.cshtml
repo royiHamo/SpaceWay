@@ -4,17 +4,15 @@
 }
 
 <h2>Search A Flight</h2>
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-    <div>
+    <div class="form-horizontal">
+        <h4>Flight</h4>
         <hr />
-        @Html.DropDownListFor(model => model.Stations.ToList()[0].Name , new SelectList((List<SpaceWay.Models.Station>)ViewData["Stations"], "Name", "Name"), "Origin")
-        @Html.DropDownListFor(model => model.Stations.ToList()[1].Name , new SelectList((List<SpaceWay.Models.Station>)ViewData["Stations"], "Name", "Name"), "Destination")
-        <label>Departing:</label><input type="date" />
-        <label>Returning:</label><input type="date" />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        
         <div class="form-group">
             @Html.LabelFor(model => model.AircraftID, "Aircraft Level", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -22,7 +20,53 @@
                 @Html.ValidationMessageFor(model => model.AircraftID, "", new { @class = "text-danger" })
             </div>
         </div>
-        <input type="submit" name="buttun" value="SearchFlight" class="btn btn-default" />
-    </div>
 
+        <div class="form-group">
+            @Html.LabelFor(model => model.OriginID, "Origin", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("OriginID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.OriginID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DestinationID, "Destination", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("DestinationID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.DestinationID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Departure, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Departure, new { htmlAttributes = new { @class = "form-control" } })
+                @*<input asp-for="Departure" class="form-control" />*@
+                @Html.ValidationMessageFor(model => model.Departure, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Arrival, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Arrival, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Arrival, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Search Flight" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
 }
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

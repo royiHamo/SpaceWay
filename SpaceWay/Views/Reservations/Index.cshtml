@@ -7,7 +7,7 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "AdminCreate")
 </p>
 <table class="table">
     <tr>
@@ -18,10 +18,10 @@
             @Html.DisplayNameFor(model => model.OrderDate)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.OutFlightID)
+            @Html.DisplayNameFor(model => model.OutboundID)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.InFlightID)
+            @Html.DisplayNameFor(model => model.InboundID)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.NumOfTickets)
@@ -41,10 +41,10 @@
             @Html.DisplayFor(modelItem => item.OrderDate)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.OutFlightID)
+            @Html.DisplayFor(modelItem => item.OutboundID)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.InFlightID)
+            @Html.DisplayFor(modelItem => item.InboundID)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.NumOfTickets)

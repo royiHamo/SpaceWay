@@ -6,7 +6,7 @@
 
 <h2>SearchFlightResults</h2>
 
-<h4>Choose Outbound Flight:</h4>
+<h3><b>Choose Outbound Flight:</b></h3>
 
 <table class="table">
     <tr>
@@ -23,6 +23,12 @@
             @Html.DisplayNameFor(model => model.Distance)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.OriginID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DestinationID)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Departure)
         </th>
         <th>
@@ -34,7 +40,7 @@
 
         <th></th>
     </tr>
-    @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "outbound" }))
+    @using (Html.BeginForm())
     {
         <div>
             <fieldset id="selectedOutbound">
@@ -53,6 +59,12 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.Distance)
                         </td>
+                        <th>
+                            @Html.DisplayFor(modelItem => item.OriginID)
+                        </th>
+                        <th>
+                            @Html.DisplayFor(modelItem => item.DestinationID)
+                        </th>
                         <td>
                             @Html.DisplayFor(modelItem => item.Departure)
                         </td>
@@ -63,46 +75,22 @@
                             @Html.DisplayFor(modelItem => item.Price)
                         </td>
                         <td>
-                            <input type="radio" id="@item.FlightID" value="@item.FlightID" name="selectedOutbound" />
+                            @Html.RadioButton("OutRadio", item.FlightID)
+                            @*<input type="radio" id="OutRadio" value="@item.FlightID" name="OutRadio" />*@
                         </td>
 
                     </tr>
                 }
             </fieldset>
         </div>
-    }
+        <br />
+        <br />
+        <tr>
+            <td>
+                <h3><b>Choose Inbound Flight:</b></h3>
+            </td>
+        </tr>
 
-</table>
-
-<h4>Choose Inbound Flight:</h4>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Aircraft.AircraftID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NumOfPassengers)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Duration)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Distance)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Departure)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Arrival)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Price)
-        </th>
-
-        <th></th>
-    </tr>
-    @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "inbound" }))
-    {
         <div>
             <fieldset id="selectedInbound">
                 @foreach (var item in Model)
@@ -120,6 +108,12 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.Distance)
                         </td>
+                        <th>
+                            @Html.DisplayFor(modelItem => item.OriginID)
+                        </th>
+                        <th>
+                            @Html.DisplayFor(modelItem => item.DestinationID)
+                        </th>
                         <td>
                             @Html.DisplayFor(modelItem => item.Departure)
                         </td>
@@ -130,21 +124,33 @@
                             @Html.DisplayFor(modelItem => item.Price)
                         </td>
                         <td>
-                            <input type="radio" id="@item.FlightID" value="@item.FlightID" name="selectedInbound" />
+                            @Html.RadioButton("InRadio", item.FlightID)
                         </td>
 
                     </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Confirm Selection" class="btn btn-default" />
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
                 }
             </fieldset>
-            
         </div>
+
+
+
+   
     }
 
-</table>
-<script>
-    submitForms = function () {
-        document.getElementById("inbound").submit();
-        document.getElementById("outbound").submit();
-    }
-</script>
-<input type="button" value="Submit" onclick="submitForms()" />
+    </table>
+    <script>
+        submitForms = function () {
+            document.getElementById("inbound").submit();
+            document.getElementById("outbound").submit();
+        }
+    </script>

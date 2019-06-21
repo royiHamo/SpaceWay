@@ -19,6 +19,9 @@ namespace SpaceWay.Controllers
         public ActionResult Index()
         {
             var flights = db.Flights.Include(f => f.Aircraft);
+
+            ViewBag.OriginID = new SelectList(db.Stations, "StationID", "Name");
+            ViewBag.DestinationID = new SelectList(db.Stations, "StationID", "Name");
             return View(flights.ToList());
         }
 
@@ -40,53 +43,31 @@ namespace SpaceWay.Controllers
         // GET: Flights/Create
         public ActionResult Create()
         {
-            ViewBag.AircraftID = new SelectList(db.Aircrafts, "AircraftID", "AircraftID");
-            ViewBag.StationID = new SelectList(db.Stations, "StationID", "StationID");
-            ViewData["Stations"] = db.Stations.ToList();
-
-            //Flight f = new Flight();
-            //f.Stations = new List<Station>();
-            //Station s1 = new Station();
-            //Station s2 = new Station();
-            //s1.Name = "bla1";
-            //s2.Name = "bla2";
-            //db.Stations.Add(s1);
-            //db.Stations.Add(s2);
-            //db.SaveChanges();
-            //f.Stations.Add(s1);
-            //f.Stations.Add(s2);
-
+            ViewBag.AircraftID = new SelectList(db.Aircrafts, "AircraftID", "Level");
+            ViewBag.OriginID = new SelectList(db.Stations, "StationID", "Name");
+            ViewBag.DestinationID = new SelectList(db.Stations, "StationID", "Name");
             return View();
         }
 
+        
         // POST: Flights/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-
-
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult Create(Flight flight)
         {
-            //flight.Stations = new List<Station>(new Station[2]);
-            //Station s1 = new Station();
-            //Station s2 = new Station();
-            //s1.Name = "orig";
-            //s2.Name = "dest";
-            //flight.Stations.Add(s1);
-            //flight.Stations.Add(s2);
-            flight.Stations.ToList()[0].Name = "Test Origin";
-            flight.Stations.ToList()[1].Name = "Test Dest";
-
-
+            Flight newFlight = new Flight();
+            newFlight.Origin = db.Stations.FirstOrDefault(s => s.StationID == flight.OriginID);
+            newFlight.Destination = db.Stations.FirstOrDefault(s => s.StationID == flight.DestinationID);
             if (ModelState.IsValid)
             {
-                db.Flights.Add(flight);
+                db.Flights.Add(newFlight);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            //ViewBag.AircraftID = new SelectList(db.Aircrafts, "AircraftID", "AircraftID", flight.AircraftID);
+            ViewBag.AircraftID = new SelectList(db.Aircrafts, "AircraftID", "AircraftID", flight.AircraftID);
             return View(flight);
         }
 
@@ -111,7 +92,7 @@ namespace SpaceWay.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "FlightID,NumOfPassengers,AircraftID,Duration,Distance,Departure,Arrival,Price")] Flight flight)
+        public ActionResult Edit([Bind(Include = "FlightID,NumOfPassengers,AircraftID,OriginID,DestinationID,Duration,Distance,Departure,Arrival,Price")] Flight flight)
         {
             if (ModelState.IsValid)
             {
@@ -148,20 +129,23 @@ namespace SpaceWay.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-        // GET: Flights/SearchFlight/5
+
+        //GET
         public ActionResult SearchFlight()
         {
-            ViewData["Stations"] = db.Stations.ToList();
+            //ViewData["Stations"] = db.Stations.ToList();
+            ViewBag.OriginID = new SelectList(db.Stations, "StationID", "Name");
+            ViewBag.DestinationID = new SelectList(db.Stations, "StationID", "Name");
             ViewBag.AircraftID = new SelectList(db.Aircrafts, "AircraftID", "AircraftID");
             return View();
         }
 
-
-        // POST: Flights/SearchFlight
+        //POST: Flights/SearchFlight
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult SearchFlight(Flight flight)
         {
+            flight.Origin = db.Stations.FirstOrDefault(s => s.StationID == flight.OriginID);
+            flight.Destination = db.Stations.FirstOrDefault(s => s.StationID == flight.DestinationID);
             if (ModelState.IsValid)
             {
                 return RedirectToAction("SearchFlightResults", flight);
@@ -173,32 +157,26 @@ namespace SpaceWay.Controllers
         //GET:
         public ActionResult SearchFlightResults(Flight result)
         {
-            List<Flight> flightsToDisplay = new  List<Flight>();
+            List<Flight> flightsToDisplay = new List<Flight>();
 
-            flightsToDisplay = db.Flights.ToList().Where(f => f.AircraftID == result.AircraftID/*DateTime.Compare(f.Departure,result.Departure) == 0 && DateTime.Compare(f.Arrival,result.Arrival) == 0*/ ).ToList();
-                
+            flightsToDisplay = db.Flights.ToList().Where(f => f.AircraftID == result.AircraftID && 
+                                                              DateTime.Compare(f.Departure,result.Departure) == 0 && 
+                                                              DateTime.Compare(f.Arrival.Date,result.Arrival.Date) == 0 &&
+                                                              f.OriginID==result.OriginID &&
+                                                              f.DestinationID == result.DestinationID).ToList();
+
             return View(flightsToDisplay);
         }
 
 
         //POST:
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult SearchFlightResults(FormCollection fcOut, FormCollection fcIn)
+        public ActionResult SearchFlightResults(FormCollection form)
         {
-            int selectedOutFlight = int.Parse(fcOut["selectedOutbound"]);
+            int selectedOutFlightID = Convert.ToInt16(form["OutRadio"]);
+            int selectedInFlightID = Convert.ToInt16(form["InRadio"]);
 
-            int selectedInFlight = int.Parse(fcIn["selectedInbound"]);
-
-            Flight Outbound = db.Flights.ToList().Where(f => f.FlightID == selectedOutFlight).ToList()[0];
-            Flight Inbound = db.Flights.ToList().Where(f => f.FlightID == selectedInFlight).ToList()[0];
-
-            List<Flight> flights = new List<Flight>();
-
-            flights.Add(Outbound);
-            flights.Add(Inbound);
-
-                return RedirectToAction("Create", "Reservation",flights);
+            return RedirectToAction("NewReservation", "Reservations", new { @Outid = selectedOutFlightID, @Inid = selectedInFlightID });
         }
 
 
