@@ -11,10 +11,10 @@
 {
         <hr />
             <label>Username:</label><br />
-            <input type="text" name="UN" /><br />
+            <input class="form-control text-box single-line" data-val="true" data-val-required="Please enter your name." type="text" name="UN" /><br />
             @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })<br/>
             <label>Password:</label><br />
-            <input type="password" name="PW" /><br />
+            <input class="form-control text-box single-line" data-val="true" data-val-required="Please enter your name." type="password" name="PW" /><br />
             @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })<br />
             <input type="submit" value="Login" class="btn btn-default" />
    

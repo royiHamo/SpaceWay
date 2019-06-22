@@ -155,12 +155,13 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\grayscale.css" />
     <Content Include="Content\css\grayscale.min.css" />
-    <Content Include="Content\img\bg-masthead.jpg" />
+    <Content Include="Content\img\bg-masthead-view.jpg" />
     <Content Include="Content\img\bg-masthead2.jpg" />
     <Content Include="Content\img\bg-signup.jpg" />
+    <Content Include="Content\img\blue-space-background.jpg" />
     <Content Include="Content\img\demo-image-01.jpg" />
     <Content Include="Content\img\demo-image-02.jpg" />
-    <Content Include="Content\img\ipad.jpg" />
+    <Content Include="Content\img\bg-masthead.jpg" />
     <Content Include="Content\img\ipad.png" />
     <Content Include="Content\img\source.txt" />
     <Content Include="Content\js\grayscale.js" />
