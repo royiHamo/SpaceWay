@@ -34,11 +34,7 @@ namespace SpaceWay.Models
         public DateTime Arrival { get; set; }
         public double Price { get; set; }
 
-       
-            //Stations = new List<Station>(2);
-            //Stations.Add(new Station());
-            //Stations.Add(new Station());
-
+ 
         
     }
 }

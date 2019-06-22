@@ -3,7 +3,7 @@ namespace SpaceWay.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class first : DbMigration
+    public partial class init : DbMigration
     {
         public override void Up()
         {
@@ -24,11 +24,13 @@ namespace SpaceWay.Migrations
                         FlightID = c.Int(nullable: false, identity: true),
                         NumOfPassengers = c.Int(nullable: false),
                         AircraftID = c.Int(nullable: false),
+                        OriginID = c.Int(nullable: false),
+                        DestinationID = c.Int(nullable: false),
                         Duration = c.Double(nullable: false),
                         Distance = c.Double(nullable: false),
                         Departure = c.DateTime(nullable: false),
                         Arrival = c.DateTime(nullable: false),
-                        Price = c.Int(nullable: false),
+                        Price = c.Double(nullable: false),
                         Destination_StationID = c.Int(),
                         Origin_StationID = c.Int(),
                     })
@@ -56,9 +58,9 @@ namespace SpaceWay.Migrations
                 c => new
                     {
                         PassengerID = c.Int(nullable: false, identity: true),
-                        Name = c.String(),
-                        Username = c.String(),
-                        Password = c.String(),
+                        Name = c.String(nullable: false),
+                        Username = c.String(nullable: false),
+                        Password = c.String(nullable: false),
                         Stars = c.Int(nullable: false),
                         IsAdmin = c.Boolean(nullable: false),
                         TotalDistance = c.Double(nullable: false),
@@ -72,8 +74,8 @@ namespace SpaceWay.Migrations
                         ReservationID = c.Int(nullable: false, identity: true),
                         PassengerID = c.Int(nullable: false),
                         OrderDate = c.DateTime(nullable: false),
-                        OutFlightID = c.Int(nullable: false),
-                        InFlightID = c.Int(nullable: false),
+                        OutboundID = c.Int(nullable: false),
+                        InboundID = c.Int(nullable: false),
                         NumOfTickets = c.Int(nullable: false),
                         TotalPrice = c.Double(nullable: false),
                         Inbound_FlightID = c.Int(),

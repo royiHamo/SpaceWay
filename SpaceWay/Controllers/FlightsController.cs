@@ -55,14 +55,15 @@ namespace SpaceWay.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Create(Flight flight)
+        public ActionResult Create([Bind(Include = "FlightID,NumOfPassengers,AircraftID,OriginID,DestinationID,Duration,Distance,Departure,Arrival,Price")] Flight flight)
         {
-            Flight newFlight = new Flight();
-            newFlight.Origin = db.Stations.FirstOrDefault(s => s.StationID == flight.OriginID);
-            newFlight.Destination = db.Stations.FirstOrDefault(s => s.StationID == flight.DestinationID);
+       
             if (ModelState.IsValid)
             {
-                db.Flights.Add(newFlight);
+                flight.Aircraft = db.Aircrafts.FirstOrDefault(a=>a.AircraftID==flight.AircraftID);
+                flight.Origin = db.Stations.FirstOrDefault(s => s.StationID == flight.OriginID);
+                flight.Destination = db.Stations.FirstOrDefault(s => s.StationID == flight.DestinationID);
+                db.Flights.Add(flight);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
