@@ -81,11 +81,10 @@ namespace SpaceWay.Controllers
         }
 
             // GET: Search
-            public ActionResult Search(List<Passenger> l)
+            public ActionResult Search()
         {
-            if(l!=null)
-            return View(l);
-            return View(new List<Passenger>());
+            
+            return View(db.Passengers.ToList());
         }
 
         [HttpPost]
