@@ -69,8 +69,8 @@ namespace SpaceWay.Controllers
 
             //outbound flight stations assigning
             Flight outbound = db.Flights.ToList().FirstOrDefault(f => f.FlightID == Outid);
-            outbound.Origin = db.Stations.ToList().FirstOrDefault(s => s.StationID == outbound.OriginID);           //delete when flight create is fixed
-            outbound.Destination = db.Stations.ToList().FirstOrDefault(s => s.StationID == outbound.DestinationID);//delete when flight create is fixed
+            outbound.Origin = db.Stations.ToList().FirstOrDefault(s => s.StationID == outbound.OriginID);             //delete when flight create is fixed
+            outbound.Destination = db.Stations.ToList().FirstOrDefault(s => s.StationID == outbound.DestinationID);   //delete when flight create is fixed
 
             //inbound flight stations assigning
             Flight inbound = db.Flights.ToList().FirstOrDefault(f => f.FlightID == Inid);
@@ -81,7 +81,7 @@ namespace SpaceWay.Controllers
             toDisplay.OrderDate = DateTime.Now;
             var usernameSession = Session["Username"].ToString();
             toDisplay.Passenger = db.Passengers.First(p => p.Username.Equals(usernameSession));
-            //assigning flights  and flightsIDs to reservation
+            //assigning flights and flightsIDs to reservation
             toDisplay.OutboundID = outbound.FlightID;
             toDisplay.Outbound = outbound;
             Session["outID"] = toDisplay.OutboundID;
@@ -139,6 +139,11 @@ namespace SpaceWay.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Payment()
         {
+            string username = Session["Username"].ToString();
+            Passenger PaidPassenger = db.Passengers.First(p => p.Username == username);
+            //continue here ... should get the reservation's details...
+            //PaidPassenger.Reservations.Add();
+
             return RedirectToAction("Index", "Home");
         }
 

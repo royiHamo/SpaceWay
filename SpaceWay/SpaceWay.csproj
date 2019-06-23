@@ -136,9 +136,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201906221042228_init.cs" />
-    <Compile Include="Migrations\201906221042228_init.Designer.cs">
-      <DependentUpon>201906221042228_init.cs</DependentUpon>
+    <Compile Include="Migrations\201906231416131_m1.cs" />
+    <Compile Include="Migrations\201906231416131_m1.Designer.cs">
+      <DependentUpon>201906231416131_m1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Aircraft.cs" />
@@ -149,6 +149,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\9.gif" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -166,6 +167,10 @@
     <Content Include="Content\img\source.txt" />
     <Content Include="Content\js\grayscale.js" />
     <Content Include="Content\js\grayscale.min.js" />
+    <Content Include="Content\vendor\bootstrap-grid.css" />
+    <Content Include="Content\vendor\bootstrap-grid.min.css" />
+    <Content Include="Content\vendor\bootstrap-reboot.css" />
+    <Content Include="Content\vendor\bootstrap-reboot.min.css" />
     <Content Include="Content\vendor\bootstrap\css\bootstrap-grid.css" />
     <Content Include="Content\vendor\bootstrap\css\bootstrap-grid.min.css" />
     <Content Include="Content\vendor\bootstrap\css\bootstrap-reboot.css" />
@@ -230,6 +235,10 @@
     <Content Include="Content\vendor\fontawesome-free\webfonts\fa-solid-900.woff2" />
     <Content Include="Content\vendor\jquery\jquery.min.map" />
     <Content Include="Content\vendor\jquery\jquery.slim.min.map" />
+    <Content Include="Content\vendor\bootstrap-grid.css.map" />
+    <Content Include="Content\vendor\bootstrap-grid.min.css.map" />
+    <Content Include="Content\vendor\bootstrap-reboot.css.map" />
+    <Content Include="Content\vendor\bootstrap-reboot.min.css.map" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -312,8 +321,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201906221042228_init.resx">
-      <DependentUpon>201906221042228_init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201906231416131_m1.resx">
+      <DependentUpon>201906231416131_m1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

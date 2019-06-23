@@ -51,10 +51,10 @@
             @Html.DisplayFor(modelItem => item.NumOfPassengers)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.OriginID)
+            @Html.DisplayFor(modelItem => item.Origin.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DestinationID)
+            @Html.DisplayFor(modelItem => item.Destination.Name)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Duration)

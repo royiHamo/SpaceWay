@@ -19,7 +19,7 @@ namespace SpaceWay.Models
         public int Stars { get; set; } = 0;      //rank 0-5
         public bool IsAdmin { get; set; } = false;
         public double TotalDistance { get; set; } = 0;
-        public ICollection<Reservation> Reservations { get; set; }
+        public virtual ICollection<Reservation> Reservations { get; set; }
 
     }
 }

@@ -49,13 +49,13 @@ namespace SpaceWay.Controllers
                 if (passengerLoggedIn == null)
                 {
                     var passengerNotLoggedIn = db.Passengers.SingleOrDefault(x => x.Username == UN);
-                    if (passengerNotLoggedIn==null)
+                    //if (passengerNotLoggedIn==null)
+                    //{
+                    //    ModelState.AddModelError("Username", "Username does not exists");
+                    //}
+                    if (!(passengerNotLoggedIn.Password == PW) || passengerNotLoggedIn == null)
                     {
-                        ModelState.AddModelError("Username", "Username does not exists");
-                    }
-                    else if (!(passengerNotLoggedIn.Password == PW))
-                    {
-                        ModelState.AddModelError("Password", "Password does not correct");
+                        ModelState.AddModelError("Password", "There is no match for this Username and Password");
                     }
                     return View();
                 }
@@ -81,11 +81,9 @@ namespace SpaceWay.Controllers
         }
 
             // GET: Search
-            public ActionResult Search(List<Passenger> l)
+            public ActionResult Search()
         {
-            if(l!=null)
-            return View(l);
-            return View(new List<Passenger>());
+            return View(db.Passengers.ToList());
         }
 
         [HttpPost]

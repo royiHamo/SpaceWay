@@ -4,19 +4,19 @@
     ViewBag.Title = "Search";
 }
 
-<h2>Search</h2>
+<h2>Passengers</h2>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     <div>
          
         <fieldset id="search">
-            <label>Search by:</label>
-            <input type="radio" id="stars" value="stars" name="search" /><label>min stars</label>
-            <input type="radio" id="reservations" value="reservations" name="search" /><label>min reservations</label>
-            <input type="radio" id="name" value="name" name="search" /><label>name</label>
-            <input type="text" id="input" name="input" />
-            <input type="submit" value="submit" class="btn btn-default" />
+            <label>Filter by:</label><br />
+            <input type="radio" id="stars" value="stars" name="search" class="radio"/><label class="label">min stars</label><br />
+            <input type="radio" id="reservations" value="reservations" name="search" class="radio"/><label class="label">min reservations</label><br />
+            <input type="radio" id="name" value="name" name="search" class="radio" /><label class="label">name</label><br />
+            <input type="text" id="input" name="input" class="input-group-text" /><br />
+            <input type="submit" value="apply" class="btn btn-default" />
         </fieldset>
     </div>
     }
