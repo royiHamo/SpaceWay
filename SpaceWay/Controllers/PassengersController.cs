@@ -21,8 +21,7 @@ namespace SpaceWay.Controllers
             if (Session["Username"] != null)
             {
                 ViewBag.Username = Username;
-                return View();
-                //return RedirectToAction("Index", "Home", new { Username = Session["Username"].ToString() });
+             
             }
             return View();
         }
@@ -49,19 +48,20 @@ namespace SpaceWay.Controllers
                 if (passengerLoggedIn == null)
                 {
                     var passengerNotLoggedIn = db.Passengers.SingleOrDefault(x => x.Username == UN);
-                    //if (passengerNotLoggedIn==null)
-                    //{
-                    //    ModelState.AddModelError("Username", "Username does not exists");
-                    //}
-                    if (!(passengerNotLoggedIn.Password == PW) || passengerNotLoggedIn == null)
+                    if (passengerNotLoggedIn==null)
                     {
-                        ModelState.AddModelError("Password", "There is no match for this Username and Password");
+                        ModelState.AddModelError("Username", "Username does not exists");
+                    }
+                    else if (!(passengerNotLoggedIn.Password == PW))
+                    {
+                        ModelState.AddModelError("Password", "Password does not correct");
                     }
                     return View();
                 }
                 else
                 {
                     Session["Username"] = UN;
+                    Session["PassengerID"] = passengerLoggedIn.PassengerID;
                     Session["isAdmin"] = "0";
                     if (passengerLoggedIn.IsAdmin)
                         Session["isAdmin"] = "1";
@@ -81,9 +81,11 @@ namespace SpaceWay.Controllers
         }
 
             // GET: Search
-            public ActionResult Search()
+            public ActionResult Search(List<Passenger> l)
         {
-            return View(db.Passengers.ToList());
+            if(l!=null)
+            return View(l);
+            return View(new List<Passenger>());
         }
 
         [HttpPost]
@@ -139,7 +141,7 @@ namespace SpaceWay.Controllers
 
         // GET: Passengers/Create
         public ActionResult Create()
-        {
+        { 
             return View();
         }
 

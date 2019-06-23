@@ -4,11 +4,8 @@
     ViewBag.Title = "MyReservations";
 }
 
-<h2>MyReservations</h2>
+<h2>My Reservations</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -54,9 +51,6 @@
                 @Html.DisplayFor(modelItem => item.TotalPrice)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ReservationID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ReservationID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ReservationID })
             </td>
         </tr>
     }

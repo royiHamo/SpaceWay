@@ -15,16 +15,16 @@ namespace SpaceWay.Models
         
         //ForeignKey
         public int AircraftID { get; set; }
-        public virtual Aircraft Aircraft { get; set; }
+        public Aircraft Aircraft { get; set; }
 
         //Origin & Destination
         //[ForeignKey("Station")]
         public int OriginID { get; set; }
-        public virtual Station Origin { get; set; }
+        public Station Origin { get; set; }
 
         //[ForeignKey("Station")]
         public int DestinationID { get; set; }
-        public virtual Station Destination { get; set; }
+        public Station Destination { get; set; }
         
         public double Duration { get; set; }
         public double Distance { get; set; }

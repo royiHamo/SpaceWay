@@ -44,7 +44,7 @@ namespace SpaceWay.Controllers
         public ActionResult Create()
         {
             ViewBag.AircraftID = new SelectList(db.Aircrafts, "AircraftID", "Level");
-            ViewBag.OriginIDlist = new SelectList(db.Stations, "StationID", "Name");
+            ViewBag.OriginID = new SelectList(db.Stations, "StationID", "Name");
             ViewBag.DestinationID = new SelectList(db.Stations, "StationID", "Name");
             return View();
         }
@@ -57,6 +57,7 @@ namespace SpaceWay.Controllers
         //[ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "FlightID,NumOfPassengers,AircraftID,OriginID,DestinationID,Duration,Distance,Departure,Arrival,Price")] Flight flight)
         {
+       
             if (ModelState.IsValid)
             {
                 flight.Aircraft = db.Aircrafts.FirstOrDefault(a=>a.AircraftID==flight.AircraftID);
@@ -68,8 +69,6 @@ namespace SpaceWay.Controllers
             }
 
             ViewBag.AircraftID = new SelectList(db.Aircrafts, "AircraftID", "AircraftID", flight.AircraftID);
-            ViewBag.OriginIDlist = new SelectList(db.Stations, "StationID", "Name");
-            ViewBag.DestinationID = new SelectList(db.Stations, "StationID", "Name");
             return View(flight);
         }
 

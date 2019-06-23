@@ -6,7 +6,7 @@
 
 <h2>SearchFlightResults</h2>
 
-<h3>Choose Outbound Flight:</h3>
+<h3><b>Choose Outbound Flight:</b></h3>
 
 <table class="table">
     <tr>
@@ -86,8 +86,11 @@
         <br />
         <br />
         <tr>
-
+            <td>
+                <h3><b>Choose Inbound Flight:</b></h3>
+            </td>
         </tr>
+
         <div>
             <fieldset id="selectedInbound">
                 @foreach (var item in Model)
@@ -137,17 +140,17 @@
 
                 }
             </fieldset>
-                <h3>Choose Inbound Flight:</h3>
         </div>
 
 
 
    
     }
+
     </table>
-    @*<script>
+    <script>
         submitForms = function () {
             document.getElementById("inbound").submit();
             document.getElementById("outbound").submit();
         }
-    </script>*@
+    </script>

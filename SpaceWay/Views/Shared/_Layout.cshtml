@@ -65,6 +65,8 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
+                    {
+
                     @{if (Session["Username"] == null)
                         {
                             Html.RenderPartial("NotLoggedInNavBar");
@@ -87,10 +89,10 @@
             </div>
         </div>
     </nav>
-    <header class="mastheadview">
+    <header class="masthead">
         <div class="container d-flex h-100 align-items-center">
-            @RenderBody()
-            <hr />
+                    @RenderBody()
+                    <hr />
         </div>
     </header>
     <section class="contact-section bg-black">

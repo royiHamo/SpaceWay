@@ -65,85 +65,57 @@ namespace SpaceWay.Controllers
         //GET: Reservations/NewReservation
         public ActionResult NewReservation(int Outid, int Inid)
         {
-            //assigning stations to flight by ids
-
+            Reservation reservation = new Reservation();
             //outbound flight stations assigning
             Flight outbound = db.Flights.ToList().FirstOrDefault(f => f.FlightID == Outid);
-            outbound.Origin = db.Stations.ToList().FirstOrDefault(s => s.StationID == outbound.OriginID);             //delete when flight create is fixed
-            outbound.Destination = db.Stations.ToList().FirstOrDefault(s => s.StationID == outbound.DestinationID);   //delete when flight create is fixed
-
             //inbound flight stations assigning
             Flight inbound = db.Flights.ToList().FirstOrDefault(f => f.FlightID == Inid);
             inbound.Origin = db.Stations.ToList().FirstOrDefault(s => s.StationID == inbound.OriginID);
             inbound.Destination = db.Stations.ToList().FirstOrDefault(s => s.StationID == inbound.DestinationID);
 
-            Reservation toDisplay = new Reservation();
-            toDisplay.OrderDate = DateTime.Now;
-            var usernameSession = Session["Username"].ToString();
-            toDisplay.Passenger = db.Passengers.First(p => p.Username.Equals(usernameSession));
-            //assigning flights and flightsIDs to reservation
-            toDisplay.OutboundID = outbound.FlightID;
-            toDisplay.Outbound = outbound;
-            Session["outID"] = toDisplay.OutboundID;
-            toDisplay.InboundID = inbound.FlightID;
-            toDisplay.Inbound = inbound;
-            Session["inID"] = toDisplay.InboundID; 
-            ViewData["res"] = toDisplay;
-            return View(toDisplay);
+            reservation.OrderDate = DateTime.Now;
+            reservation.PassengerID = Convert.ToInt16(Session["PassengerID"]);
+            //assigning flights  and flightsIDs to reservation
+            reservation.OutboundID = outbound.FlightID;
+            reservation.Outbound = outbound;
+            reservation.InboundID = inbound.FlightID;
+            reservation.Inbound = inbound;
+            return View(reservation);
         }
 
         ////POST: Reservations/NewReservation
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult NewReservation([Bind(Include = "ReservationID,PassengerID,OrderDate,OutboundID,InboundID,NumOfTickets,TotalPrice")]Reservation finalReservation)
+        public ActionResult NewReservation([Bind(Include = "ReservationID,PassengerID,OrderDate,OutboundID,InboundID,NumOfTickets")] Reservation reservation)
         {
-
-
-            finalReservation.OutboundID = Convert.ToInt16(Session["outID"]);
-            finalReservation.InboundID = Convert.ToInt16(Session["inID"]);
-
-            finalReservation.Outbound = db.Flights.ToList().FirstOrDefault(f => f.FlightID == finalReservation.OutboundID);
-            finalReservation.Outbound.Origin = db.Stations.ToList().FirstOrDefault(s => s.StationID == finalReservation.Outbound.OriginID);           //delete when flight create is fixed
-            finalReservation.Outbound.Destination = db.Stations.ToList().FirstOrDefault(s => s.StationID == finalReservation.Outbound.DestinationID);//delete when flight create is fixed
-
-
-            finalReservation.Inbound = db.Flights.ToList().FirstOrDefault(f => f.FlightID == finalReservation.InboundID);
-            finalReservation.Inbound.Origin = db.Stations.ToList().FirstOrDefault(s => s.StationID == finalReservation.Inbound.OriginID);
-            finalReservation.Inbound.Destination = db.Stations.ToList().FirstOrDefault(s => s.StationID == finalReservation.Inbound.DestinationID);
-
-            return RedirectToAction("Payment", finalReservation);
+            reservation.Outbound = db.Flights.ToList().FirstOrDefault(f => f.FlightID == reservation.OutboundID);
+            reservation.Inbound = db.Flights.ToList().FirstOrDefault(f => f.FlightID == reservation.InboundID);
+     
+            reservation.TotalPrice = reservation.NumOfTickets * (reservation.Outbound.Price + reservation.Inbound.Price);
+            return RedirectToAction("Payment", reservation);
+            
         }
 
         //GET: Reservations/Payment
-        public ActionResult Payment(Reservation finalReservation)
+        public ActionResult Payment(Reservation reservation)
         {
-            finalReservation.OutboundID = Convert.ToInt16(Session["outID"]);
-            finalReservation.InboundID = Convert.ToInt16(Session["inID"]);
-
-            finalReservation.Outbound = db.Flights.ToList().FirstOrDefault(f => f.FlightID == finalReservation.OutboundID);
-            finalReservation.Outbound.Origin = db.Stations.ToList().FirstOrDefault(s => s.StationID == finalReservation.Outbound.OriginID);           //delete when flight create is fixed
-            finalReservation.Outbound.Destination = db.Stations.ToList().FirstOrDefault(s => s.StationID == finalReservation.Outbound.DestinationID);//delete when flight create is fixed
-
-
-            finalReservation.Inbound = db.Flights.ToList().FirstOrDefault(f => f.FlightID == finalReservation.InboundID);
-            finalReservation.Inbound.Origin = db.Stations.ToList().FirstOrDefault(s => s.StationID == finalReservation.Inbound.OriginID);
-            finalReservation.Inbound.Destination = db.Stations.ToList().FirstOrDefault(s => s.StationID == finalReservation.Inbound.DestinationID);
-
-            //updating TotalPrice by NumOfTickets chosen
-            finalReservation.TotalPrice = finalReservation.NumOfTickets * (finalReservation.Outbound.Price + finalReservation.Inbound.Price);
-            return View(finalReservation);
+            return View(reservation);
         }
 
         //POST: Reservations/Payment
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Payment()
+        public ActionResult FinalPayment([Bind(Include = "ReservationID,PassengerID,OrderDate,OutboundID,InboundID,NumOfTickets,TotalPrice")]Reservation reservation)
         {
-            string username = Session["Username"].ToString();
-            Passenger PaidPassenger = db.Passengers.First(p => p.Username == username);
-            //continue here ... should get the reservation's details...
-            //PaidPassenger.Reservations.Add();
+            reservation.Outbound = db.Flights.ToList().FirstOrDefault(f => f.FlightID == reservation.OutboundID);
+            reservation.Inbound = db.Flights.ToList().FirstOrDefault(f => f.FlightID == reservation.InboundID);
+            reservation.Passenger = db.Passengers.First(p => p.PassengerID.Equals(reservation.PassengerID));
 
+            if (ModelState.IsValid)
+            {
+                db.Reservations.Add(reservation);
+                db.SaveChanges(); 
+            }
             return RedirectToAction("Index", "Home");
         }
 
@@ -176,8 +148,9 @@ namespace SpaceWay.Controllers
             return View(reservation);
         }
 
-        public ActionResult MyReservations(int? id)
+        public ActionResult MyReservations()
         {
+            int id = Convert.ToInt16(Session["PassengerID"]);
             return View(db.Reservations.Where(p => p.PassengerID == id).ToList());
         }
 
