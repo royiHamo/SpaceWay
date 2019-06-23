@@ -306,6 +306,7 @@
     <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
     <Content Include="Views\Reservations\NewReservation.cshtml" />
     <Content Include="Views\Reservations\Payment.cshtml" />
+    <Content Include="Views\Home\MoonStar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
