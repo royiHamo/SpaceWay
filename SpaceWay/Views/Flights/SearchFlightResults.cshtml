@@ -14,7 +14,7 @@
             @Html.DisplayNameFor(model => model.Aircraft.AircraftID)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.NumOfPassengers)
+            @Html.DisplayName("Available Seats")
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Duration)
@@ -23,10 +23,10 @@
             @Html.DisplayNameFor(model => model.Distance)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.OriginID)
+            @Html.DisplayNameFor(model => model.Origin)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DestinationID)
+            @Html.DisplayNameFor(model => model.Destination)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Departure)
@@ -60,10 +60,10 @@
                             @Html.DisplayFor(modelItem => item.Distance)
                         </td>
                         <th>
-                            @Html.DisplayFor(modelItem => item.OriginID)
+                            @Html.DisplayFor(modelItem => item.Origin.Name)
                         </th>
                         <th>
-                            @Html.DisplayFor(modelItem => item.DestinationID)
+                            @Html.DisplayFor(modelItem => item.Destination.Name)
                         </th>
                         <td>
                             @Html.DisplayFor(modelItem => item.Departure)
@@ -109,10 +109,10 @@
                             @Html.DisplayFor(modelItem => item.Distance)
                         </td>
                         <th>
-                            @Html.DisplayFor(modelItem => item.OriginID)
+                            @Html.DisplayFor(modelItem => item.Origin.Name)
                         </th>
                         <th>
-                            @Html.DisplayFor(modelItem => item.DestinationID)
+                            @Html.DisplayFor(modelItem => item.Destination.Name)
                         </th>
                         <td>
                             @Html.DisplayFor(modelItem => item.Departure)

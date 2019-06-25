@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
@@ -12,6 +13,7 @@ namespace SpaceWay.Models
 
         public int PassengerID { get; set; }
         public virtual Passenger Passenger { get; set; }
+        [DataType(DataType.DateTime)]
         public DateTime OrderDate { get; set; }
 
         //[ForeignKey("Flight")]

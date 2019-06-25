@@ -105,16 +105,25 @@ namespace SpaceWay.Controllers
         //POST: Reservations/Payment
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult FinalPayment([Bind(Include = "ReservationID,PassengerID,OrderDate,OutboundID,InboundID,NumOfTickets,TotalPrice")]Reservation reservation)
+        public ActionResult FinalPayment([Bind(Include = "ReservationID,PassengerID,OutboundID,InboundID,NumOfTickets,TotalPrice")]Reservation reservation)
         {
             reservation.Outbound = db.Flights.ToList().FirstOrDefault(f => f.FlightID == reservation.OutboundID);
             reservation.Inbound = db.Flights.ToList().FirstOrDefault(f => f.FlightID == reservation.InboundID);
             reservation.Passenger = db.Passengers.First(p => p.PassengerID.Equals(reservation.PassengerID));
-
+            reservation.OrderDate = new DateTime(2019,1,1);
             if (ModelState.IsValid)
             {
+                if(reservation.Outbound.NumOfPassengers > reservation.NumOfTickets)//if there are seats available
+                {
+                //occupy seats on flights
+                reservation.Outbound.NumOfPassengers -= reservation.NumOfTickets;
+                reservation.Inbound.NumOfPassengers -= reservation.NumOfTickets;
+                //updating passenger's total distance
+                reservation.Passenger.TotalDistance += reservation.Outbound.Distance + reservation.Inbound.Distance;
+                //updating db
                 db.Reservations.Add(reservation);
                 db.SaveChanges(); 
+                }
             }
             return RedirectToAction("Index", "Home");
         }
@@ -147,11 +156,13 @@ namespace SpaceWay.Controllers
             ViewBag.PassengerID = new SelectList(db.Passengers, "PassengerID", "Name", reservation.PassengerID);
             return View(reservation);
         }
-
+        // GET:
         public ActionResult MyReservations()
         {
             int id = Convert.ToInt16(Session["PassengerID"]);
-            return View(db.Reservations.Where(p => p.PassengerID == id).ToList());
+            List<Reservation> toShow = db.Reservations.Where(p => p.PassengerID == id).ToList();
+            ViewBag.isEmpty = toShow.Count == 0;
+            return View(toShow);
         }
 
 

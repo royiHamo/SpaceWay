@@ -1,8 +1,8 @@
 ﻿@model SpaceWay.Models.Reservation
 
 
-@*@using (Html.BeginForm("FinalPayment", "Reservations", FormMethod.Post, new { id = "paymentform" , enctype = "multipart/form-data", onsubmit = "return onSubmit()" }))*@
-@using (Html.BeginForm("FinalPayment", "Reservations"))
+@*@using (Html.BeginForm("FinalPayment", "Reservations"))*@
+@using (Html.BeginForm("FinalPayment", "Reservations", FormMethod.Post, new { id = "paymentform" , enctype = "multipart/form-data", onsubmit = "return onSubmit()" }))
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(model => model.PassengerID)

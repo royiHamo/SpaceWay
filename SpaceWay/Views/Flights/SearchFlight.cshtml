@@ -3,13 +3,12 @@
     ViewBag.Title = "SearchFlight";
 }
 
-<h2>Search A Flight</h2>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Flight</h4>
+        <h4>Book A Flight</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         

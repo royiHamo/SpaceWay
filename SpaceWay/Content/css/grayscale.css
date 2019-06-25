@@ -9,34 +9,34 @@
     background-color: #fff;
 }
 
-#mainNav .navbar-toggler {
-    font-size: 80%;
-    padding: 0.75rem;
-    color: #64a19d;
-    border: 1px solid #64a19d;
-}
+    #mainNav .navbar-toggler {
+        font-size: 80%;
+        padding: 0.75rem;
+        color: #64a19d;
+        border: 1px solid #64a19d;
+    }
 
-#mainNav .navbar-toggler:focus {
-    outline: none;
-}
+        #mainNav .navbar-toggler:focus {
+            outline: none;
+        }
 
-#mainNav .navbar-brand {
-    color: #161616;
-    font-weight: 700;
-    padding: .9rem 0;
-}
+    #mainNav .navbar-brand {
+        color: #161616;
+        font-weight: 700;
+        padding: .9rem 0;
+    }
 
-#mainNav .navbar-nav .nav-item:hover {
-    color: fade(white, 80%);
-    outline: none;
-    background-color: transparent;
-}
+    #mainNav .navbar-nav .nav-item:hover {
+        color: fade(white, 80%);
+        outline: none;
+        background-color: transparent;
+    }
 
-#mainNav .navbar-nav .nav-item:active,
-#mainNav .navbar-nav .nav-item:focus {
-    outline: none;
-    background-color: transparent;
-}
+    #mainNav .navbar-nav .nav-item:active,
+    #mainNav .navbar-nav .nav-item:focus {
+        outline: none;
+        background-color: transparent;
+    }
 
 @media (min-width: 992px) {
     #mainNav {
@@ -47,44 +47,54 @@
         -webkit-transition: background-color 0.3s ease-in-out;
         transition: background-color 0.3s ease-in-out;
     }
-    #mainNav .navbar-brand {
-        padding: .5rem 0;
-        color: rgba(255, 255, 255, 0.5);
-    }
-    #mainNav .nav-link {
-        -webkit-transition: none;
-        transition: none;
-        padding: 2rem 1.5rem;
-        color: rgba(255, 255, 255, 0.5);
-    }
-    #mainNav .nav-link:hover {
-        color: rgba(255, 255, 255, 0.75);
-    }
-    #mainNav .nav-link:active {
-        color: white;
-    }
-    #mainNav.navbar-shrink {
-        background-color: #fff;
-    }
-    #mainNav.navbar-shrink .navbar-brand {
-        color: #161616;
-    }
-    #mainNav.navbar-shrink .nav-link {
-        color: #161616;
-        padding: 1.5rem 1.5rem 1.25rem;
-        border-bottom: 0.25rem solid transparent;
-    }
-    #mainNav.navbar-shrink .nav-link:hover {
-        color: #64a19d;
-    }
-    #mainNav.navbar-shrink .nav-link:active {
-        color: #467370;
-    }
-    #mainNav.navbar-shrink .nav-link.active {
-        color: #64a19d;
-        outline: none;
-        border-bottom: 0.25rem solid #64a19d;
-    }
+
+        #mainNav .navbar-brand {
+            padding: .5rem 0;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        #mainNav .nav-link {
+            -webkit-transition: none;
+            transition: none;
+            padding: 2rem 1.5rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+            #mainNav .nav-link:hover {
+                color: rgba(255, 255, 255, 0.75);
+            }
+
+            #mainNav .nav-link:active {
+                color: white;
+            }
+
+        #mainNav.navbar-shrink {
+            background-color: #fff;
+        }
+
+            #mainNav.navbar-shrink .navbar-brand {
+                color: #161616;
+            }
+
+            #mainNav.navbar-shrink .nav-link {
+                color: #161616;
+                padding: 1.5rem 1.5rem 1.25rem;
+                border-bottom: 0.25rem solid transparent;
+            }
+
+                #mainNav.navbar-shrink .nav-link:hover {
+                    color: #64a19d;
+                }
+
+                #mainNav.navbar-shrink .nav-link:active {
+                    color: #467370;
+                }
+
+                #mainNav.navbar-shrink .nav-link.active {
+                    color: #64a19d;
+                    outline: none;
+                    border-bottom: 0.25rem solid #64a19d;
+                }
 }
 
 .masthead {
@@ -100,6 +110,7 @@
     background-attachment: scroll;
     background-size: cover;
 }
+
 .mastheadview {
     position: relative;
     width: 100%;
@@ -113,10 +124,70 @@
     background-attachment: scroll;
     background-size: cover;
 }
+
 label {
     max-width: 20rem;
     font-size: 1rem;
     color: darkgray !important;
+}
+
+h2 {
+    color: darkgray !important;
+    margin-bottom: 25.5rem !important;
+    position: absolute !important;
+}
+
+h4 {
+    color: darkgray !important;
+}
+
+.loader {
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid blue;
+    border-right: 16px solid green;
+    border-bottom: 16px solid red;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+}
+
+dt {
+    color: gray !important;
+}
+
+dd {
+    color: white !important;
+}
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.table {
+    color: white !important;
+    line-height: 18px !important;
+}
+
+tr:hover {
+    background-color: rgba(0, 0, 0, 0.3);
 }
 
 .masthead h1 {
@@ -127,7 +198,9 @@ label {
     background: -webkit-linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0));
     -webkit-text-fill-color: transparent;
     -webkit-background-clip: text;
+    position: relative !important;
 }
+
 .mastheadview h1 {
     font-family: 'Varela Round';
     font-size: 2.5rem;
@@ -136,27 +209,35 @@ label {
     background: -webkit-linear-gradient(rgba(255, 255, 255, .9), rgba(255, 255, 255, 0));
     -webkit-text-fill-color: transparent;
     -webkit-background-clip: text;
+    position: relative !important;
 }
 
 .masthead h2 {
     max-width: 20rem;
     font-size: 1rem;
+    color: darkgray;
+    position: relative !important;
 }
+
 .mastheadview h2 {
     max-width: 20rem;
     font-size: 1rem;
+    position: relative !important;
 }
 
 @media (min-width: 768px) {
     .masthead h1 {
         font-size: 4rem;
         line-height: 4rem;
+        position: relative !important;
     }
 }
+
 @media (min-width: 768px) {
     .mastheadview h1 {
         font-size: 4rem;
         line-height: 4rem;
+        position: relative !important;
     }
 }
 
@@ -165,15 +246,17 @@ label {
         height: 100vh;
         padding: 0;
     }
-    .masthead h1 {
-        font-size: 6.5rem;
-        line-height: 6.5rem;
-        letter-spacing: 0.8rem;
-    }
-    .masthead h2 {
-        max-width: 30rem;
-        font-size: 1.25rem;
-    }
+
+        .masthead h1 {
+            font-size: 6.5rem;
+            line-height: 6.5rem;
+            letter-spacing: 0.8rem;
+        }
+
+        .masthead h2 {
+            max-width: 30rem;
+            font-size: 1.25rem;
+        }
 }
 
 @media (min-width: 992px) {
@@ -195,6 +278,7 @@ label {
 }
 
 .btn {
+    /*original*/
     -webkit-box-shadow: 0 0.1875rem 0.1875rem 0 rgba(0, 0, 0, 0.1) !important;
     box-shadow: 0 0.1875rem 0.1875rem 0 rgba(0, 0, 0, 0.1) !important;
     padding: 1.25rem 2rem;
@@ -203,24 +287,41 @@ label {
     text-transform: uppercase;
     letter-spacing: .15rem;
     border: 0;
+    background-color: #599bb3;
+    /*-webkit-box-shadow: 0 0.1875rem 0.1875rem 0 rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0 0.1875rem 0.1875rem 0 rgba(0, 0, 0, 0.1) !important;
+    padding: 1.25rem 2rem;
+    font-family: 'Varela Round';
+    font-size: 80%;
+    text-transform: uppercase;
+    letter-spacing: .15rem;
+    border: 0;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #599bb3), color-stop(1, #408c99));
+    background: -moz-linear-gradient(top, #599bb3 5%, #408c99 100%);
+    background: -webkit-linear-gradient(top, #599bb3 5%, #408c99 100%);
+    background: -o-linear-gradient(top, #599bb3 5%, #408c99 100%);
+    background: linear-gradient(to bottom, #599bb3 5%, #408c99 100%);
+    background-color: #599bb3;
+    text-shadow: 0px 1px 0px #3d768a;*/
+    /*asdad*/
 }
 
 .btn-primary {
     background-color: #64a19d;
 }
 
-.btn-primary:hover {
-    background-color: #4f837f;
-}
+    .btn-primary:hover {
+        background-color: #4f837f;
+    }
 
-.btn-primary:focus {
-    background-color: #4f837f;
-    color: white;
-}
+    .btn-primary:focus {
+        background-color: #4f837f;
+        color: white;
+    }
 
-.btn-primary:active {
-    background-color: #467370 !important;
-}
+    .btn-primary:active {
+        background-color: #467370 !important;
+    }
 
 .about-section {
     padding-top: 10rem;
@@ -230,17 +331,17 @@ label {
     z-index: 1000;
 }
 
-.about-section p {
-    margin-bottom: 5rem;
-}
+    .about-section p {
+        margin-bottom: 5rem;
+    }
 
 .projects-section {
     padding: 10rem 0;
 }
 
-.projects-section .featured-text {
-    padding: 2rem;
-}
+    .projects-section .featured-text {
+        padding: 2rem;
+    }
 
 @media (min-width: 992px) {
     .projects-section .featured-text {
@@ -258,11 +359,12 @@ label {
     .projects-section .project-text {
         padding: 5rem;
     }
-    .projects-section .project-text hr {
-        border-color: #64a19d;
-        border-width: .25rem;
-        width: 30%;
-    }
+
+        .projects-section .project-text hr {
+            border-color: #64a19d;
+            border-width: .25rem;
+            width: 30%;
+        }
 }
 
 .signup-section {
@@ -275,61 +377,61 @@ label {
     background-size: cover;
 }
 
-.signup-section .form-inline input {
-    -webkit-box-shadow: 0 0.1875rem 0.1875rem 0 rgba(0, 0, 0, 0.1) !important;
-    box-shadow: 0 0.1875rem 0.1875rem 0 rgba(0, 0, 0, 0.1) !important;
-    padding: 1.25rem 2rem;
-    height: auto;
-    font-family: 'Varela Round';
-    font-size: 80%;
-    text-transform: uppercase;
-    letter-spacing: 0.15rem;
-    border: 0;
-}
+    .signup-section .form-inline input {
+        -webkit-box-shadow: 0 0.1875rem 0.1875rem 0 rgba(0, 0, 0, 0.1) !important;
+        box-shadow: 0 0.1875rem 0.1875rem 0 rgba(0, 0, 0, 0.1) !important;
+        padding: 1.25rem 2rem;
+        height: auto;
+        font-family: 'Varela Round';
+        font-size: 80%;
+        text-transform: uppercase;
+        letter-spacing: 0.15rem;
+        border: 0;
+    }
 
 .contact-section {
     padding: 5rem 0 0;
 }
 
-.contact-section .card {
-    border: 0;
-    border-bottom: 0.25rem solid #64a19d;
-}
+    .contact-section .card {
+        border: 0;
+        border-bottom: 0.25rem solid #64a19d;
+    }
 
-.contact-section .card h4 {
-    font-size: 0.8rem;
-    font-family: 'Varela Round';
-    text-transform: uppercase;
-    letter-spacing: 0.15rem;
-}
+        .contact-section .card h4 {
+            font-size: 0.8rem;
+            font-family: 'Varela Round';
+            text-transform: uppercase;
+            letter-spacing: 0.15rem;
+        }
 
-.contact-section .card hr {
-    border-color: #64a19d;
-    border-width: 0.25rem;
-    width: 3rem;
-}
+        .contact-section .card hr {
+            border-color: #64a19d;
+            border-width: 0.25rem;
+            width: 3rem;
+        }
 
-.contact-section .social {
-    margin-top: 5rem;
-}
+    .contact-section .social {
+        margin-top: 5rem;
+    }
 
-.contact-section .social a {
-    text-align: center;
-    height: 3rem;
-    width: 3rem;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 100%;
-    line-height: 3rem;
-    color: rgba(255, 255, 255, 0.3);
-}
+        .contact-section .social a {
+            text-align: center;
+            height: 3rem;
+            width: 3rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 100%;
+            line-height: 3rem;
+            color: rgba(255, 255, 255, 0.3);
+        }
 
-.contact-section .social a:hover {
-    color: rgba(255, 255, 255, 0.5);
-}
+            .contact-section .social a:hover {
+                color: rgba(255, 255, 255, 0.5);
+            }
 
-.contact-section .social a:active {
-    color: #fff;
-}
+            .contact-section .social a:active {
+                color: #fff;
+            }
 
 body {
     font-family: 'Nunito';
@@ -340,11 +442,11 @@ a {
     color: #64a19d;
 }
 
-a:focus,
-a:hover {
-    text-decoration: none;
-    color: #3c6360;
-}
+    a:focus,
+    a:hover {
+        text-decoration: none;
+        color: #3c6360;
+    }
 
 .bg-black {
     background-color: #161616 !important;
