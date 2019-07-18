@@ -13,13 +13,13 @@
     }
 
 }
-
-<li class="nav-item">
-    <a class="nav-link js-scroll-trigger" href='@Url.Action("Index", "Home")'>Home</a>
-</li>
 <li class="nav-item">
     <a class="nav-link js-scroll-trigger" href='#'><font color="white">@welcomeText</font></a>
 </li>
+<li class="nav-item">
+    <a class="nav-link js-scroll-trigger" href='@Url.Action("Index", "Home")'>Home</a>
+</li>
+
 <li class="nav-item">
     @if (checkAdmin() == true)
     {<a class="nav-link js-scroll-trigger" href='@Url.Action("Search", "Passengers")'>Passengers</a>}
@@ -54,6 +54,9 @@
         </li>*@
     <li class="nav-item">
         <a class="nav-link js-scroll-trigger" href='@Url.Action("PassengerProfile", "Passengers")'>Profile</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link js-scroll-trigger" href='@Url.Action("Nasa", "Home")'>Picture Of the Day</a>
     </li>
     <li class="nav-item">
         <a class="nav-link js-scroll-trigger" href='@Url.Action("Logout", "Passengers")'>Logout</a>

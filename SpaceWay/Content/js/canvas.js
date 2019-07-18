@@ -7,8 +7,10 @@
     var w = canvas.clientWidth - 70;
     var h = canvas.clientHeight - 70;
     var img = new Image();
-    img.src = "~/Content/img/spaceship.png";
-  //  img.src = "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/microsoft/209/flying-saucer_1f6f8.png";
+    img.src = "Content/Images/spaceship.png";
+
+
+    // img.src = "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/microsoft/209/flying-saucer_1f6f8.png";
    
 
     img.onload = function () {

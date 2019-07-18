@@ -29,6 +29,7 @@
 
 </head>
 
+
 <body id="page-top " onload="canvasFunc()">
 
     <!-- Navigation -->
@@ -73,22 +74,24 @@
                 @{if (Session["Video"] == null)
                     {
                         Session["Video"] = "1"; 
-                        @*~/Content/videos/video.mp4*@
-                        @Html.Raw("<video width='320' height='240' autoplay><source src='~/Content/videos/video.mp4' type='video/mp4'></video>")
+                        @*~/Content/videos/video.mp4    width='320' height='240' autoplay*@
+                        
+                        @Html.Raw("<video width='60%' height='60%' controls><source src='Content/Images/video.mp4' type='video/mp4'></video>")
+                     
                         } 
                     }
-                @{if (Session["Username"] == null)
+                @if (Session["Username"] == null)
                         {
-
-
-                            @Html.Raw("<canvas id = 'myCanvas' width = '1200' height = '200'></ canvas >");
+                            
                         }
 
                         else
                         {
                             <a href='@Url.Action("SearchFlight", "Flights")' class="btn btn-primary js-scroll-trigger">Book A Flight</a>//if logged in
-                        }
+                            @Html.Raw("<canvas id = 'myCanvas' width = '1200' height = '150'></ canvas >");
+
                     }
+                }
 
 
 
