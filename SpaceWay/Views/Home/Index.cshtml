@@ -72,36 +72,34 @@
                 <h2 class="text-white-50 mx-auto mt-2 mb-5">Leave Earth with ease.</h2>
                 @{if (Session["Video"] == null)
                     {
-                        Session["Video"] = "1"; 
+                        Session["Video"] = "1";
                         @*~/Content/videos/video.mp4*@
                         @Html.Raw("<video width='320' height='240' autoplay><source src='~/Content/videos/video.mp4' type='video/mp4'></video>")
-                        } 
                     }
+                }
                 @{if (Session["Username"] == null)
-                        {
+                    {
 
 
-                            @Html.Raw("<canvas id = 'myCanvas' width = '1200' height = '200'></ canvas >");
-                        }
-
-                        else
-                        {
-                            <a href='@Url.Action("SearchFlight", "Flights")' class="btn btn-primary js-scroll-trigger">Book A Flight</a>//if logged in
-                        }
+                        @Html.Raw("<canvas id = 'myCanvas' width = '1200' height = '200'></ canvas >");
                     }
 
 
+                    else
+                    {
+                        <a href='@Url.Action("SearchFlight", "Flights")' class="btn btn-primary js-scroll-trigger">Book A Flight</a>//if logged in
+                    }
+                }
 
+                @* <img id="spaceshipImg" src="spaceship.png" style="position:absolute;left:0; top:0;" height="20" width="20">*@
 
-                    @* <img id="spaceshipImg" src="spaceship.png" style="position:absolute;left:0; top:0;" height="20" width="20">*@
-
-</div>
+            </div>
         </div>
     </header>
     
 
     <!-- About Section -->
-    @*<section id="about" class="about-section text-center">
+    <section id="about" class="about-section text-center">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-8 mx-auto">
@@ -112,9 +110,11 @@
                         </p>
                     </div>
                 </div>
-                <img src="img/ipad.jpg" class="img-fluid" alt="">
+                <canvas id = 'myCanvas'></canvas>
+                <video src="~/Content/videos/video.mp4"  alt="" autoplay/>
+                
             </div>
-        </section>*@
+        </section>
 
     <!-- Projects Section -->
     @*<section id="projects" class="projects-section bg-light">
