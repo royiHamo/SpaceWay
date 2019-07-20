@@ -202,6 +202,47 @@ namespace SpaceWay.Controllers
             return View(passenger);
         }
 
+        // GET: Passengers/Edit/5
+        public ActionResult PassengerEdit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Passenger passenger = db.Passengers.Find(id);
+            if (passenger == null)
+            {
+                return HttpNotFound();
+            }
+            return View(passenger);
+        }
+
+        // POST: Passengers/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult PassengerEdit([Bind(Include = "PassengerID,Name,Username,Password")] Passenger passenger)
+        {
+            if (ModelState.IsValid)         //need to enable option for editing the password only
+            {
+                var exists = db.Passengers.FirstOrDefault(x => x.Username == passenger.Username);
+                if (exists != null)
+                {
+                    if (exists.PassengerID != passenger.PassengerID)
+                    {
+                        ModelState.AddModelError("Username", "Username already exists");
+                        return View();
+                    }
+                }
+                db.Entry(passenger).State = EntityState.Modified;
+                db.SaveChanges();
+                Session["Username"] = passenger.Username;
+                return RedirectToAction("Index", "Home");
+            }
+            return View(passenger);
+        }
+
         // GET: Passengers/Delete/5
         public ActionResult Delete(int? id)
         {

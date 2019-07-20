@@ -6,35 +6,38 @@
 <html lang="en">
 
 <head>
-   
+
+    <link rel="icon"
+          type="image/png"
+          href="~/Content/Images/icon.png">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
 
     <title>SpaceWay - Plan your trip to space</title>
-   
 
-    <!-- Bootstrap core CSS -->
+
+    <!--core-->
     <link href="~/Content/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom fonts for this template -->
+    <!--fonts-->
     <link href="~/Content/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
+    <!--style-->
     <link href="~/Content/css/grayscale.css" rel="stylesheet">
 
 
 </head>
+
 
 <body id="page-top " onload="canvasFunc()">
 
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
         <div class="container">
-            @*<a class="navbar-brand js-scroll-trigger" href="#page-top">Sign-up</a>*@
+            <a class="navbar-brand js-scroll-trigger" href='@Url.Action("Index", "Home")'>Home</a>
             <button class="navbar-toggler navbar-toggler-right" type="button" href="~/Views" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 Menu
                 <i class="fas fa-bars"></i>
@@ -69,52 +72,47 @@
         <div class="container d-flex h-100 align-items-center">
             <div class="mx-auto text-center">
                 <h1 class="mx-auto my-0 text-uppercase">SpaceWay</h1>
-                <h2 class="text-white-50 mx-auto mt-2 mb-5">Leave Earth with ease.</h2>
-                @{if (Session["Video"] == null)
-                    {
-                        Session["Video"] = "1";
-                        @*~/Content/videos/video.mp4*@
-                        @Html.Raw("<video width='320' height='240' autoplay><source src='~/Content/videos/video.mp4' type='video/mp4'></video>")
-                    }
+                <aside>
+                    <h2 class="text-white-50 mx-auto mt-2 mb-5">Leave Earth with ease.</h2>
+                </aside>
+                @if (Session["Username"] == null)
+                {
+                    <a href='@Url.Action("Create", "Passengers")' class="btn btn-primary js-scroll-trigger">Book A Flight</a>//if not logged in
                 }
-                @{if (Session["Username"] == null)
-                    {
 
+                else
+                {
+                    <a href='@Url.Action("SearchFlight", "Flights")' class="btn btn-primary js-scroll-trigger">Book A Flight</a>//if logged in
+                    @Html.Raw("<canvas id = 'myCanvas' width = '1200' height = '150'></ canvas >");
 
-                        @Html.Raw("<canvas id = 'myCanvas' width = '1200' height = '200'></ canvas >");
-                    }
-
-
-                    else
-                    {
-                        <a href='@Url.Action("SearchFlight", "Flights")' class="btn btn-primary js-scroll-trigger">Book A Flight</a>//if logged in
-                    }
                 }
+                }
+
+
+
 
                 @* <img id="spaceshipImg" src="spaceship.png" style="position:absolute;left:0; top:0;" height="20" width="20">*@
 
             </div>
         </div>
     </header>
-    
+
 
     <!-- About Section -->
-    <section id="about" class="about-section text-center">
+    @*<section id="about" class="about-section text-center">
             <div class="container">
-                @*<div class="row">
+                <div class="row">
                     <div class="col-lg-8 mx-auto">
                         <h2 class="text-white mb-4">Built with Bootstrap 4</h2>
                         <p class="text-white-50">
                             Grayscale is a free Bootstrap theme created by Start Bootstrap. It can be yours right now, simply download the template on
                             <a href="http://startbootstrap.com/template-overviews/grayscale/">the preview page</a>. The theme is open source, and you can use it for any purpose, personal or commercial.
                         </p>
-                    </div>*@
+                    </div>
                 </div>
-                <canvas id = 'myCanvas'></canvas>
-                <video src="~/Content/videos/video.mp4"  alt="" autoplay/>
-                
+                <img src="img/ipad.jpg" class="img-fluid" alt="">
             </div>
-        </section>
+        </section>*@
 
     <!-- Projects Section -->
     @*<section id="projects" class="projects-section bg-light">
@@ -173,23 +171,26 @@
     <section></section>
 
     <!-- Signup Section -->
-    @*<section id="signup" class="signup-section">
+    <section class="contact-section bg-black">
         <div class="container">
             <div class="row">
                 <div class="col-md-10 col-lg-8 mx-auto text-center">
 
-                    <i class="far fa-paper-plane fa-2x mb-2 text-white"></i>
-                    <h2 class="text-white mb-5">Subscribe to receive updates!</h2>
+                    @*<i class="far fa-paper-plane fa-2x mb-2 text-white"></i>
+                        <h2 class="text-white mb-5">Subscribe to receive updates!</h2>
 
-                    <form class="form-inline d-flex">
-                        <input type="email" class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" id="inputEmail" placeholder="Enter email address...">
-                        <button type="submit" class="btn btn-primary mx-auto">Subscribe</button>
-                    </form>
+                        <form class="form-inline d-flex">
+                            <input type="email" class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" id="inputEmail" placeholder="Enter email address...">
+                            <button type="submit" class="btn btn-primary mx-auto">Subscribe</button>
+                        </form>*@
+
 
                 </div>
             </div>
+            <canvas id='myCanvas'></canvas>
+            <video src="~/Content/videos/video.mp4" alt="" autoplay />
         </div>
-    </section>*@
+    </section>
 
     <!-- Contact Section -->
     <section class="contact-section bg-black">
@@ -267,8 +268,8 @@
 
     <!--canvas spaceship -->
     <script src="~/Content/js/canvas.js"></script>
-    
-    
+
+
 </body>
 
 </html>
