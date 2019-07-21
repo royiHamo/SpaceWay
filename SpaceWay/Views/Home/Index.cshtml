@@ -75,6 +75,7 @@
                 <aside>
                     <h2 class="text-white-50 mx-auto mt-2 mb-5">Leave Earth with ease.</h2>
                 </aside>
+
                 @if (Session["Username"] == null)
                 {
                     <a href='@Url.Action("Create", "Passengers")' class="btn btn-primary js-scroll-trigger">Book A Flight</a>//if not logged in
@@ -84,8 +85,7 @@
                 {
                     <a href='@Url.Action("SearchFlight", "Flights")' class="btn btn-primary js-scroll-trigger">Book A Flight</a>//if logged in
                     @Html.Raw("<canvas id = 'myCanvas' width = '1200' height = '150'></ canvas >");
-
-                }
+                    <canvas id='myCanvas'></canvas>
                 }
 
 
@@ -174,8 +174,11 @@
     <section class="contact-section bg-black">
         <div class="container">
             <div class="row">
-                <div class="col-md-10 col-lg-8 mx-auto text-center">
+                <div class="col-md-12 col-lg-12 align-items-start mx-auto text-center">
 
+
+
+                    <video width="700" height="400" src="~/Content/Images/video.mp4" title="Explore the amazing space" autoplay controls />
                     @*<i class="far fa-paper-plane fa-2x mb-2 text-white"></i>
                         <h2 class="text-white mb-5">Subscribe to receive updates!</h2>
 
@@ -184,11 +187,8 @@
                             <button type="submit" class="btn btn-primary mx-auto">Subscribe</button>
                         </form>*@
 
-
                 </div>
             </div>
-            <canvas id='myCanvas'></canvas>
-            <video src="~/Content/videos/video.mp4" alt="" autoplay />
         </div>
     </section>
 
