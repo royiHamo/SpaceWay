@@ -1,0 +1,482 @@
+﻿@using SpaceWay.Context
+
+@{
+    ViewBag.Title = "Statistics";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    SpaceWayDbContext db = new SpaceWayDbContext();
+}
+
+<meta charset="utf-8">
+<style>
+    body {
+        width: 1060px auto;
+        margin: 50px auto;
+    }
+
+    path {
+        stroke: #fff;
+    }
+
+        path:hover {
+            opacity: 0.9;
+        }
+
+    rect:hover {
+        fill: blue;
+    }
+
+    .axis {
+        font: 10px sans-serif;
+    }
+
+    .legend tr {
+        border-bottom: 1px solid grey;
+    }
+
+        .legend tr:first-child {
+            border-top: 1px solid grey;
+        }
+
+    .axis path,
+    .axis line {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+    }
+
+    .x.axis path {
+        display: none;
+    }
+
+    .legend {
+        margin-bottom: 76px;
+        display: inline-block;
+        border-collapse: collapse;
+        border-spacing: 0px;
+    }
+
+        .legend td {
+            padding: 4px 5px;
+            vertical-align: bottom;
+        }
+
+    .legendFreq, .legendPerc {
+        align: right;
+        width: 50px;
+        color: white;
+    }
+</style>
+<body>
+    <div id='dashboard'>
+    </div>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script>
+        function dashboard(id, fData) {
+            var barColor = 'steelblue';
+            var labelsColor = 'white';
+            function segColor(c) { return { one: "#807dba", two: "#e08214", three: "#41ab5d", four: "#00ffff", five: "#9acd32" }[c]; }
+
+            // compute total for each state.
+            fData.forEach(function (d) { d.total = d.freq.one + d.freq.two + d.freq.three + d.freq.four + d.freq.five; });
+
+            // function to handle histogram.
+            function histoGram(fD) {
+                var hG = {}, hGDim = { t: 60, r: 0, b: 30, l: 0 };
+                hGDim.w = 600 - hGDim.l - hGDim.r,
+                    hGDim.h = 300 - hGDim.t - hGDim.b;
+
+                //create svg for histogram.
+                var hGsvg = d3.select(id).append("svg")
+                    .attr("width", hGDim.w + hGDim.l + hGDim.r)
+                    .attr("height", hGDim.h + hGDim.t + hGDim.b).append("g")
+                    .attr("transform", "translate(" + hGDim.l + "," + hGDim.t + ")");
+
+                // create function for x-axis mapping.
+                var x = d3.scale.ordinal().rangeRoundBands([0, hGDim.w], 0.1)
+                    .domain(fD.map(function (d) { return d[0]; }));
+
+                // Add x-axis to the histogram svg.
+                hGsvg.append("g").attr("class", "x axis").attr("fill", "#ffffff")
+                    .attr("transform", "translate(0," + hGDim.h + ")")
+                    .call(d3.svg.axis().scale(x).orient("bottom"));
+
+                // Create function for y-axis map.
+                var y = d3.scale.linear().range([hGDim.h, 0])
+                    .domain([0, d3.max(fD, function (d) { return d[1]; })]);
+
+                // Create bars for histogram to contain rectangles and freq labels.
+                var bars = hGsvg.selectAll(".bar").data(fD).enter()
+                    .append("g").attr("class", "bar");
+
+                //create the rectangles.
+                bars.append("rect")
+                    .attr("x", function (d) { return x(d[0]); })
+                    .attr("y", function (d) { return y(d[1]); })
+                    .attr("width", x.rangeBand())
+                    .attr("height", function (d) { return hGDim.h - y(d[1]); })
+                    .attr('fill', barColor)
+                    .on("mouseover", mouseover)// mouseover is defined below.
+                    .on("mouseout", mouseout);// mouseout is defined below.
+
+                //Create the frequency labels above the rectangles.
+                bars.append("text").text(function (d) { return d3.format(",")(d[1]) })
+                    .attr("x", function (d) { return x(d[0]) + x.rangeBand() / 2; })
+                    .attr("y", function (d) { return y(d[1]) - 5; })
+                    .attr('fill', labelsColor)
+                    .attr("text-anchor", "middle");
+
+                function mouseover(d) {  // utility function to be called on mouseover.
+                    // filter for selected state.
+                    var st = fData.filter(function (s) { return s.State == d[0]; })[0],
+                        nD = d3.keys(st.freq).map(function (s) { return { type: s, freq: st.freq[s] }; });
+
+                    // call update functions of pie-chart and legend.
+                    pC.update(nD);
+                    leg.update(nD);
+                }
+
+                function mouseout(d) {    // utility function to be called on mouseout.
+                    // reset the pie-chart and legend.
+                    pC.update(tF);
+                    leg.update(tF);
+                }
+
+                // create function to update the bars. This will be used by pie-chart.
+                hG.update = function (nD, color) {
+                    // update the domain of the y-axis map to reflect change in frequencies.
+                    y.domain([0, d3.max(nD, function (d) { return d[1]; })]);
+
+                    // Attach the new data to the bars.
+                    var bars = hGsvg.selectAll(".bar").data(nD);
+
+                    // transition the height and color of rectangles.
+                    bars.select("rect").transition().duration(500)
+                        .attr("y", function (d) { return y(d[1]); })
+                        .attr("height", function (d) { return hGDim.h - y(d[1]); })
+                        .attr("fill", color);
+
+                    // transition the frequency labels location and change value.
+                    bars.select("text").transition().duration(500)
+                        .text(function (d) { return d3.format(",")(d[1]) })
+                        .attr("y", function (d) { return y(d[1]) - 5; });
+                }
+                return hG;
+            }
+
+            // function to handle pieChart.
+            function pieChart(pD) {
+                var pC = {}, pieDim = { w: 250, h: 250 };
+                pieDim.r = Math.min(pieDim.w, pieDim.h) / 2;
+
+                // create svg for pie chart.
+                var piesvg = d3.select(id).append("svg")
+                    .attr("width", pieDim.w).attr("height", pieDim.h).append("g")
+                    .attr("transform", "translate(" + pieDim.w / 2 + "," + pieDim.h / 2 + ")");
+
+                // create function to draw the arcs of the pie slices.
+                var arc = d3.svg.arc().outerRadius(pieDim.r - 10).innerRadius(0);
+
+                // create a function to compute the pie slice angles.
+                var pie = d3.layout.pie().sort(null).value(function (d) { return d.freq; });
+
+
+
+                // Draw the pie slices.
+                piesvg.selectAll("path").data(pie(pD)).enter().append("path").attr("d", arc)
+                    .each(function (d) { this._current = d; })
+                    .text(function (d) { return d.type; })
+                    .style("fill", function (d) { return segColor(d.data.type); })
+                    .on("mouseover", mouseover).on("mouseout", mouseout);
+
+                // create function to update pie-chart. This will be used by histogram.
+                pC.update = function (nD) {
+                    piesvg.selectAll("path").data(pie(nD)).transition().duration(500)
+                        .attrTween("d", arcTween);
+                }
+                // Utility function to be called on mouseover a pie slice.
+                function mouseover(d) {
+                    // call the update function of histogram with new data.
+                    hG.update(fData.map(function (v) {
+                        return [v.State, v.freq[d.data.type]];
+                    }), segColor(d.data.type));
+                }
+                //Utility function to be called on mouseout a pie slice.
+                function mouseout(d) {
+                    // call the update function of histogram with all data.
+                    hG.update(fData.map(function (v) {
+                        return [v.State, v.total];
+                    }), barColor);
+                }
+                // Animating the pie-slice requiring a custom function which specifies
+                // how the intermediate paths should be drawn.
+                function arcTween(a) {
+                    var i = d3.interpolate(this._current, a);
+                    this._current = i(0);
+                    return function (t) { return arc(i(t)); };
+                }
+                return pC;
+            }
+
+            // function to handle legend.
+            function legend(lD) {
+                var leg = {};
+
+                // create table for legend.
+                var legend = d3.select(id).append("table").attr('class', 'legend');
+
+                // create one row per segment.
+                var tr = legend.append("tbody").selectAll("tr").data(lD).enter().append("tr");
+
+                // create the first column for each segment.
+                tr.append("td").append("svg").attr("width", '16').attr("height", '16').append("rect")
+                    .attr("width", '16').attr("height", '16')
+                    .attr("fill", function (d) { return segColor(d.type); });
+
+                // create the second column for each segment.
+                tr.append("td").attr("class", 'legendFreq').text(function (d) { return d.type; });
+
+                // create the third column for each segment.
+                tr.append("td").attr("class", 'legendFreq')
+                    .text(function (d) { return d3.format(",")(d.freq); });
+
+                // create the fourth column for each segment.
+                tr.append("td").attr("class", 'legendPerc')
+                    .text(function (d) { return getLegend(d, lD); });
+
+                // Utility function to be used to update the legend.
+                leg.update = function (nD) {
+                    // update the data attached to the row elements.
+                    var l = legend.select("tbody").selectAll("tr").data(nD);
+
+                    // update the frequencies.
+                    l.select(".legendFreq").text(function (d) { return d3.format(",")(d.freq); });
+
+                    // update the percentage column.
+                    l.select(".legendPerc").text(function (d) { return getLegend(d, nD); });
+                }
+
+                function getLegend(d, aD) { // Utility function to compute percentage.
+                    return d3.format("%")(d.freq / d3.sum(aD.map(function (v) { return v.freq; })));
+                }
+
+                return leg;
+            }
+
+            // calculate total frequency by segment for all state.
+            var tF = ['one', 'two', 'three', 'four', 'five'].map(function (d) {
+                return { type: d, freq: d3.sum(fData.map(function (t) { return t.freq[d]; })) };
+            });
+
+            // calculate total frequency by state for all segment.
+            var sF = fData.map(function (d) { return [d.State, d.total]; });
+
+            var hG = histoGram(sF), // create the histogram.
+                pC = pieChart(tF), // create the pie-chart.
+                leg = legend(tF);  // create the legend.
+        }
+    </script>
+
+</body>
+
+<script>
+
+        @{
+            int[] oneStar =
+            {
+                db.Reservations.Count(p=>p.Passenger.Stars==1 && p.OrderDate.Month==1),
+                db.Reservations.Count(p=>p.Passenger.Stars==1 && p.OrderDate.Month==2),
+                db.Reservations.Count(p=>p.Passenger.Stars==1 && p.OrderDate.Month==3),
+                db.Reservations.Count(p=>p.Passenger.Stars==1 && p.OrderDate.Month==4),
+                db.Reservations.Count(p=>p.Passenger.Stars==1 && p.OrderDate.Month==5),
+                db.Reservations.Count(p=>p.Passenger.Stars==1 && p.OrderDate.Month==6),
+                db.Reservations.Count(p=>p.Passenger.Stars==1 && p.OrderDate.Month==7),
+                db.Reservations.Count(p=>p.Passenger.Stars==1 && p.OrderDate.Month==8),
+                db.Reservations.Count(p=>p.Passenger.Stars==1 && p.OrderDate.Month==9),
+                db.Reservations.Count(p=>p.Passenger.Stars==1 && p.OrderDate.Month==10),
+                db.Reservations.Count(p=>p.Passenger.Stars==1 && p.OrderDate.Month==11),
+                db.Reservations.Count(p=>p.Passenger.Stars==1 && p.OrderDate.Month==12)
+
+                 };
+
+            int[] twoStars =
+                {
+                db.Reservations.Count(p=>p.Passenger.Stars==2 && p.OrderDate.Month==1),
+                db.Reservations.Count(p=>p.Passenger.Stars==2 && p.OrderDate.Month==2),
+                db.Reservations.Count(p=>p.Passenger.Stars==2 && p.OrderDate.Month==3),
+                db.Reservations.Count(p=>p.Passenger.Stars==2 && p.OrderDate.Month==4),
+                db.Reservations.Count(p=>p.Passenger.Stars==2 && p.OrderDate.Month==5),
+                db.Reservations.Count(p=>p.Passenger.Stars==2 && p.OrderDate.Month==6),
+                db.Reservations.Count(p=>p.Passenger.Stars==2 && p.OrderDate.Month==7),
+                db.Reservations.Count(p=>p.Passenger.Stars==2 && p.OrderDate.Month==8),
+                db.Reservations.Count(p=>p.Passenger.Stars==2 && p.OrderDate.Month==9),
+                db.Reservations.Count(p=>p.Passenger.Stars==2 && p.OrderDate.Month==10),
+                db.Reservations.Count(p=>p.Passenger.Stars==2 && p.OrderDate.Month==11),
+                db.Reservations.Count(p=>p.Passenger.Stars==2 && p.OrderDate.Month==12)
+
+                 };
+
+            int[] threeStars =
+    {
+                db.Reservations.Count(p=>p.Passenger.Stars==3 && p.OrderDate.Month==1),
+                db.Reservations.Count(p=>p.Passenger.Stars==3 && p.OrderDate.Month==2),
+                db.Reservations.Count(p=>p.Passenger.Stars==3 && p.OrderDate.Month==3),
+                db.Reservations.Count(p=>p.Passenger.Stars==3 && p.OrderDate.Month==4),
+                db.Reservations.Count(p=>p.Passenger.Stars==3 && p.OrderDate.Month==5),
+                db.Reservations.Count(p=>p.Passenger.Stars==3 && p.OrderDate.Month==6),
+                db.Reservations.Count(p=>p.Passenger.Stars==3 && p.OrderDate.Month==7),
+                db.Reservations.Count(p=>p.Passenger.Stars==3 && p.OrderDate.Month==8),
+                db.Reservations.Count(p=>p.Passenger.Stars==3 && p.OrderDate.Month==9),
+                db.Reservations.Count(p=>p.Passenger.Stars==3 && p.OrderDate.Month==10),
+                db.Reservations.Count(p=>p.Passenger.Stars==3 && p.OrderDate.Month==11),
+                db.Reservations.Count(p=>p.Passenger.Stars==3 && p.OrderDate.Month==12)
+
+                 };
+            int[] fourStars =
+{
+                db.Reservations.Count(p=>p.Passenger.Stars==4 && p.OrderDate.Month==1),
+                db.Reservations.Count(p=>p.Passenger.Stars==4 && p.OrderDate.Month==2),
+                db.Reservations.Count(p=>p.Passenger.Stars==4 && p.OrderDate.Month==3),
+                db.Reservations.Count(p=>p.Passenger.Stars==4 && p.OrderDate.Month==4),
+                db.Reservations.Count(p=>p.Passenger.Stars==4 && p.OrderDate.Month==5),
+                db.Reservations.Count(p=>p.Passenger.Stars==4 && p.OrderDate.Month==6),
+                db.Reservations.Count(p=>p.Passenger.Stars==4 && p.OrderDate.Month==7),
+                db.Reservations.Count(p=>p.Passenger.Stars==4 && p.OrderDate.Month==8),
+                db.Reservations.Count(p=>p.Passenger.Stars==4 && p.OrderDate.Month==9),
+                db.Reservations.Count(p=>p.Passenger.Stars==4 && p.OrderDate.Month==10),
+                db.Reservations.Count(p=>p.Passenger.Stars==4 && p.OrderDate.Month==11),
+                db.Reservations.Count(p=>p.Passenger.Stars==4 && p.OrderDate.Month==12)
+
+                 };
+
+            int[] fiveStars =
+{
+                db.Reservations.Count(p=>p.Passenger.Stars==5 && p.OrderDate.Month==1),
+                db.Reservations.Count(p=>p.Passenger.Stars==5 && p.OrderDate.Month==2),
+                db.Reservations.Count(p=>p.Passenger.Stars==5 && p.OrderDate.Month==3),
+                db.Reservations.Count(p=>p.Passenger.Stars==5 && p.OrderDate.Month==4),
+                db.Reservations.Count(p=>p.Passenger.Stars==5 && p.OrderDate.Month==5),
+                db.Reservations.Count(p=>p.Passenger.Stars==5 && p.OrderDate.Month==6),
+                db.Reservations.Count(p=>p.Passenger.Stars==5 && p.OrderDate.Month==7),
+                db.Reservations.Count(p=>p.Passenger.Stars==5 && p.OrderDate.Month==8),
+                db.Reservations.Count(p=>p.Passenger.Stars==5 && p.OrderDate.Month==9),
+                db.Reservations.Count(p=>p.Passenger.Stars==5 && p.OrderDate.Month==10),
+                db.Reservations.Count(p=>p.Passenger.Stars==5 && p.OrderDate.Month==11),
+                db.Reservations.Count(p=>p.Passenger.Stars==5 && p.OrderDate.Month==12)
+
+                 };
+
+        }
+
+        var JSoneStar = [
+            @oneStar[0],
+            @oneStar[1],
+            @oneStar[2],
+            @oneStar[3],
+            @oneStar[4],
+            @oneStar[5],
+            @oneStar[6],
+            @oneStar[7],
+            @oneStar[8],
+            @oneStar[9],
+            @oneStar[10],
+            @oneStar[11]
+        ];
+
+        var JStwoStars = [
+            @twoStars[0],
+            @twoStars[1],
+            @twoStars[2],
+            @twoStars[3],
+            @twoStars[4],
+            @twoStars[5],
+            @twoStars[6],
+            @twoStars[7],
+            @twoStars[8],
+            @twoStars[9],
+            @twoStars[10],
+            @twoStars[11]
+
+        ];
+        var JSthreeStars = [
+            @threeStars[0],
+            @threeStars[1],
+            @threeStars[2],
+            @threeStars[3],
+            @threeStars[4],
+            @threeStars[5],
+            @threeStars[6],
+            @threeStars[7],
+            @threeStars[8],
+            @threeStars[9],
+            @threeStars[10],
+            @threeStars[11]
+        ];
+        var JSfourStars = [
+            @fourStars[0],
+            @fourStars[1],
+            @fourStars[2],
+            @fourStars[3],
+            @fourStars[4],
+            @fourStars[5],
+            @fourStars[6],
+            @fourStars[7],
+            @fourStars[8],
+            @fourStars[9],
+            @fourStars[10],
+            @fourStars[11]
+        ];
+        var JSfiveStars = [
+            @fiveStars[0],
+            @fiveStars[1],
+            @fiveStars[2],
+            @fiveStars[3],
+            @fiveStars[4],
+            @fiveStars[5],
+            @fiveStars[6],
+            @fiveStars[7],
+            @fiveStars[8],
+            @fiveStars[9],
+            @fiveStars[10],
+            @fiveStars[11]
+        ];
+
+
+        //The real code from the database
+
+        //var freqData = [
+        //    { State: 'Jan', freq: { one: JSoneStar[0], two: JStwoStars[0], three: JSthreeStars[0], four: JSfourStars[0], five: JSfiveStars[0] } }
+        //    , { State: 'Feb', freq: { one: JSoneStar[1], two: JStwoStars[1], three: JSthreeStars[1], four: JSfourStars[1], five: JSfiveStars[1] } }
+        //    , { State: 'Mar', freq: { one: JSoneStar[2], two: JStwoStars[2], three: JSthreeStars[2], four: JSfourStars[2], five: JSfiveStars[2] } }
+        //    , { State: 'Apr', freq: { one: JSoneStar[3], two: JStwoStars[3], three: JSthreeStars[3], four: JSfourStars[3], five: JSfiveStars[3] } }
+        //    , { State: 'May', freq: { one: JSoneStar[4], two: JStwoStars[4], three: JSthreeStars[4], four: JSfourStars[4], five: JSfiveStars[4] } }
+        //    , { State: 'Jun', freq: { one: JSoneStar[5], two: JStwoStars[5], three: JSthreeStars[5], four: JSfourStars[5], five: JSfiveStars[5] } }
+        //    , { State: 'Jul', freq: { one: JSoneStar[6], two: JStwoStars[6], three: JSthreeStars[6], four: JSfourStars[6], five: JSfiveStars[6] } }
+        //    , { State: 'Aug', freq: { one: JSoneStar[7], two: JStwoStars[7], three: JSthreeStars[7], four: JSfourStars[7], five: JSfiveStars[7] } }
+        //    , { State: 'Sep', freq: { one: JSoneStar[8], two: JStwoStars[8], three: JSthreeStars[8], four: JSfourStars[8], five: JSfiveStars[8] } }
+        //    , { State: 'Oct', freq: { one: JSoneStar[9], two: JStwoStars[9], three: JSthreeStars[9], four: JSfourStars[9], five: JSfiveStars[9] } }
+        //    , { State: 'Nov', freq: { one: JSoneStar[10], two: JStwoStars[10], three: JSthreeStars[10], four: JSfourStars[10], five: JSfiveStars[10] } }
+        //    , { State: 'Dec', freq: { one: JSoneStar[11], two: JStwoStars[11], three: JSthreeStars[11], four: JSfourStars[11], five: JSfiveStars[11] } }
+        //];
+
+
+        //Test without database.
+
+        var freqData = [
+            { State: 'Jan', freq: { one: 32, two: 454, three: 565, four:343 ,five:454 } }
+            , { State: 'Feb', freq: { one: 43, two: 65, three: 334, four: 332, five: 777 } }
+            , { State: 'Mar', freq: { one: 465, two: 34, three: 45, four:324, five: 555 } }
+            , { State: 'Apr', freq: { one: 32, two: 65, three: 67, four:545, five: 432} }
+            , { State: 'May', freq: { one: 233, two: 545, three: 767, four:787, five: 234 } }
+            , { State: 'Jun', freq: { one: 45, two: 32, three: 546, four:656, five: 111 } }
+            , { State: 'Jul', freq: { one: 43, two: 24, three: 56, four:545, five: 222 } }
+            , { State: 'Aug', freq: { one: 98, two: 656, three: 234, four:787, five: 534 } }
+            , { State: 'Sep', freq: { one: 232, two: 456, three: 343, four:343, five: 534 } }
+            , { State: 'Oct', freq: { one: 342, two: 565, three: 354, four:343, five: 534 } }
+            , { State: 'Nov', freq: { one: 344, two: 67, three: 345, four:687, five: 534 } }
+            , { State: 'Dec', freq: { one: 34, two: 11, three: 130, four:343, five: 534 } }
+        ];
+
+        dashboard('#dashboard', freqData);
+</script>
+
+

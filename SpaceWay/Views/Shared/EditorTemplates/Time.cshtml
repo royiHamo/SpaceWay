@@ -1,0 +1,11 @@
+﻿@{
+    var attributes = new Dictionary<string, object>();
+    attributes.Add("class", "form-control");
+    attributes.Add("type", "datetime");
+}
+<div class="input-group timepicker col-sm-3 col-md-3" id="@(ViewData.TemplateInfo.HtmlFieldPrefix)-timepicker">
+    @Html.TextBox("", ViewData.TemplateInfo.FormattedModelValue, attributes)
+    <span class="input-group-addon">
+        <span class="fa fa-clock-o"></span>
+    </span>
+</div>

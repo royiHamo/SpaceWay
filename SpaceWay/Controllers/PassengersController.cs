@@ -50,11 +50,11 @@ namespace SpaceWay.Controllers
                     var passengerNotLoggedIn = db.Passengers.SingleOrDefault(x => x.Username == UN);
                     if (passengerNotLoggedIn==null)
                     {
-                        ModelState.AddModelError("Username", "Username does not exists");
+                        ModelState.AddModelError("Password", "Wrong Username and/or Password");
                     }
                     else if (!(passengerNotLoggedIn.Password == PW))
                     {
-                        ModelState.AddModelError("Password", "Password does not correct");
+                        ModelState.AddModelError("Password", "Wrong Username and/or Password");
                     }
                     return View();
                 }
@@ -169,6 +169,21 @@ namespace SpaceWay.Controllers
             }
 
             return View(passenger);
+        }
+
+        public ActionResult JoinPassengersAndDestinations()
+        {
+            var passengersDests = (
+                from p in db.Passengers
+                join r in db.Reservations
+                on p.PassengerID equals r.PassengerID
+                select new
+                {
+                    PassengerName = p.Name,
+                    Destination = r.Outbound.Destination.Name,
+                }).AsEnumerable().Select(x => Tuple.Create(x.PassengerName, x.Destination)).ToList();
+
+            return View(passengersDests);
         }
 
         // GET: Passengers/Edit/5

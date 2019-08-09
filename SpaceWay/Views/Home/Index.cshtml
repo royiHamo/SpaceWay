@@ -46,7 +46,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
-                    @{if (Session["Username"] == null)
+                    @if (Session["Username"] == null)
                         {
                             Html.RenderPartial("NotLoggedInNavBar");
                         }
@@ -54,7 +54,7 @@
                         {
                             Html.RenderPartial("LoggedInNavBar");
                         }
-                    }
+                    
                     @*<li class="nav-item">
                             <a class="nav-link js-scroll-trigger" href="#about">About</a>
                         </li>
@@ -82,7 +82,7 @@
                 {
                     <a href='@Url.Action("Create", "Passengers")' class="btn btn-primary js-scroll-trigger">Book A Flight</a>//if not logged in
                 }
-
+                 
                 else
                 {
                     <a href='@Url.Action("SearchFlight", "Flights")' class="btn btn-primary js-scroll-trigger">Book A Flight</a>//if logged in

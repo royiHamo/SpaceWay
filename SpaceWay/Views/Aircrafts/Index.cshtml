@@ -5,7 +5,11 @@
 }
 
 <h2>Index</h2>
-
+@using (Html.BeginForm("Search", "Aircrafts", FormMethod.Post))
+{
+    <input type="text" name="lvl" />
+    <button type="submit">Filter</button>
+}
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
@@ -20,20 +24,21 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Level)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Seats)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.AircraftID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.AircraftID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.AircraftID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Level)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Seats)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.AircraftID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.AircraftID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.AircraftID })
+            </td>
+        </tr>
+    }
 
 </table>

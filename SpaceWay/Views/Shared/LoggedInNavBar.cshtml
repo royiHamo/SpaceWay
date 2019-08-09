@@ -1,7 +1,7 @@
-﻿@{
+﻿@{ 
     bool checkAdmin()
     {
-        if (Session["isAdmin"] == "1")
+        if ((string)Session["isAdmin"] == "1")
             return true;
         return false;
     }
@@ -16,9 +16,6 @@
 <li class="nav-item">
     <a class="nav-link js-scroll-trigger" href='#'><font color="white">@welcomeText</font></a>
 </li>
-@*<li class="nav-item">
-    <a class="nav-link js-scroll-trigger" href='@Url.Action("Index", "Home")'>Home</a>
-</li>*@
 
 <li class="nav-item">
     @if (checkAdmin() == true)
@@ -57,6 +54,9 @@
     </li>
     <li class="nav-item">
         <a class="nav-link js-scroll-trigger" href='@Url.Action("Nasa", "Home")'>Picture Of the Day</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link js-scroll-trigger" href='@Url.Action("Statistics", "Home")'>Statistics</a>
     </li>
     <li class="nav-item">
         <a class="nav-link js-scroll-trigger" href='@Url.Action("Logout", "Passengers")'>Logout</a>

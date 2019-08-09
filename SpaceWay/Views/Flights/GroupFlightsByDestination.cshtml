@@ -1,0 +1,53 @@
+﻿@model IEnumerable<IGrouping<string, SpaceWay.Models.Flight>>
+@{
+    ViewBag.Title = "GroupFlightsByDestination";
+}
+
+<h2>Group Flights By Destination</h2>
+
+<table class="table">
+
+    @{ foreach (var stationGrp in Model)
+        {
+            <tr>
+                <td>
+                    Station
+                </td>
+                <td>
+                    FlightID
+                </td>
+                <td>
+                    Departure Date
+                </td>
+                <td>
+                    Available Seats
+                </td>
+                <td>
+                    Price
+                </td>
+            </tr>
+
+            foreach (var flight in stationGrp)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(t => stationGrp.Key)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(t => flight.FlightID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(t => flight.Departure)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(t => flight.NumOfPassengers)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(t => flight.Price)
+                    </td>
+                </tr>
+            }
+        }
+    }
+    }
+</table>

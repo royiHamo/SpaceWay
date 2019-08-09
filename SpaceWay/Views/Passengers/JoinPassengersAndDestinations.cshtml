@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Tuple<string,string>>
+
+@{
+    ViewBag.Title = "JoinPassengersAndDestinations";
+}
+
+<h2>Passengers Destinations</h2>
+
+<table class="table">
+        <tr>
+            <td>
+                Passenger Name
+            </td>
+            <td>
+                Destination
+            </td>
+        </tr>
+    @foreach (Tuple<string, string> tuple in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(t => tuple.Item1)
+            </td>
+            <td>
+                @Html.DisplayFor(t => tuple.Item2)
+            </td>
+        </tr>
+
+    }
+</table>

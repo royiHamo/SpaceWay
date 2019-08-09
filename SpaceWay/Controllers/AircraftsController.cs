@@ -16,10 +16,32 @@ namespace SpaceWay.Controllers
         private SpaceWayDbContext db = new SpaceWayDbContext();
 
         // GET: Aircrafts
-        public ActionResult Index()
+        public ActionResult Index(int? levelToFilter)
         {
-            return View(db.Aircrafts.ToList());
+            List<Aircraft> airs = new List<Aircraft>();
+            airs = db.Aircrafts.ToList().Where(a => a.Level == levelToFilter).ToList();
+
+            if (!airs.Any())
+            {
+                return View(db.Aircrafts.ToList());
+            }
+
+            return View(airs);
         }
+
+        // POST: Aircrafts
+        [HttpPost]
+        public ActionResult Search(string lvl)
+        {
+            if (string.IsNullOrEmpty(lvl))
+            {
+                return RedirectToAction("Index");
+            }
+            int level = Convert.ToInt16(lvl);
+
+            return RedirectToAction("Index", new { @levelToFilter = level });
+        }
+
 
         // GET: Aircrafts/Details/5
         public ActionResult Details(int? id)
@@ -126,3 +148,5 @@ namespace SpaceWay.Controllers
         }
     }
 }
+
+

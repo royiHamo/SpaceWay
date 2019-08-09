@@ -16,9 +16,29 @@ namespace SpaceWay.Controllers
         private SpaceWayDbContext db = new SpaceWayDbContext();
 
         // GET: Stations
-        public ActionResult Index()
+        public ActionResult Index(string planetToFilter)
         {
+            var filteredStations = from s in db.Stations.ToList()
+                                   where s.Planet == planetToFilter
+                                   select s;
+
+            if (!filteredStations.Any())
+            {
             return View(db.Stations.ToList());
+            }
+            return View(filteredStations);
+        }
+
+        // POST: Stations
+        [HttpPost]
+        public ActionResult Search(string planet)
+        {
+            if (string.IsNullOrEmpty(planet))
+            {
+                return RedirectToAction("Index");
+            }
+
+            return RedirectToAction("Index", new { @planetToFilter = planet });
         }
 
         // GET: Stations/Details/5

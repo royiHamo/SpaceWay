@@ -155,6 +155,32 @@ namespace SpaceWay.Controllers
             return View();
         }
 
+        public ActionResult JoinFlightsAndAircrafts()
+        {
+            var aircraftsFlightsAvailableSeats = (
+                from a in db.Aircrafts
+                join f in db.Flights
+                on a.AircraftID equals f.AircraftID
+                select new
+                {
+                    a.AircraftID,
+                    AvailableSeats = f.NumOfPassengers,
+                }).AsEnumerable().Select(x => Tuple.Create(x.AircraftID, x.AvailableSeats)).ToList();
+
+            return View(aircraftsFlightsAvailableSeats);
+        }
+
+        public ActionResult GroupFlightsByDestination()
+        {
+            var flightByDestsGroups = 
+                from f in db.Flights
+                group f by f.Destination.Name into flightsByDestinations
+                orderby flightsByDestinations.Key ascending
+                select flightsByDestinations;
+          
+            return View(flightByDestsGroups);
+        }
+
         //GET:
         public ActionResult SearchFlightResults(Flight result)
         {
@@ -179,8 +205,6 @@ namespace SpaceWay.Controllers
 
             return RedirectToAction("NewReservation", "Reservations", new { @Outid = selectedOutFlightID, @Inid = selectedInFlightID });
         }
-
-
 
         protected override void Dispose(bool disposing)
         {

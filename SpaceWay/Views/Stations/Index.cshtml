@@ -5,7 +5,11 @@
 }
 
 <h2>Index</h2>
-
+@using (Html.BeginForm("Search", "Stations", FormMethod.Post))
+{
+    <input type="text" name="planet" />
+    <button type="submit">Filter</button>
+}
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
@@ -23,23 +27,24 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Planet)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.StationID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.StationID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.StationID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Planet)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.StationID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.StationID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.StationID })
+            </td>
+        </tr>
+    }
 
 </table>

@@ -295,11 +295,15 @@
     <Content Include="Views\Reservations\Edit.cshtml" />
     <Content Include="Views\Reservations\Index.cshtml" />
     <Content Include="Views\Reservations\MyReservations.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
     <Content Include="Views\Reservations\NewReservation.cshtml" />
     <Content Include="Views\Reservations\Payment.cshtml" />
     <Content Include="Views\Home\Nasa.cshtml" />
     <Content Include="Views\Passengers\PassengerEdit.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Time.cshtml" />
+    <Content Include="Views\Passengers\JoinPassengersAndDestinations.cshtml" />
+    <Content Include="Views\Flights\JoinFlightsAndAircrafts.cshtml" />
+    <Content Include="Views\Home\Statistics.cshtml" />
+    <Content Include="Views\Flights\GroupFlightsByDestination.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
