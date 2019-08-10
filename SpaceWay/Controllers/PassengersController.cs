@@ -237,18 +237,22 @@ namespace SpaceWay.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult PassengerEdit([Bind(Include = "PassengerID,Name,Username,Password")] Passenger passenger)
+        public ActionResult PassengerEdit([Bind(Include = "PassengerID,Name,Username,Password,Stars,IsAdmin,TotalDistance,Reservations")] Passenger passenger)
         {
             if (ModelState.IsValid)         //need to enable option for editing the password only
             {
-                var exists = db.Passengers.FirstOrDefault(x => x.Username == passenger.Username);
+                //assigning reservations
+                for (int i =0;i< passenger.Reservations.Count;i++)
+                {
+                    int id = passenger.Reservations[i].ReservationID;
+                    passenger.Reservations[i] = db.Reservations.FirstOrDefault(x => x.ReservationID == id);
+                }
+
+                var exists = db.Passengers.FirstOrDefault(x => x.Username == passenger.Username && x.PassengerID != passenger.PassengerID);
                 if (exists != null)
                 {
-                    if (exists.PassengerID != passenger.PassengerID)
-                    {
                         ModelState.AddModelError("Username", "Username already exists");
-                        return View();
-                    }
+                        return View(passenger);
                 }
                 db.Entry(passenger).State = EntityState.Modified;
                 db.SaveChanges();
