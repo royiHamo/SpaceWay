@@ -10,9 +10,6 @@
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Passenger.Name)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.OrderDate)
             </th>
             <th>
@@ -39,9 +36,6 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Passenger.Name)
-                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.OrderDate)
                 </td>
