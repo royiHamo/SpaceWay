@@ -167,9 +167,11 @@
     <Content Include="Content\img\ipad.png" />
     <Content Include="Content\img\source.txt" />
     <Content Include="Content\js\d3.v3.min.js" />
+    <Content Include="Content\js\googleMap.js" />
     <Content Include="Content\js\nasa.js" />
     <Content Include="Content\js\grayscale.js" />
     <Content Include="Content\js\grayscale.min.js" />
+    <Content Include="Content\js\PassengerSearch.js" />
     <Content Include="Content\vendor\bootstrap\css\bootstrap-grid.css" />
     <Content Include="Content\vendor\bootstrap\css\bootstrap-grid.min.css" />
     <Content Include="Content\vendor\bootstrap\css\bootstrap-reboot.css" />
