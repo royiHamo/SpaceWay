@@ -35,6 +35,7 @@ namespace SpaceWay.Models
         [DataType(DataType.DateTime)]
         public DateTime Arrival { get; set; }
 
+        [DataType(DataType.Currency)]
         public double Price { get; set; }
 
  

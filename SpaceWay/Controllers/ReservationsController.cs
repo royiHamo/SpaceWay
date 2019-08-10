@@ -133,8 +133,13 @@ namespace SpaceWay.Controllers
                 //occupy seats on flights
                 reservation.Outbound.NumOfPassengers -= reservation.NumOfTickets;
                 reservation.Inbound.NumOfPassengers -= reservation.NumOfTickets;
+
                 //updating passenger's total distance
                 reservation.Passenger.TotalDistance += reservation.Outbound.Distance + reservation.Inbound.Distance;
+
+                //updating stars
+                reservation.Passenger.Stars = (int)(reservation.Passenger.TotalDistance / 50000) + 1; 
+
                 //updating db
                 db.Reservations.Add(reservation);
                 db.SaveChanges(); 
@@ -161,6 +166,28 @@ namespace SpaceWay.Controllers
         public ActionResult AdminCreate([Bind(Include = "ReservationID,PassengerID,OrderDate,OutboundID,InboundID,NumOfTickets,TotalPrice")] Reservation reservation)
         {
             ViewBag.FlightID = new SelectList(db.Flights, "FlightID", "FlightID");
+
+            //assigning flights
+            reservation.Outbound = db.Flights.ToList().FirstOrDefault(f => f.FlightID == reservation.OutboundID);
+            reservation.Inbound = db.Flights.ToList().FirstOrDefault(f => f.FlightID == reservation.InboundID);
+
+            //assigning date of order
+            reservation.OrderDate = DateTime.Now;
+
+            //assigning passenger
+            reservation.Passenger = db.Passengers.First(p => p.PassengerID.Equals(reservation.PassengerID));
+
+            //occupy seats on flights
+            reservation.Outbound.NumOfPassengers -= reservation.NumOfTickets;
+            reservation.Inbound.NumOfPassengers -= reservation.NumOfTickets;
+
+            //updating passenger's total distance
+            reservation.Passenger.TotalDistance += reservation.Outbound.Distance + reservation.Inbound.Distance;
+
+            //updating stars
+            reservation.Passenger.Stars = (int)(reservation.Passenger.TotalDistance / 50000) + 1;
+
+
             if (ModelState.IsValid)
             {
                 db.Reservations.Add(reservation);

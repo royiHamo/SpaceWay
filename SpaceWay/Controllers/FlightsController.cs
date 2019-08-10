@@ -137,7 +137,7 @@ namespace SpaceWay.Controllers
             //ViewData["Stations"] = db.Stations.ToList();
             ViewBag.OriginID = new SelectList(db.Stations, "StationID", "Name");
             ViewBag.DestinationID = new SelectList(db.Stations, "StationID", "Name");
-            ViewBag.AircraftID = new SelectList(db.Aircrafts, "AircraftID", "AircraftID");
+            //ViewBag.AircraftID = new SelectList(db.Aircrafts, "AircraftID", "AircraftID");
             return View();
         }
 
@@ -147,7 +147,7 @@ namespace SpaceWay.Controllers
         {
             //flight.Origin = db.Stations.FirstOrDefault(s => s.StationID == flight.OriginID);
             //flight.Destination = db.Stations.FirstOrDefault(s => s.StationID == flight.DestinationID);
-            TempData["lvl"] = form["AircraftID"];
+            TempData["lvl"] = form["lvl"];
             TempData["orig"] = form["OriginID"];
             TempData["dest"] = form["DestinationID"];
             TempData["dept"] = form["departure"];
@@ -247,10 +247,6 @@ namespace SpaceWay.Controllers
 
             return RedirectToAction("NewReservation", "Reservations", new { @Outid = TempData["selectedOutID"], @Inid = TempData["selectedInID"] });
         }
-
-
-
-
 
         protected override void Dispose(bool disposing)
         {

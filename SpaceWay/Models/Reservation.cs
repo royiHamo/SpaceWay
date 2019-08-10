@@ -13,6 +13,7 @@ namespace SpaceWay.Models
 
         public int PassengerID { get; set; }
         public virtual Passenger Passenger { get; set; }
+
         [DataType(DataType.DateTime)]
         public DateTime OrderDate { get; set; }
 
@@ -25,6 +26,8 @@ namespace SpaceWay.Models
         public virtual Flight Inbound { get; set; }
 
         public int NumOfTickets { get; set; }
+
+        [DataType(DataType.Currency)]
         public double TotalPrice { get; set; }
 
     }

@@ -16,7 +16,8 @@ namespace SpaceWay.Models
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
-        public int Stars { get; set; } = 0;      //rank 0-5
+        [Range(1,5)]
+        public int Stars { get; set; } = 0;      //between 1-5
         public bool IsAdmin { get; set; } = false;
         public double TotalDistance { get; set; } = 0;
         public virtual ICollection<Reservation> Reservations { get; set; }
