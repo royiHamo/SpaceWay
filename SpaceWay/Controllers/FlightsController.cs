@@ -143,13 +143,18 @@ namespace SpaceWay.Controllers
 
         //POST: Flights/SearchFlight
         [HttpPost]
-        public ActionResult SearchFlight(Flight flight)
+        public ActionResult SearchFlight(FormCollection form)
         {
-            flight.Origin = db.Stations.FirstOrDefault(s => s.StationID == flight.OriginID);
-            flight.Destination = db.Stations.FirstOrDefault(s => s.StationID == flight.DestinationID);
+            //flight.Origin = db.Stations.FirstOrDefault(s => s.StationID == flight.OriginID);
+            //flight.Destination = db.Stations.FirstOrDefault(s => s.StationID == flight.DestinationID);
+            TempData["lvl"] = form["AircraftID"];
+            TempData["orig"] = form["OriginID"];
+            TempData["dest"] = form["DestinationID"];
+            TempData["dept"] = form["departure"];
+            TempData["arri"] = form["arrival"];
             if (ModelState.IsValid)
             {
-                return RedirectToAction("SearchFlightResults", flight);
+                return RedirectToAction("SearchFlightResultsOut");
             }
 
             return View();
@@ -182,15 +187,19 @@ namespace SpaceWay.Controllers
         }
 
         //GET:
-        public ActionResult SearchFlightResults(Flight result)
+        public ActionResult SearchFlightResultsOut()
         {
-            List<Flight> flightsToDisplay = new List<Flight>();
+            int lvl = Convert.ToInt16(TempData.Peek("lvl"));
+            int orig = Convert.ToInt16(TempData.Peek("orig"));
+            int dest = Convert.ToInt16(TempData.Peek("dest"));
+            DateTime departure = DateTime.Parse((string)TempData.Peek("dept"));
+            //DateTime arrival = (DateTime)TempData["arri"];
+            List<Flight> flightsToDisplay = null;
 
-            flightsToDisplay = db.Flights.ToList().Where(f => f.AircraftID == result.AircraftID && 
-                                                              DateTime.Compare(f.Departure,result.Departure) == 0 && 
-                                                              DateTime.Compare(f.Arrival.Date,result.Arrival.Date) == 0 &&
-                                                              f.OriginID==result.OriginID &&
-                                                              f.DestinationID == result.DestinationID).ToList();
+            flightsToDisplay = db.Flights.ToList().Where(f => f.AircraftID == lvl &&
+                                                              DateTime.Compare(f.Departure.Date, departure.Date) == 0 &&
+                                                              f.OriginID == orig &&
+                                                              f.DestinationID == dest).ToList();
 
             return View(flightsToDisplay);
         }
@@ -198,13 +207,50 @@ namespace SpaceWay.Controllers
 
         //POST:
         [HttpPost]
-        public ActionResult SearchFlightResults(FormCollection form)
+        public ActionResult SearchFlightResultsOut(FormCollection form)
         {
-            int selectedOutFlightID = Convert.ToInt16(form["OutRadio"]);
-            int selectedInFlightID = Convert.ToInt16(form["InRadio"]);
 
-            return RedirectToAction("NewReservation", "Reservations", new { @Outid = selectedOutFlightID, @Inid = selectedInFlightID });
+            TempData["selectedOutID"] = Convert.ToInt16(form["OutRadio"]);
+            //int selectedOutFlightID = Convert.ToInt16(form["OutRadio"]);
+            //int selectedInFlightID = Convert.ToInt16(form["InRadio"]);
+
+            //return RedirectToAction("NewReservation", "Reservations", new { @Outid = selectedOutFlightID, @Inid = selectedInFlightID });
+            return RedirectToAction("SearchFlightResultsIn");
         }
+
+
+
+        //GET:
+        public ActionResult SearchFlightResultsIn()
+        {
+            List<Flight> flightsToDisplay = null;              // Israel (orig)01/07 -> London (dest)
+                                                                //
+
+            int lvl = Convert.ToInt16(TempData.Peek("lvl"));
+            int orig = Convert.ToInt16(TempData.Peek("dest"));
+            int dest = Convert.ToInt16(TempData.Peek("orig"));
+            DateTime departure = DateTime.Parse((string)TempData.Peek("arri"));
+
+            flightsToDisplay = db.Flights.ToList().Where(f => f.AircraftID == lvl &&
+                                                            DateTime.Compare(f.Departure.Date, departure.Date) == 0 &&
+                                                              f.OriginID == orig &&
+                                                              f.DestinationID == dest).ToList();
+
+            return View(flightsToDisplay);
+        }
+
+        //POST:
+        [HttpPost]
+        public ActionResult SearchFlightResultsIn(FormCollection form)
+        {
+            TempData["selectedInID"] = Convert.ToInt16(form["InRadio"]);
+
+            return RedirectToAction("NewReservation", "Reservations", new { @Outid = TempData["selectedOutID"], @Inid = TempData["selectedInID"] });
+        }
+
+
+
+
 
         protected override void Dispose(bool disposing)
         {

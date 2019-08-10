@@ -1,9 +1,7 @@
-﻿@{ 
+﻿@{
     bool checkAdmin()
     {
-        if ((string)Session["isAdmin"] == "1")
-            return true;
-        return false;
+        return ((string)Session["isAdmin"] == "1");
     }
 
     var welcomeText = "";
@@ -13,6 +11,11 @@
     }
 
 }
+
+<li class="nav-item">
+    <a class="nav-link js-scroll-trigger" href='@Url.Action("Index", "Home")'><b>Home</b></a>
+</li>
+
 <li class="nav-item">
     <a class="nav-link js-scroll-trigger" href='#'><font color="white">@welcomeText</font></a>
 </li>
@@ -21,48 +24,56 @@
     @if (checkAdmin() == true)
     {<a class="nav-link js-scroll-trigger" href='@Url.Action("Search", "Passengers")'>Passengers</a>}
 </li>
-<li class="nav-item">
-    @if (checkAdmin() == true)
-    {<a class="nav-link js-scroll-trigger" href='@Url.Action("Index", "Reservations")'>Reservations</a>}
-</li>
-<li class="nav-item">
-    @if (checkAdmin() == true)
-    {<a class="nav-link js-scroll-trigger" href='@Url.Action("Index", "Flights")'>Flights</a>}
-</li>
-<li class="nav-item">
-    @if (checkAdmin() == true)
-    {<a class="nav-link js-scroll-trigger" href='@Url.Action("Index", "Aircrafts")'>Aircrafts</a>}
-</li>
-<li class="nav-item">
-    @if (checkAdmin() == true)
-    {<a class="nav-link js-scroll-trigger" href='@Url.Action("Index", "Stations")'>Stations</a>}
-</li>
 
-@if (checkAdmin() == false)
-{    <li class="nav-item">
-        <a class="nav-link js-scroll-trigger" href='@Url.Action("MyReservations", "Reservations")'>My Reservations</a>
-    </li>
-}
-    @*<li >@if (checkAdmin()==true) {@Html.ActionLink("Passengers", "Search", "Passengers") }</li>
-        <li>@if (checkAdmin() == true) {@Html.ActionLink("Reservations", "Index", "Reservations")}</li>
-        <li>@if (checkAdmin() == true) {@Html.ActionLink("Flights", "Index", "Flights")}</li>*@
-    @*<li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href='@Url.Action("SearchFlight", "Flights")'>Book A Flight</a>
-        </li>*@
+@if (checkAdmin() == true)
+{
     <li class="nav-item">
-        <a class="nav-link js-scroll-trigger" href='@Url.Action("PassengerProfile", "Passengers")'>Profile</a>
+        <a class="nav-link js-scroll-trigger" href='@Url.Action("Index", "Aircrafts")'>Aircrafts</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link js-scroll-trigger" href='@Url.Action("Nasa", "Home")'>Picture Of the Day</a>
+        <a class="nav-link js-scroll-trigger" href='@Url.Action("Index", "Stations")'>Stations</a>
     </li>
     <li class="nav-item">
         <a class="nav-link js-scroll-trigger" href='@Url.Action("Statistics", "Home")'>Statistics</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link js-scroll-trigger" href='@Url.Action("Logout", "Passengers")'>Logout</a>
+        <a class="nav-link js-scroll-trigger" href='@Url.Action("Index", "Flights")'>Flights</a>
     </li>
-    @*<li>@Html.ActionLink("Book A Flight", "SearchFlight", "Flights")}</li>
-        <li>@Html.ActionLink("Profile", "PassengerProfile", "Passengers")</li>
-        <li>@Html.ActionLink("Logout", "Logout", "Passengers")</li>*@
+    <li class="nav-item">
+        <a class="nav-link js-scroll-trigger" href='@Url.Action("Index", "Reservations")'>Reservations</a>
+    </li>
+
+}
+
+<li class="nav-item">
+    <a class="nav-link js-scroll-trigger" href='@Url.Action("PassengerProfile", "Passengers")'>Profile</a>
+</li>
+@if (checkAdmin() == false)
+{
+    <li class="nav-item">
+        <a class="nav-link js-scroll-trigger" href='@Url.Action("MyReservations", "Reservations")'>My Reservations</a>
+    </li>
+}
+<li class="nav-item">
+    <a class="nav-link js-scroll-trigger" href='@Url.Action("Nasa", "Home")'>Picture Of The Day</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link js-scroll-trigger"></a>
+</li>
+<li class="nav-item">
+    <a class="nav-link js-scroll-trigger"></a>
+</li>
+<li class="nav-item">
+    <a class="nav-link js-scroll-trigger"></a>
+</li>
+<li class="nav-item">
+    <a class="nav-link js-scroll-trigger"></a>
+</li>
+<li class="nav-item">
+    <a class="nav-link js-scroll-trigger"></a>
+</li>
+<li class="nav-item">
+    <a class="nav-link js-scroll-trigger" href='@Url.Action("Logout", "Passengers")'>Logout</a>
+</li>
 
 

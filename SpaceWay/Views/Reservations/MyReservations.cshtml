@@ -38,44 +38,54 @@
 
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Passenger.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OrderDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Outbound.Origin.Name)
-                @Html.DisplayFor(modelItem => item.Outbound.Departure)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Outbound.Destination.Name)
-                @Html.DisplayFor(modelItem => item.Outbound.Arrival)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Inbound.Origin.Name)
-                @Html.DisplayFor(modelItem => item.Inbound.Departure)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Inbound.Destination.Name)
-                @Html.DisplayFor(modelItem => item.Inbound.Arrival)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumOfTickets)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TotalPrice)
-            </td>
-            <td></td>
-        </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Passenger.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Outbound.Origin.Name)
+                    @Html.DisplayFor(modelItem => item.Outbound.Departure)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Outbound.Destination.Name)
+                    @Html.DisplayFor(modelItem => item.Outbound.Arrival)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Inbound.Origin.Name)
+                    @Html.DisplayFor(modelItem => item.Inbound.Departure)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Inbound.Destination.Name)
+                    @Html.DisplayFor(modelItem => item.Inbound.Arrival)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumOfTickets)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalPrice)
+                </td>
+                <td></td>
+            </tr>
         }
 
     </table>
 }
 else
 {
-    <h2 class="text-white-50 mx-auto mt-2 mb-5">You have no reservations yet.</h2><br />
-    @Html.ActionLink("Order Now","SearchFlight","Flights")
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col">
+                <h2 class="text-white-50 mx-auto mt-2 mb-5">You have no reservations yet.</h2><br />
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <a href='@Url.Action("SearchFlight", "Flights")' class="btn btn-dark js-scroll-trigger">Order now</a>
+            </div>
+        </div>
+    </div>
 }
 

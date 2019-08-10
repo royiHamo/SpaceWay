@@ -3,6 +3,14 @@
  * Copyright 2013-2019 Start Bootstrap
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-grayscale/blob/master/LICENSE)
  */
+@font-face {
+    font-family: aviano;
+    src: url('../../fonts/Aviano Future W01 Regular.ttf')
+}
+@font-face {
+    font-family: ailerons;
+    src: url('../../fonts/Ailerons-Regular.otf')
+}
 
 #mainNav {
     min-height: 56px;
@@ -47,7 +55,7 @@
         -webkit-transition: background-color 0.3s ease-in-out;
         transition: background-color 0.3s ease-in-out;
     }
-
+    
         #mainNav .navbar-brand {
             padding: .5rem 0;
             color: rgba(255, 255, 255, 0.5);
@@ -140,6 +148,13 @@ h2 {
 h4 {
     color: darkgray !important;
 }
+.nasa p {
+    column-count: 3;
+}
+
+.nasa h3 {
+    text-shadow: 0px 1px 1px #ccc;
+}
 
 .loader {
     border: 16px solid #f3f3f3;
@@ -217,6 +232,7 @@ tr:hover {
     font-size: 1rem;
     color: darkgray;
     position: relative !important;
+    font-family: ailerons !important;
 }
 
 .mastheadview h2 {
@@ -388,6 +404,9 @@ tr:hover {
         letter-spacing: 0.15rem;
         border: 0;
     }
+.video {
+    border-radius: 10px;
+}
 
 .contact-section {
     padding: 5rem 0 0;
@@ -396,7 +415,7 @@ tr:hover {
     .contact-section .card {
         border: 0;
         border-bottom: 0.25rem solid #64a19d;
-    }
+        }
 
         .contact-section .card h4 {
             font-size: 0.8rem;

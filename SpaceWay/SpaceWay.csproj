@@ -156,6 +156,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\grayscale.css" />
     <Content Include="Content\css\grayscale.min.css" />
+    <Content Include="Content\Images\Home.png" />
     <Content Include="Content\img\bg-masthead-view.jpg" />
     <Content Include="Content\img\bg-masthead2.jpg" />
     <Content Include="Content\img\bg-signup.jpg" />
@@ -233,6 +234,8 @@
     <Content Include="Content\vendor\fontawesome-free\webfonts\fa-solid-900.woff2" />
     <Content Include="Content\vendor\jquery\jquery.min.map" />
     <Content Include="Content\vendor\jquery\jquery.slim.min.map" />
+    <Content Include="fonts\Aviano Future W01 Regular.ttf" />
+    <Content Include="fonts\Ailerons-Regular.otf" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -288,7 +291,7 @@
     <Content Include="Views\Flights\Edit.cshtml" />
     <Content Include="Views\Flights\Index.cshtml" />
     <Content Include="Views\Flights\SearchFlight.cshtml" />
-    <Content Include="Views\Flights\SearchFlightResults.cshtml" />
+    <Content Include="Views\Flights\SearchFlightResultsOut.cshtml" />
     <Content Include="Views\Reservations\AdminCreate.cshtml" />
     <Content Include="Views\Reservations\Delete.cshtml" />
     <Content Include="Views\Reservations\Details.cshtml" />
@@ -304,6 +307,7 @@
     <Content Include="Views\Flights\JoinFlightsAndAircrafts.cshtml" />
     <Content Include="Views\Home\Statistics.cshtml" />
     <Content Include="Views\Flights\GroupFlightsByDestination.cshtml" />
+    <Content Include="Views\Flights\SearchFlightResultsIn.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -3,6 +3,7 @@
     var y = 0;
     var key, pos = 0;
     var canvas = document.getElementById("myCanvas");
+    if (canvas != null) {
     var ctx = canvas.getContext("2d");
     var w = canvas.clientWidth - 70;
     var h = canvas.clientHeight - 70;
@@ -41,4 +42,5 @@
         canvas.width = canvas.width;
         ctx.drawImage(img, x, y, 60, 60);
     }, 5);
+    }
 }

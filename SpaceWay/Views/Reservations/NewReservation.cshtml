@@ -49,14 +49,14 @@
 
         <dd>
             @Html.DisplayFor(model => model.Inbound.Origin.Name)
-            @Html.DisplayFor(model => model.Outbound.Departure)
+            @Html.DisplayFor(model => model.Inbound.Departure)
         </dd>
         <dt>
             @Html.Label("To ")
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Inbound.Destination.Name)
-            @Html.DisplayFor(model => model.Outbound.Arrival)
+            @Html.DisplayFor(model => model.Inbound.Arrival)
         </dd>
 
     </dl>
@@ -67,6 +67,10 @@
         @Html.HiddenFor(model => model.OrderDate)
         @Html.HiddenFor(model => model.OutboundID)
         @Html.HiddenFor(model => model.InboundID)
+        @Html.HiddenFor(model => model.Outbound)
+        @Html.HiddenFor(model => model.Inbound)
+        @Html.HiddenFor(model => model.Passenger)
+
         <div class="form-horizontal">
             <dl class="dl-horizontal">
                 <dt>
@@ -78,7 +82,7 @@
                 </dd>
             </dl>
         </div>
-        
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Go to Payment" class="btn btn-default" />

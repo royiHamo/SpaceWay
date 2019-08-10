@@ -66,31 +66,41 @@ namespace SpaceWay.Controllers
         public ActionResult NewReservation(int Outid, int Inid)
         {
             Reservation reservation = new Reservation();
+
             //outbound flight stations assigning
             Flight outbound = db.Flights.ToList().FirstOrDefault(f => f.FlightID == Outid);
+
             //inbound flight stations assigning
             Flight inbound = db.Flights.ToList().FirstOrDefault(f => f.FlightID == Inid);
-            inbound.Origin = db.Stations.ToList().FirstOrDefault(s => s.StationID == inbound.OriginID);
-            inbound.Destination = db.Stations.ToList().FirstOrDefault(s => s.StationID == inbound.DestinationID);
 
             reservation.OrderDate = DateTime.Now;
+            
+            //assigning passenger
             reservation.PassengerID = Convert.ToInt16(Session["PassengerID"]);
-            //assigning flights  and flightsIDs to reservation
+            reservation.Passenger = db.Passengers.First(p => p.PassengerID.Equals(reservation.PassengerID));
+
+            //assigning flights
             reservation.OutboundID = outbound.FlightID;
             reservation.Outbound = outbound;
             reservation.InboundID = inbound.FlightID;
             reservation.Inbound = inbound;
+
             return View(reservation);
         }
 
         ////POST: Reservations/NewReservation
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult NewReservation([Bind(Include = "ReservationID,PassengerID,OrderDate,OutboundID,InboundID,NumOfTickets")] Reservation reservation)
+        public ActionResult NewReservation([Bind(Include = "ReservationID,PassengerID,OrderDate,OutboundID,Outbound,InboundID,Inbound,NumOfTickets")] Reservation reservation)
         {
+            //assigning flights
             reservation.Outbound = db.Flights.ToList().FirstOrDefault(f => f.FlightID == reservation.OutboundID);
             reservation.Inbound = db.Flights.ToList().FirstOrDefault(f => f.FlightID == reservation.InboundID);
-     
+
+            //assigning passenger
+            reservation.Passenger = db.Passengers.First(p => p.PassengerID.Equals(reservation.PassengerID));
+
+            //calculate total price 
             reservation.TotalPrice = reservation.NumOfTickets * (reservation.Outbound.Price + reservation.Inbound.Price);
             return RedirectToAction("Payment", reservation);
             
@@ -107,10 +117,15 @@ namespace SpaceWay.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult FinalPayment([Bind(Include = "ReservationID,PassengerID,OutboundID,InboundID,NumOfTickets,TotalPrice")]Reservation reservation)
         {
+            //assigning flights
             reservation.Outbound = db.Flights.ToList().FirstOrDefault(f => f.FlightID == reservation.OutboundID);
             reservation.Inbound = db.Flights.ToList().FirstOrDefault(f => f.FlightID == reservation.InboundID);
+
+            //assigning passenger
             reservation.Passenger = db.Passengers.First(p => p.PassengerID.Equals(reservation.PassengerID));
-            reservation.OrderDate = new DateTime(2019,1,1);
+
+            reservation.OrderDate = DateTime.Now;
+
             if (ModelState.IsValid)
             {
                 if(reservation.Outbound.NumOfPassengers > reservation.NumOfTickets)//if there are seats available

@@ -28,10 +28,13 @@ namespace SpaceWay.Models
         
         public double Duration { get; set; }
         public double Distance { get; set; }
+
         [DataType(DataType.DateTime)]
         public DateTime Departure { get; set; }
+
         [DataType(DataType.DateTime)]
         public DateTime Arrival { get; set; }
+
         public double Price { get; set; }
 
  

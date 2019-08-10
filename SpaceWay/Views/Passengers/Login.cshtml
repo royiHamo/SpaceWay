@@ -21,7 +21,6 @@
             <div class="col-6">
                 <div class="form-group">
                     <label>Password:</label><br />
-                    @*<input class="form-control text-box single-line" data-val="true" data-val-required="Please enter your name." type="password" name="PW" />*@<br />
                     <input type="password" name="PW" class="form-control" aria-describedby="Username" placeholder="Enter password"><br />
                     @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })<br />
                 </div>
@@ -33,9 +32,6 @@
             <input type="submit" value="Login" class="btn btn-default" />
                 </div>
         </div>
-
-
     </form>
-
     </div>
 
