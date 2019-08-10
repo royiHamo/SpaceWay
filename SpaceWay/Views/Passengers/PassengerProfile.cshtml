@@ -24,7 +24,7 @@
         <dd>
             @Html.DisplayFor(model => model.Username)
         </dd>
-       
+
         <dt>
             @Html.DisplayNameFor(model => model.Stars)
         </dt>
@@ -40,9 +40,20 @@
         <dd>
             @Html.DisplayFor(model => model.TotalDistance)
         </dd>
-        
-        @Html.ActionLink("Edit Information", "PassengerEdit", new { id = Model.PassengerID }) 
+
+        @Html.ActionLink("Edit Information", "PassengerEdit", new { id = Model.PassengerID })
+
+        <dd>
+            <div id="divCanvas">
+                <canvas id='myCanvas' width='1000' height='150'></canvas>
+            </div>
+        </dd>
 
     </dl>
 </div>
-
+<!--canvas spaceship -->
+@*@Scripts.Render("~/Content/js/canvas.js")*@
+@section Scripts{
+    <script src="~/Content/js/canvas.js"></script>
+    <script>$(document).ready(canvasFunc());</script>
+}

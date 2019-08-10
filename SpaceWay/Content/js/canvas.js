@@ -1,28 +1,38 @@
 ﻿function canvasFunc() {
+    //fade canvas
+    $("#divCanvas").hide();
+    $("#divCanvas").fadeIn(3000);
+
+    //initialize values
     var x = 0;
     var y = 0;
     var key, pos = 0;
+
+    //bind the canvas in the html
     var canvas = document.getElementById("myCanvas");
-    if (canvas != null) {
     var ctx = canvas.getContext("2d");
+
+    //size of canvas
     var w = canvas.clientWidth - 70;
     var h = canvas.clientHeight - 70;
+
+    //spaceship image
     var img = new Image();
-    img.src = "Content/Images/spaceship.png";
+    img.src = "/Content/Images/spaceship.png";
+  
 
-
-    // img.src = "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/microsoft/209/flying-saucer_1f6f8.png";
    
-
+    //drawing the image
     img.onload = function () {
         ctx.drawImage(img, x, y, 60, 60);
-    }
+    };
 
+    //keyboard's control
     document.onkeydown = function (e) {
         pos++;
         key = window.event ? e.keyCode : e.which;
-    }
-    document.onkeyup = function (e) { pos-- }
+    };
+    document.onkeyup = function (e) { pos--; };
     setInterval(function () {
         if (pos === 0) return;
         if (x > -1 && x < w) {
@@ -39,8 +49,8 @@
             if (y > h - 1) y = h - 1;
         }
 
+        //draw the canvas after movement
         canvas.width = canvas.width;
         ctx.drawImage(img, x, y, 60, 60);
     }, 5);
-    }
 }

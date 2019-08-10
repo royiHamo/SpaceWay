@@ -32,39 +32,36 @@
 </head>
 
 
-<body id="page-top" onload="canvasFunc()" >
+<body id="page-top">
     <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous"
-            src="https://connect.facebook.net/he_IL/sdk.js#xfbml=1&version=v4.0&appId=355721755360451&autoLogAppEvents=1"></script>
+
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
         <div class="container">
-            
             <button class="navbar-toggler navbar-toggler-right" type="button" href="~/Views" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 Menu
                 <i class="fas fa-bars"></i>
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
-                    @{
-                        if (Session["Username"] == null)
-                        {
-                            Html.RenderPartial("NotLoggedInNavBar");
-                        }
-                        else
-                        {
-                            Html.RenderPartial("LoggedInNavBar");
-                        }
+                    @if (Session["Username"] == null)
+                    {
+                        Html.RenderPartial("NotLoggedInNavBar");
                     }
+                    else
+                    {
+                        Html.RenderPartial("LoggedInNavBar");
+                    }
+
                     @*<li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#about">About</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#projects">Login</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#signup">Contact</a>
-        </li>*@
+                            <a class="nav-link js-scroll-trigger" href="#about">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="#projects">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="#signup">Contact</a>
+                        </li>*@
                 </ul>
             </div>
         </div>
@@ -76,25 +73,20 @@
             <div class="mx-auto text-center">
                 <h1 class="mx-auto my-0 text-uppercase">SpaceWay</h1>
                 <aside>
-                    <h2 id="slogan" class="text-white-50 mx-auto mt-2 mb-5">Leave Earth with ease.</h2>
+                    <h2 class="text-white-50 mx-auto mt-2 mb-5">Leave Earth with ease.</h2>
                 </aside>
 
                 @if (Session["Username"] == null)
                 {
-                    <a href='@Url.Action("Create", "Passengers")' class="btn btn-primary js-scroll-trigger">Book A Flight</a>//if not logged in
+                    //if not logged in
+                    <a href='@Url.Action("Create", "Passengers")' class="btn btn-primary js-scroll-trigger">Book A Flight</a>
                 }
 
                 else
                 {
-                    <a href='@Url.Action("SearchFlight", "Flights")' class="btn btn-primary js-scroll-trigger">Book A Flight</a>//if logged in
-                    @Html.Raw("<canvas id = 'myCanvas' width = '1200' height = '150'></ canvas >");
-                    <canvas id='myCanvas'></canvas>
+                    //if logged in
+                    <a href='@Url.Action("SearchFlight", "Flights")' class="btn btn-primary js-scroll-trigger">Book A Flight</a>
                 }
-
-
-
-
-                @* <img id="spaceshipImg" src="spaceship.png" style="position:absolute;left:0; top:0;" height="20" width="20">*@
 
             </div>
         </div>
@@ -111,35 +103,13 @@
             margin-right: auto;
         }
     </style>
+
     <section class="contact-section bg-black">
+
         <div class="container">
             <div class="row">
-
+                <button id="mapButton" class="navbar-toggler text-white-50">toggle map</button>
                 <div id="map"></div>
-
-                <script>
-                    function initMap() {
-                        var myLatLng = { lat: 32.085300, lng: 34.781769 };
-
-                        var map = new google.maps.Map(document.getElementById('map'), {
-                            zoom: 10,
-                            center: myLatLng
-                        });
-
-                        var marker = new google.maps.Marker({
-                            position: myLatLng,
-                            map: map,
-                        });
-
-                        var marker2 = new google.maps.Marker({
-                            position: { lat: 32.321457, lng: 34.853195 },
-                            map: map,
-                        });
-                    }
-
-                </script>
-                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJ09chsMqk_t9GFE7Qua1vzSW2eNlFFkE&callback=initMap"
-                        async defer></script>
 
             </div>
         </div>
@@ -227,8 +197,8 @@
                 <div class="col-md-12 col-lg-12 align-items-start mx-auto text-center">
 
 
-
-                    <video class="video" width="700" height="400" src="~/Content/Images/video.mp4" title="Explore the amazing space" controls />
+                    <button id="videoButton" class="navbar-toggler text-white-50">toggle video</button>
+                    <video id="video" width="700" height="400" src="~/Content/Images/video.mp4" title="Explore the amazing space" controls />
                     @*<i class="far fa-paper-plane fa-2x mb-2 text-white"></i>
                         <h2 class="text-white mb-5">Subscribe to receive updates!</h2>
 
@@ -302,8 +272,8 @@
     <!-- Footer -->
     <footer class="bg-black small text-center text-white-50">
         <div class="container">
-        <div class="fb-like" data-href="https://www.facebook.com/Space-Way-102264297798615"
-             data-width="" data-layout="button_count" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div>
+            <div class="fb-like" data-href="https://www.facebook.com/Space-Way-102264297798615"
+                 data-width="" data-layout="button_count" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div>
             <br /><br /><br />
             Copyright &copy; Royi, Jonathan, Michal, Uri 2019
         </div>
@@ -319,12 +289,29 @@
     <!-- Custom scripts for this template -->
     <script src="~/Content/js/grayscale.min.js"></script>
 
-    <!--canvas spaceship -->
-    <script src="~/Content/js/canvas.js"></script>
+    <!--Google map -->
+    <script src="~/Content/js/googleMap.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJ09chsMqk_t9GFE7Qua1vzSW2eNlFFkE&callback=initMap"
+            async defer></script>
 
+    <!--Facebook-->
+    <script async defer crossorigin="anonymous"
+            src="https://connect.facebook.net/he_IL/sdk.js#xfbml=1&version=v4.0&appId=355721755360451&autoLogAppEvents=1"></script>
+
+    <script>
+        $("#mapButton").click(function () {
+            $("#map").toggle('slow');
+        });
+        $("#videoButton").click(function () {
+            $("#video").toggle('slow');
+        });
+
+    </script>
 
 </body>
 
 </html>
+
+
 
 
