@@ -40,11 +40,20 @@ namespace SpaceWay.Controllers
             return View(flight);
         }
 
-        //public ActionResult LearnFromStatistics(int? id)
-        //{
-        //    int stars = db.Passengers.FirstOrDefault(p=>p.PassengerID == id).Stars;
-        //    Station fave = db.Reservations.Where(r=>r.Outbound.DestinationID)
-        //}
+        public ActionResult LearnFromStatistics()
+        {
+            string username = (string)Session["Username"];
+            int stars = db.Passengers.FirstOrDefault(p => p.Username == username).Stars;    //stars = 3
+            Station fave = db.Reservations.Where(r => r.Passenger.Stars == stars).ToList()
+                                                    .Select(x => x.Outbound.Destination).GroupBy(i => i)
+                                                    .OrderByDescending(grp => grp.Count())
+                                                    .Select(grp => grp.Key).First();
+            if (fave != null)
+            {
+            return RedirectToAction("SearchFlight", new { @faveStation =  fave.Name});
+            }
+            return RedirectToAction("SearchFlight");
+        }
 
         // GET: Flights/Create
         public ActionResult Create()
@@ -138,9 +147,10 @@ namespace SpaceWay.Controllers
         }
 
         //GET
-        public ActionResult SearchFlight()
+        public ActionResult SearchFlight(string faveStation)
         {
             //ViewData["Stations"] = db.Stations.ToList();
+            ViewBag.FaveStation = faveStation;
             ViewBag.OriginID = new SelectList(db.Stations, "StationID", "Name");
             ViewBag.DestinationID = new SelectList(db.Stations, "StationID", "Name");
             //ViewBag.AircraftID = new SelectList(db.Aircrafts, "AircraftID", "AircraftID");
