@@ -166,6 +166,7 @@
     <Content Include="Content\img\bg-masthead.jpg" />
     <Content Include="Content\img\ipad.png" />
     <Content Include="Content\img\source.txt" />
+    <Content Include="Content\js\d3.v3.min.js" />
     <Content Include="Content\js\nasa.js" />
     <Content Include="Content\js\grayscale.js" />
     <Content Include="Content\js\grayscale.min.js" />

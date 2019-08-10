@@ -1,75 +1,84 @@
 ﻿@using SpaceWay.Context
 
 @{
-    ViewBag.Title = "Statistics";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Statistics";
     SpaceWayDbContext db = new SpaceWayDbContext();
 }
 
-<meta charset="utf-8">
-<style>
-    body {
-        width: 1060px auto;
-        margin: 50px auto;
-    }
-
-    path {
-        stroke: #fff;
-    }
-
-        path:hover {
-            opacity: 0.9;
+<head>
+    <style>
+        body {
+            width: auto;
+        margin: auto;
         }
 
-    rect:hover {
-        fill: blue;
-    }
-
-    .axis {
-        font: 10px sans-serif;
-    }
-
-    .legend tr {
-        border-bottom: 1px solid grey;
-    }
-
-        .legend tr:first-child {
-            border-top: 1px solid grey;
+        path {
+            stroke: #fff;
         }
 
-    .axis path,
-    .axis line {
-        fill: none;
-        stroke: #000;
-        shape-rendering: crispEdges;
-    }
+            path:hover {
+                opacity: 0.9;
+            }
 
-    .x.axis path {
-        display: none;
-    }
+        rect:hover {
+            fill: blue;
+        }
 
-    .legend {
-        margin-bottom: 76px;
-        display: inline-block;
-        border-collapse: collapse;
-        border-spacing: 0px;
-    }
+        .axis {
+            font: 15px sans-serif;
+        }
+
+        .legend tr {
+            border-bottom: 1px solid grey;
+        }
+
+            .legend tr:first-child {
+                border-top: 1px solid grey;
+            }
+
+        .axis path,
+        .axis line {
+            fill: none;
+            stroke: rgba(0,0,0,0);
+            shape-rendering: crispEdges;
+        }
+
+        .x.axis path {
+            display: none;
+        }
+
+        .legend {
+            margin-bottom: 76px;
+            display: inline-block;
+            border-collapse: collapse;
+            border-spacing: 0px;
+        }
 
         .legend td {
             padding: 4px 5px;
-            vertical-align: bottom;
+             vertical-align: bottom;
+             color: white;
         }
 
-    .legendFreq, .legendPerc {
-        align: right;
-        width: 50px;
-        color: white;
-    }
-</style>
+        .legendFreq, .legendPerc {
+           align-self: initial;
+            width: 50px;
+            color: white;
+        }
+    </style>
+</head>
+
 <body>
-    <div id='dashboard'>
-    </div>
-    <script src="http://d3js.org/d3.v3.min.js"></script>
+    
+    <div id='dashboard'></div>
+
+    @*D3 API Online source*@
+    @*<script src="http://d3js.org/d3.v3.min.js"></script>*@
+
+    @*D3 API Offline source*@
+    <script src="~/Content/js/d3.v3.min.js"></script>
+
     <script>
         function dashboard(id, fData) {
             var barColor = 'steelblue';
@@ -78,6 +87,8 @@
 
             // compute total for each state.
             fData.forEach(function (d) { d.total = d.freq.one + d.freq.two + d.freq.three + d.freq.four + d.freq.five; });
+
+            
 
             // function to handle histogram.
             function histoGram(fD) {
@@ -90,6 +101,8 @@
                     .attr("width", hGDim.w + hGDim.l + hGDim.r)
                     .attr("height", hGDim.h + hGDim.t + hGDim.b).append("g")
                     .attr("transform", "translate(" + hGDim.l + "," + hGDim.t + ")");
+
+                
 
                 // create function for x-axis mapping.
                 var x = d3.scale.ordinal().rangeRoundBands([0, hGDim.w], 0.1)
@@ -162,10 +175,11 @@
                 }
                 return hG;
             }
+            
 
             // function to handle pieChart.
             function pieChart(pD) {
-                var pC = {}, pieDim = { w: 250, h: 250 };
+                var pC = {}, pieDim = { w: 300, h: 300 };
                 pieDim.r = Math.min(pieDim.w, pieDim.h) / 2;
 
                 // create svg for pie chart.
@@ -233,7 +247,7 @@
                     .attr("fill", function (d) { return segColor(d.type); });
 
                 // create the second column for each segment.
-                tr.append("td").attr("class", 'legendFreq').text(function (d) { return d.type; });
+                tr.append("td").text(function (d) { return d.type; }).attr("fill","white");
 
                 // create the third column for each segment.
                 tr.append("td").attr("class", 'legendFreq')
@@ -276,9 +290,9 @@
         }
     </script>
 
-</body>
 
-<script>
+
+    <script>
 
         @{
             int[] oneStar =
@@ -477,6 +491,7 @@
         ];
 
         dashboard('#dashboard', freqData);
-</script>
+    </script>
+</body>
 
 
