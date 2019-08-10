@@ -3,87 +3,93 @@
 @{
     ViewBag.Title = "Index";
 }
-
-<h2>Index</h2>
-@using (Html.BeginForm("Search", "Aircrafts", FormMethod.Post))
+@if ((string)Session["isAdmin"] == "0" || Session["Username"] == null)
 {
-    <input type="text" name="lvl" />
-    <button type="submit">Filter</button>
+    <h4>You have no permissions to display this page.</h4>
 }
-@Html.ActionLink("Display Aircraft Capacity Status", "JoinFlightsAndAircrafts")
-@Html.ActionLink("Group Flights By Destination", "GroupFlightsByDestination")
-<p>
-    @Html.ActionLink("Create New", "Create")
-    @Html.ActionLink("Search for a Flight", "SearchFlight")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Aircraft.AircraftID)
-        </th>
-        <th>
-            @Html.DisplayName("Available Seats")
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Origin)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Destination)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Duration)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Distance)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Departure)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Arrival)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Price)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
+else
+{
+    <h2>Flights</h2>
+    using (Html.BeginForm("Search", "Aircrafts", FormMethod.Post))
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Aircraft.AircraftID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumOfPassengers)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Origin.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Destination.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Duration)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Distance)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Departure)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Arrival)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.FlightID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.FlightID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.FlightID })
-            </td>
-        </tr>
+        <input type="text" name="lvl" />
+        <button type="submit">Filter</button>
     }
+    @Html.ActionLink("Display Aircraft Capacity Status", "JoinFlightsAndAircrafts")
+    @Html.ActionLink("Group Flights By Destination", "GroupFlightsByDestination")
+    <p>
+        @Html.ActionLink("Create New", "Create")
+        @Html.ActionLink("Search for a Flight", "SearchFlight")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Aircraft.AircraftID)
+            </th>
+            <th>
+                @Html.DisplayName("Available Seats")
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Origin)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Destination)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Duration)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Distance)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Departure)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Arrival)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th></th>
+        </tr>
 
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Aircraft.AircraftID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumOfPassengers)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Origin.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Destination.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Duration)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Distance)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Departure)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Arrival)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.FlightID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.FlightID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.FlightID })
+                </td>
+            </tr>
+        }
+
+    </table>
+}

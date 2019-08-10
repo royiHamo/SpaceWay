@@ -21,9 +21,60 @@ namespace SpaceWay.Controllers
             if (Session["Username"] != null)
             {
                 ViewBag.Username = Username;
-             
+
             }
+            IndexGetAjax();
             return View();
+        }
+
+        public ActionResult IndexGetAjax()
+        {
+            //all passengers list
+            List<Passenger> allPassengers = db.Passengers.ToList();
+            var jsonData = Json(new { passengers = allPassengers.Select(x => new { x.Name, x.Username, x.Stars, x.IsAdmin, x.TotalDistance, x.PassengerID }) }, JsonRequestBehavior.AllowGet);
+            return jsonData;
+        }
+
+        [HttpPost]
+        public ActionResult Index(String type, String input)
+        {
+            List<Passenger> ps = new List<Passenger>();
+
+            //all passengers list
+            List<Passenger> allPassengers = db.Passengers.ToList();
+            var jsonData = Json(new { passengers = allPassengers.Select(x => new { x.Name, x.Username, x.Stars, x.IsAdmin, x.TotalDistance, x.PassengerID }) }, JsonRequestBehavior.AllowGet);
+
+            //check if input is a number, if true, intInput = input
+            int intInput;
+            var isNumeric = int.TryParse(input, out intInput);
+
+
+            //if no input or no radio button chosed
+            if (type == null || input == null)
+                return jsonData;
+            //radio button is stars
+            if (type.Equals("stars") && isNumeric)
+            {
+                ps = allPassengers.Where(p => p.Stars >= intInput).ToList();
+            }
+            //radio button is reservations
+            else if (type.Equals("reservations") && isNumeric)
+            {
+                ps = allPassengers.Where(p => p.Reservations != null).ToList();
+                if (ps != null)
+                {
+                    ps = ps.Where(p => p.Reservations.Count() >= intInput).ToList();
+                }
+            }
+            //radio button is name
+            else if (type.Equals("name"))
+            {
+                ps = allPassengers.Where(p => p.Name.Contains(input)).ToList();
+            }
+
+            //create json serialization in order to send to client
+            jsonData = Json(new { passengers = ps.Select(x => new { x.Name, x.Username, x.Stars, x.IsAdmin, x.TotalDistance, x.PassengerID }) }, JsonRequestBehavior.AllowGet);
+            return jsonData;
         }
 
         public ActionResult Login()
@@ -153,7 +204,6 @@ namespace SpaceWay.Controllers
         {
             if (ModelState.IsValid)
             {
-                
                     if (db.Passengers.Any(x => x.Username == passenger.Username))
                     {
                         ModelState.AddModelError("Username", "Username already exists");
@@ -237,16 +287,16 @@ namespace SpaceWay.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult PassengerEdit([Bind(Include = "PassengerID,Name,Username,Password,Stars,IsAdmin,TotalDistance,Reservations")] Passenger passenger)
+        public ActionResult PassengerEdit([Bind(Include = "PassengerID,Name,Username,Password,Stars,IsAdmin,TotalDistance")] Passenger passenger)
         {
             if (ModelState.IsValid)         //need to enable option for editing the password only
             {
-                //assigning reservations
-                for (int i =0;i< passenger.Reservations.Count;i++)
-                {
-                    int id = passenger.Reservations[i].ReservationID;
-                    passenger.Reservations[i] = db.Reservations.FirstOrDefault(x => x.ReservationID == id);
-                }
+                ////assigning reservations
+                //for (int i =0;i< passenger.Reservations.Count;i++)
+                //{
+                //    int id = passenger.Reservations[i].ReservationID;
+                //    passenger.Reservations[i] = db.Reservations.FirstOrDefault(x => x.ReservationID == id);
+                //}
 
                 var exists = db.Passengers.FirstOrDefault(x => x.Username == passenger.Username && x.PassengerID != passenger.PassengerID);
                 if (exists != null)

@@ -40,6 +40,12 @@ namespace SpaceWay.Controllers
             return View(flight);
         }
 
+        public ActionResult LearnFromStatistics(int? id)
+        {
+            int stars = db.Passengers.FirstOrDefault(p=>p.PassengerID == id).Stars;
+            Station fave = db.Reservations.Where(r=>r.Outbound.DestinationID)
+        }
+
         // GET: Flights/Create
         public ActionResult Create()
         {
