@@ -213,7 +213,7 @@ namespace SpaceWay.Controllers
             int lvl = Convert.ToInt16(TempData.Peek("lvl"));
             int orig = Convert.ToInt16(TempData.Peek("orig"));
             int dest = Convert.ToInt16(TempData.Peek("dest"));
-            DateTime departure = DateTime.Parse((string)TempData.Peek("dept"));
+            DateTime departure = Convert.ToDateTime(TempData.Peek("dept"));
             //DateTime arrival = (DateTime)TempData["arri"];
             List<Flight> flightsToDisplay = null;
 
