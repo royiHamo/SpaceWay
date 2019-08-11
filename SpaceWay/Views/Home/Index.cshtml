@@ -108,10 +108,10 @@
         <div class="container">
                   <div>
                       <div class="row">
-                          <div class="col-md-12 col-lg-12 align-items-start mx-auto text-center">
-                                <div id="map"></div><br/>
+                          <div id="mapCont" class="col-md-12 col-lg-12 align-items-start mx-auto text-center">
+                                <div id="map"></div>
                           </div>
-                      </div>
+                      </div><br />
                       <div class="row ">
                           <div class="col-md-12 col-lg-12 align-items-start mx-auto text-center">
                                 <button id="mapButton" class="btn text-white-50">Our Stations</button>
@@ -307,7 +307,7 @@
 
     <script>
         $("#mapButton").click(function () {
-            $("#map").toggle('slow');
+            $("#mapCont").toggle('slow');
         });
         $("#videoButton").click(function () {
             $("#video").toggle('slow');

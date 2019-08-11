@@ -18,14 +18,18 @@ namespace SpaceWay.Controllers
         // GET: Stations
         public ActionResult Index(string planetToFilter)
         {
+            //checks if the input in the filter equlas to the planet
             var filteredStations = from s in db.Stations.ToList()
                                    where s.Planet == planetToFilter
                                    select s;
 
+            //checks if the filter didn't return any result ,then return all the stations
             if (!filteredStations.Any())
             {
-            return View(db.Stations.ToList());
+                return View(db.Stations.ToList());
             }
+
+            //return the filter results
             return View(filteredStations);
         }
 
@@ -33,11 +37,13 @@ namespace SpaceWay.Controllers
         [HttpPost]
         public ActionResult Search(string planet)
         {
+            //if the input is empty, redirect to GET action index without the input
             if (string.IsNullOrEmpty(planet))
             {
                 return RedirectToAction("Index");
             }
 
+            //redirect to the GET action index, in order to search in the DB and return results
             return RedirectToAction("Index", new { @planetToFilter = planet });
         }
 
@@ -71,6 +77,7 @@ namespace SpaceWay.Controllers
         {
             if (ModelState.IsValid)
             {
+                //add station to the DB
                 db.Stations.Add(station);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -103,6 +110,7 @@ namespace SpaceWay.Controllers
         {
             if (ModelState.IsValid)
             {
+                //save changes in the DB
                 db.Entry(station).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -131,6 +139,8 @@ namespace SpaceWay.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Station station = db.Stations.Find(id);
+
+            //removes station from the DB
             db.Stations.Remove(station);
             db.SaveChanges();
             return RedirectToAction("Index");

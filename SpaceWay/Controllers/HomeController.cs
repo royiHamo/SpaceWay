@@ -10,6 +10,7 @@ namespace SpaceWay.Controllers
     {
         public ActionResult Index()
         {
+            //send the username which is logged in to the index
             ViewBag.LoggedInUser = Session["Username"];
             return View();
         }
@@ -27,11 +28,13 @@ namespace SpaceWay.Controllers
 
             return View();
         }
+        //Nasa web service
         public ActionResult Nasa()
         {
             return View();
         }
 
+        // Graphs statistics
         public ActionResult Statistics()
         {
             return View();
