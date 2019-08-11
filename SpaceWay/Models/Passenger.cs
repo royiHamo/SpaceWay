@@ -24,7 +24,7 @@ namespace SpaceWay.Models
         [Range(0, Int32.MaxValue, ErrorMessage = "Invalid Input Total Distance Must Be Positive Number")]
         public double TotalDistance { get; set; } = 0;
 
-        public virtual IList<Reservation> Reservations { get; set; }
+        public virtual ICollection<Reservation> Reservations { get; set; }
 
     }
 }

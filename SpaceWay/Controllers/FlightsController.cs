@@ -43,7 +43,7 @@ namespace SpaceWay.Controllers
         public ActionResult LearnFromStatistics()
         {
             string username = (string)Session["Username"];
-            int stars = db.Passengers.FirstOrDefault(p => p.Username == username).Stars;    //stars = 3
+            int stars = db.Passengers.FirstOrDefault(p => p.Username == username).Stars;   
             Station fave = db.Reservations.Where(r => r.Passenger.Stars == stars).ToList()
                                                     .Select(x => x.Outbound.Destination).GroupBy(i => i)
                                                     .OrderByDescending(grp => grp.Count())
