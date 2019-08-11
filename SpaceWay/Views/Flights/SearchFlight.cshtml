@@ -4,7 +4,7 @@
 }
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "MyForm" }))
 {
     @Html.AntiForgeryToken()
 
@@ -68,7 +68,8 @@
                 <div class="col-md-offset-2 col-md-10">
                     <div class="form-group">
                         <br />
-                        <input type="submit" value="Search Flight" class="btn btn-default" />
+                        <input type="button" id="fakeSubmit" onclick="load();" value="Search Flight" class="btn btn-default" />
+                        <input type="submit"  style="display: none;"/>
                     </div>
                 </div>
             </div>
@@ -78,7 +79,16 @@
         </div>
     </div>
 }
+
+<div class="loader" id="loader"></div>
+
+<!--design for popUp -->
 <link href="~/Content/css/popUp.css" rel="stylesheet" />
+
+<!--design for Loader -->
+<link href="~/Content/css/Loader.css" rel="stylesheet" />
+
+
 
     <!-- The Modal -->
     <div id="myModal" class="modal">
@@ -101,7 +111,13 @@
     </div>
 
     @section Scripts {
-<script src="~/Content/js/popUp.js"></script>
+ <!-- PopUp js -->
+ <script src="~/Content/js/popUp.js"></script>
+
+<!-- Loader js -->
+<script src="~/Content/js/Loader.js"></script>
+
+<!-- activate popUp only if the name of the station came from the controller-->
 <script>if ('@ViewBag.FaveStation') {popUp(); }</script>
 
 @Scripts.Render("~/bundles/jqueryval")

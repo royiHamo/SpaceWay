@@ -156,6 +156,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\grayscale.css" />
     <Content Include="Content\css\grayscale.min.css" />
+    <Content Include="Content\css\Loader.css" />
     <Content Include="Content\css\popUp.css" />
     <Content Include="Content\Images\Home.png" />
     <Content Include="Content\img\bg-masthead2.jpg" />
@@ -168,6 +169,7 @@
     <Content Include="Content\img\source.txt" />
     <Content Include="Content\js\d3.v3.min.js" />
     <Content Include="Content\js\googleMap.js" />
+    <Content Include="Content\js\Loader.js" />
     <Content Include="Content\js\nasa.js" />
     <Content Include="Content\js\grayscale.js" />
     <Content Include="Content\js\grayscale.min.js" />
@@ -284,7 +286,6 @@
     <Content Include="Views\Aircrafts\Edit.cshtml" />
     <Content Include="Views\Aircrafts\Index.cshtml" />
     <CodeAnalysisDictionary Include="Views\Passengers\Login.cshtml" />
-    <Content Include="Views\Passengers\Search.cshtml" />
     <Content Include="Views\Shared\LoggedInNavBar.cshtml" />
     <Content Include="Views\Shared\NotLoggedInNavBar.cshtml" />
     <Content Include="Views\Passengers\PassengerProfile.cshtml">
