@@ -3,32 +3,49 @@
 @{
     ViewBag.Title = "Details";
 }
+@if ((string)Session["isAdmin"] == "0" || Session["Username"] == null)
+{
+    <h4>You have no permissions to display this page.</h4>
+}
+else
+{
 
-<h2>Details</h2>
+    <h2>Details</h2>
 
-<div>
-    <h4>Aircraft</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Level)
-        </dt>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h4>Aircraft</h4>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Level)
+                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Level)
-        </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Level)
+                    </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Seats)
-        </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Seats)
+                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Seats)
-        </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Seats)
+                    </dd>
 
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.AircraftID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+                </dl>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                @Html.ActionLink("Edit", "Edit", new { id = Model.AircraftID }) |
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        </div>
+    </div>
+}

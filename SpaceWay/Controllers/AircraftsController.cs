@@ -48,12 +48,12 @@ namespace SpaceWay.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("Error");
             }
             Aircraft aircraft = db.Aircrafts.Find(id);
             if (aircraft == null)
             {
-                return HttpNotFound();
+                return View("Error");
             }
             return View(aircraft);
         }
@@ -86,12 +86,12 @@ namespace SpaceWay.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("Error");
             }
             Aircraft aircraft = db.Aircrafts.Find(id);
             if (aircraft == null)
             {
-                return HttpNotFound();
+                return View("Error");
             }
             return View(aircraft);
         }
@@ -117,12 +117,12 @@ namespace SpaceWay.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("Error");
             }
             Aircraft aircraft = db.Aircrafts.Find(id);
             if (aircraft == null)
             {
-                return HttpNotFound();
+                return View("Error");
             }
             return View(aircraft);
         }
