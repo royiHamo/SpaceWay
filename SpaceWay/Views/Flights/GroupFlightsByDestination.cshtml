@@ -2,56 +2,71 @@
 @{
     ViewBag.Title = "GroupFlightsByDestination";
 }
+@if ((string)Session["isAdmin"] == "0" || Session["Username"] == null)
+{
+    <h4>You have no permissions to display this page.</h4>
+}
+else
+{
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h4>Group Flights By Destination</h4>
+                <hr/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <table class="table">
 
-<h2>Group Flights By Destination</h2>
-
-<table class="table">
-
-    @{ foreach (var stationGrp in Model)
-        {
-            <tr>
-                <td>
-                    Station
-                </td>
-                <td>
-                    FlightID
-                </td>
-                <td>
-                    Departure Date
-                </td>
-                <td>
-                    Available Seats
-                </td>
-                <td>
-                    Price
-                </td>
-            </tr>
-
-            foreach (var flight in stationGrp)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(t => stationGrp.Key)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(t => flight.FlightID)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(t => flight.Departure)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(t => flight.NumOfPassengers)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(t => flight.Price)
-                    </td>
-                </tr>
-            }
-        }
-    }
-    }
-</table>
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+                    <tr>
+                        <td>
+                            Station
+                        </td>
+                        <td>
+                            FlightID
+                        </td>
+                        <td>
+                            Departure Date
+                        </td>
+                        <td>
+                            Available Seats
+                        </td>
+                        <td>
+                            Price
+                        </td>
+                    </tr>
+                    @{ foreach (var stationGrp in Model)
+                        {
+                            foreach (var flight in stationGrp)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(t => stationGrp.Key)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(t => flight.FlightID)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(t => flight.Departure)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(t => flight.NumOfPassengers)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(t => flight.Price)
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    }
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        </div>
+    </div>
+}

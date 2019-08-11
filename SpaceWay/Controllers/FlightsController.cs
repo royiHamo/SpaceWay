@@ -62,7 +62,7 @@ namespace SpaceWay.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("Error");
             }
             Flight flight = db.Flights.Find(id);
             if (flight == null)

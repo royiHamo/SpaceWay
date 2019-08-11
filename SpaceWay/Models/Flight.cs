@@ -31,10 +31,10 @@ namespace SpaceWay.Models
 
         public virtual Station Destination { get; set; }
 
-        [Range(0, Int32.MaxValue,ErrorMessage ="Invalid Duration Enterd Please Enter Positive Number")]
+        [Range(0, Int32.MaxValue,ErrorMessage ="Invalid Duration Entered, Please Enter Positive Number")]
         public double Duration { get; set; }
 
-        [Range(0, Int32.MaxValue, ErrorMessage = "Invalid Distance Enterd Please Enter Positive Number")]
+        [Range(0, Int32.MaxValue, ErrorMessage = "Invalid Distance Entered, Please Enter Positive Number")]
         public double Distance { get; set; }
 
         
@@ -47,7 +47,7 @@ namespace SpaceWay.Models
 
 
         
-        [DataType(DataType.Currency),Range(0, Int32.MaxValue, ErrorMessage = "Invalid Price Enterd Please Enter Positive Number")]
+        [DataType(DataType.Currency),Range(0, Int32.MaxValue, ErrorMessage = "Invalid Price Entered, Please Enter Positive Number")]
         public double Price { get; set; }
 
  
