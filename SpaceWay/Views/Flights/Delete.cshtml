@@ -17,6 +17,7 @@ else
             </div>
         </div>
         <hr />
+        
         <div class="row">
             <div class="col">
                 <dl class="dl-horizontal">
@@ -98,8 +99,9 @@ else
                 @using (Html.BeginForm())
                 {
                     @Html.AntiForgeryToken()
-                        <h4>Are you sure you want to delete this?</h4><br />
-                        <input type="submit" value="Delete" class="btn btn-default" /><br /><br />
+                    <h4>Are you sure you want to delete this?</h4><br />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <input type="submit" value="Delete" class="btn btn-default" /><br /><br />
                     @Html.ActionLink("Back to List", "Index")
                 }
             </div>

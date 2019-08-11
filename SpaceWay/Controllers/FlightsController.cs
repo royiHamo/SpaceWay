@@ -232,6 +232,7 @@ namespace SpaceWay.Controllers
             TempData["dest"] = form["DestinationID"];
             TempData["dept"] = form["departure"];
             TempData["arri"] = form["arrival"];
+            TempData["tickets"] = form["tickets"];
             if (ModelState.IsValid)
             {
                 return RedirectToAction("SearchFlightResultsOut");
@@ -272,14 +273,16 @@ namespace SpaceWay.Controllers
             int lvl = Convert.ToInt16(TempData.Peek("lvl"));
             int orig = Convert.ToInt16(TempData.Peek("orig"));
             int dest = Convert.ToInt16(TempData.Peek("dest"));
+            int tickets = Convert.ToInt16(TempData.Peek("tickets"));
             if (!DateTime.TryParse((string)TempData.Peek("dept"), out DateTime departure))
                 return View(new List<Flight>());
 
             List<Flight> flightsToDisplay = null;
 
-            flightsToDisplay = db.Flights.ToList().Where(f => f.AircraftID == lvl &&
+            flightsToDisplay = db.Flights.ToList().Where(f => f.Aircraft.Level == lvl &&
                                                               f.Aircraft.Seats > 0 &&
                                                               f.Aircraft.Seats >= 0 &&
+                                                              f.NumOfPassengers >= tickets &&
                                                               DateTime.Compare(f.Departure.Date, departure.Date) == 0 &&
                                                               f.OriginID == orig &&
                                                               f.DestinationID == dest).ToList();
@@ -319,10 +322,12 @@ namespace SpaceWay.Controllers
             int lvl = Convert.ToInt16(TempData.Peek("lvl"));
             int orig = Convert.ToInt16(TempData.Peek("dest"));
             int dest = Convert.ToInt16(TempData.Peek("orig"));
+            int tickets = Convert.ToInt16(TempData.Peek("tickets"));
             DateTime departure = DateTime.Parse((string)TempData.Peek("arri"));
 
-            flightsToDisplay = db.Flights.ToList().Where(f => f.AircraftID == lvl &&
-                                                            DateTime.Compare(f.Departure.Date, departure.Date) == 0 &&
+            flightsToDisplay = db.Flights.ToList().Where(f => f.Aircraft.Level == lvl &&
+                                                              f.NumOfPassengers >= tickets &&
+                                                              DateTime.Compare(f.Departure.Date, departure.Date) == 0 &&
                                                               f.OriginID == orig &&
                                                               f.DestinationID == dest).ToList();
             TempData["ftd"] = flightsToDisplay;
@@ -341,7 +346,7 @@ namespace SpaceWay.Controllers
             }
             TempData["selectedInID"] = Convert.ToInt16(form["InRadio"]);
 
-            return RedirectToAction("NewReservation", "Reservations", new { @Outid = TempData["selectedOutID"], @Inid = TempData["selectedInID"] });
+            return RedirectToAction("NewReservation", "Reservations", new { @Outid = TempData["selectedOutID"], @Inid = TempData["selectedInID"] , @NumOfTickets = TempData["tickets"] });
         }
 
         protected override void Dispose(bool disposing)

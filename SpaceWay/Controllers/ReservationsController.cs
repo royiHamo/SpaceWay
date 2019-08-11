@@ -96,7 +96,7 @@ namespace SpaceWay.Controllers
         }
 
         //GET: Reservations/NewReservation
-        public ActionResult NewReservation(int Outid, int Inid)
+        public ActionResult NewReservation(int Outid, int Inid, int NumOfTickets)
         {
             Reservation reservation = new Reservation();
 
@@ -106,7 +106,11 @@ namespace SpaceWay.Controllers
             //inbound flight stations assigning
             Flight inbound = db.Flights.ToList().FirstOrDefault(f => f.FlightID == Inid);
 
+            //assigning date
             reservation.OrderDate = DateTime.Now;
+
+            //assigning tickets
+            reservation.NumOfTickets = NumOfTickets;
             
             //assigning passenger
             reservation.PassengerID = Convert.ToInt16(Session["PassengerID"]);
