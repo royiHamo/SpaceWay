@@ -52,10 +52,10 @@ namespace SpaceWay.Controllers
 
 
             //if no input or no radio button chosed
-            if (type == null || input == null)
+            if (type == null || input == null || type=="" || input=="")
                 return jsonData;
             //radio button min stars is checked
-            if (type.Equals("stars") && isNumeric)
+            else if (type.Equals("stars") && isNumeric)
             {
                 ps = allPassengers.Where(p => p.Stars >= intInput).ToList();
             }
@@ -70,11 +70,17 @@ namespace SpaceWay.Controllers
                     //all the passengers which have more reservations than the input
                     ps = ps.Where(p => p.Reservations.Count() >= intInput).ToList();
                 }
+                //in case of no results
+                else
+                {
+                    return jsonData;
+                }
             }
             //radio button name is checked
             else if (type.Equals("name"))
             {
                 ps = allPassengers.Where(p => p.Name.Contains(input)).ToList();
+
             }
 
             //create json serialization in order to send to client

@@ -51,11 +51,13 @@ namespace SpaceWay.Controllers
         {
             if (ModelState.IsValid)
             {
+                //save new reservation in the DB
                 db.Reservations.Add(reservation);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
+            //send the PassengerID to the View in the ViewBag
             ViewBag.PassengerID = new SelectList(db.Passengers, "PassengerID", "Name", reservation.PassengerID);
             return View(reservation);
         }
@@ -91,8 +93,6 @@ namespace SpaceWay.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult NewReservation([Bind(Include = "ReservationID,PassengerID,OrderDate,OutboundID,Outbound,InboundID,Inbound,NumOfTickets")] Reservation reservation)
         {
-
-
                 //assigning flights
                 reservation.Outbound = db.Flights.ToList().FirstOrDefault(f => f.FlightID == reservation.OutboundID);
                 reservation.Inbound = db.Flights.ToList().FirstOrDefault(f => f.FlightID == reservation.InboundID);
@@ -113,6 +113,7 @@ namespace SpaceWay.Controllers
         }
 
         //POST: Reservations/Payment
+        //show the user all the details of the reservation before he pays
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult FinalPayment([Bind(Include = "ReservationID,PassengerID,OutboundID,InboundID,NumOfTickets,TotalPrice")]Reservation reservation)
@@ -195,11 +196,12 @@ namespace SpaceWay.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+            //send PassengerID through ViewBag to View
             ViewBag.PassengerID = new SelectList(db.Passengers, "PassengerID", "Name", reservation.PassengerID);
             return View(reservation);
         }
-        // GET:
+        // GET
+        //show the user all of his reservations
         public ActionResult MyReservations()
         {
             int id = Convert.ToInt16(Session["PassengerID"]);
@@ -234,6 +236,7 @@ namespace SpaceWay.Controllers
         {
             if (ModelState.IsValid)
             {
+                //save the changes in the DB
                 db.Entry(reservation).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

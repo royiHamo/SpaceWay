@@ -37,16 +37,17 @@ namespace SpaceWay.Models
         [Range(0, Int32.MaxValue, ErrorMessage = "Invalid Distance Enterd Please Enter Positive Number")]
         public double Distance { get; set; }
 
-        [DataType(DataType.DateTime)]
-        [Required]
+        
+        [Required,DataType(DataType.DateTime)]
         public DateTime Departure { get; set; }
 
-        [DataType(DataType.DateTime)]
+        
+        [Required,DataType(DataType.DateTime)]
         public DateTime Arrival { get; set; }
 
 
-        [Range(0, Int32.MaxValue, ErrorMessage = "Invalid Price Enterd Please Enter Positive Number")]
-        [DataType(DataType.Currency)]
+        
+        [DataType(DataType.Currency),Range(0, Int32.MaxValue, ErrorMessage = "Invalid Price Enterd Please Enter Positive Number")]
         public double Price { get; set; }
 
  
