@@ -16,10 +16,14 @@ namespace SpaceWay.Models
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
+
         [Range(1,5)]
         public int Stars { get; set; } = 1;      //between 1-5
         public bool IsAdmin { get; set; } = false;
+
+        [Range(0, Int32.MaxValue, ErrorMessage = "Invalid Input Total Distance Must Be Positive Number")]
         public double TotalDistance { get; set; } = 0;
+
         public virtual IList<Reservation> Reservations { get; set; }
 
     }

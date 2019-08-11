@@ -11,6 +11,8 @@ namespace SpaceWay.Models
         public int AircraftID { get; set; }
         [Range(1,3)]
         public int Level { get; set; } //level of luxury 1-3
+
+        [Range(0, Int32.MaxValue, ErrorMessage = "Invalid Seats Enterd Please Enter Positive Number")]
         public int Seats { get; set; }
 
     }

@@ -93,17 +93,19 @@ namespace SpaceWay.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult NewReservation([Bind(Include = "ReservationID,PassengerID,OrderDate,OutboundID,Outbound,InboundID,Inbound,NumOfTickets")] Reservation reservation)
         {
-            //assigning flights
-            reservation.Outbound = db.Flights.ToList().FirstOrDefault(f => f.FlightID == reservation.OutboundID);
-            reservation.Inbound = db.Flights.ToList().FirstOrDefault(f => f.FlightID == reservation.InboundID);
 
-            //assigning passenger
-            reservation.Passenger = db.Passengers.First(p => p.PassengerID.Equals(reservation.PassengerID));
 
-            //calculate total price 
-            reservation.TotalPrice = reservation.NumOfTickets * (reservation.Outbound.Price + reservation.Inbound.Price);
+                //assigning flights
+                reservation.Outbound = db.Flights.ToList().FirstOrDefault(f => f.FlightID == reservation.OutboundID);
+                reservation.Inbound = db.Flights.ToList().FirstOrDefault(f => f.FlightID == reservation.InboundID);
+
+                //assigning passenger
+                reservation.Passenger = db.Passengers.First(p => p.PassengerID.Equals(reservation.PassengerID));
+
+                //calculate total price 
+                reservation.TotalPrice = reservation.NumOfTickets * (reservation.Outbound.Price + reservation.Inbound.Price);
+                
             return RedirectToAction("Payment", reservation);
-            
         }
 
         //GET: Reservations/Payment
