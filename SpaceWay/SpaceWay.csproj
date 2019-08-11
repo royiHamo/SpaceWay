@@ -257,9 +257,11 @@
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
@@ -284,7 +286,6 @@
     <Content Include="Views\Aircrafts\Edit.cshtml" />
     <Content Include="Views\Aircrafts\Index.cshtml" />
     <CodeAnalysisDictionary Include="Views\Passengers\Login.cshtml" />
-    <Content Include="Views\Passengers\Search.cshtml" />
     <Content Include="Views\Shared\LoggedInNavBar.cshtml" />
     <Content Include="Views\Shared\NotLoggedInNavBar.cshtml" />
     <Content Include="Views\Passengers\PassengerProfile.cshtml">

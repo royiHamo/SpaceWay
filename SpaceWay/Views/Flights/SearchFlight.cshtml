@@ -2,92 +2,97 @@
 @{
     ViewBag.Title = "SearchFlight";
 }
-
-
-@using (Html.BeginForm())
+@if (Session["Username"] == null)
 {
-    @Html.AntiForgeryToken()
-
-    <div class="form-horizontal">
-
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <br/>
-                    <h4>Book A Flight</h4>
-                    <hr />
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="form-group">
-                        <label>Aircraft's level:</label>
-                        <select class = "form-control" id="lvl" name="lvl">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="form-group">
-                        <label>Origin:</label>
-                        @Html.DropDownList("OriginID", null, htmlAttributes: new { @class = "form-control" })
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="form-group">
-                        <label>Destination:</label>
-                        @Html.DropDownList("DestinationID", null, htmlAttributes: new { @class = "form-control" })
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="form-group">
-                        <label>Outbound Date:</label><br />
-                        <input id="departure" name="departure" type="date" />
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="form-group">
-                        <label>Inbound Date:</label><br/>
-                        <input id="arrival" name="arrival" type="date" />
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-offset-2 col-md-10">
-                    <div class="form-group">
-                        <br />
-                        <input type="submit" value="Search Flight" class="btn btn-default" />
-                    </div>
-                </div>
-            </div>
-         
-        </div>
-        <div class="form-group">
-        </div>
-    </div>
+    <h4>You have no permissions to display this page.</h4>
 }
-<link href="~/Content/css/popUp.css" rel="stylesheet" />
+else
+{
+
+    using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <br />
+                        <h4>Book A Flight</h4>
+                        <hr />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label>Aircraft's level:</label>
+                            <select class="form-control" id="lvl" name="lvl">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label>Origin:</label>
+                            @Html.DropDownList("OriginID", null, htmlAttributes: new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label>Destination:</label>
+                            @Html.DropDownList("DestinationID", null, htmlAttributes: new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label>Outbound Date:</label><br />
+                            <input id="departure" name="departure" type="date" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label>Inbound Date:</label><br />
+                            <input id="arrival" name="arrival" type="date" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-offset-2 col-md-10">
+                        <div class="form-group">
+                            <br />
+                            <input type="submit" value="Search Flight" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="form-group">
+            </div>
+        </div>
+    }
+    <link href="~/Content/css/popUp.css" rel="stylesheet" />
 
     <!-- The Modal -->
     <div id="myModal" class="modal">
 
         <!-- Modal content -->
         <div class="modal-content">
-            <div class="modal-header" >
+            <div class="modal-header">
                 <span class="close">&times;</span>
-                <p ><b>Today's Special Offer</b></p>
+                <p><b>Today's Special Offer</b></p>
             </div>
             <div class="modal-body">
                 <h3><b>Take a Flight to</b></h3>
@@ -95,16 +100,16 @@
                 <p><b>and you won't gonna regret it</b></p>
             </div>
             <div class="modal-footer">
-                <p ><b>Don't Miss It !!</b></p>
+                <p><b>Don't Miss It !!</b></p>
             </div>
         </div>
     </div>
-
+}
     @section Scripts {
-<script src="~/Content/js/popUp.js"></script>
-<script>if ('@ViewBag.FaveStation') {popUp(); }</script>
+        <script src="~/Content/js/popUp.js"></script>
+        <script>if ('@ViewBag.FaveStation') {popUp(); }</script>
 
-@Scripts.Render("~/bundles/jqueryval")
-        
+        @Scripts.Render("~/bundles/jqueryval")
+
     }
 
