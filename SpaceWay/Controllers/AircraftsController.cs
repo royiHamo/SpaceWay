@@ -20,11 +20,11 @@ namespace SpaceWay.Controllers
         {
     
             List<Aircraft> airs = new List<Aircraft>();
-            if (levelToFilter == null || levelToFilter == -1)                        //if just opened the page
+            if (levelToFilter == null || levelToFilter == -1)   //if just opened the page
             {
                 return View(db.Aircrafts.ToList());
             }
-            if (levelToFilter == 0)                        //if bad input
+            if (levelToFilter == 0)                        //if bad input (ε for example)
             {
                 ModelState.AddModelError(string.Empty, "Please enter a valid input");
                 return View(new List<Aircraft>());
