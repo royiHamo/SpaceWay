@@ -42,16 +42,21 @@ namespace SpaceWay.Controllers
 
         public ActionResult LearnFromStatistics()
         {
+            Station fave = null;
             string username = (string)Session["Username"];
-            int stars = db.Passengers.FirstOrDefault(p => p.Username == username).Stars;   
-            Station fave = db.Reservations.Where(r => r.Passenger.Stars == stars).ToList()
-                                                    .Select(x => x.Outbound.Destination).GroupBy(i => i)
+            int stars = db.Passengers.FirstOrDefault(p => p.Username == username).Stars;
+            var resList= db.Reservations.Where(r => r.Passenger.Stars == stars);
+            
+            if (resList.Any())
+            {
+                fave = resList.Select(x => x.Outbound.Destination).GroupBy(i => i)
                                                     .OrderByDescending(grp => grp.Count())
                                                     .Select(grp => grp.Key).First();
-            if (fave != null)
-            {
-            return RedirectToAction("SearchFlight", new { @faveStation =  fave.Name});
-            }
+            }                       
+                if (fave != null)
+                {
+                return RedirectToAction("SearchFlight", new { @faveStation =  fave.Name});
+                }
             return RedirectToAction("SearchFlight");
         }
 
