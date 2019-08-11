@@ -3,6 +3,7 @@
     ViewBag.Title = "SearchFlight";
 }
 
+
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -14,6 +15,7 @@
         <div class="container">
             <div class="row">
                 <div class="col">
+                    <br/>
                     <h4>Book A Flight</h4>
                     <hr />
                 </div>
@@ -21,6 +23,7 @@
             <div class="row">
                 <div class="col">
                     <div class="form-group">
+                        <label>Aircraft's level:</label>
                         <select class = "form-control" id="lvl" name="lvl">
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -32,51 +35,76 @@
             <div class="row">
                 <div class="col">
                     <div class="form-group">
-                    @Html.DropDownList("OriginID", null, htmlAttributes: new { @class = "form-control" })
+                        <label>Origin:</label>
+                        @Html.DropDownList("OriginID", null, htmlAttributes: new { @class = "form-control" })
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col">
                     <div class="form-group">
-                    @Html.DropDownList("DestinationID", null, htmlAttributes: new { @class = "form-control" })
+                        <label>Destination:</label>
+                        @Html.DropDownList("DestinationID", null, htmlAttributes: new { @class = "form-control" })
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col">
                     <div class="form-group">
-                    <input id="departure" name="departure" type="date" />
+                        <label>Outbound Date:</label><br />
+                        <input id="departure" name="departure" type="date" />
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col">
                     <div class="form-group">
-                    <input id="arrival" name="arrival" type="date" />
+                        <label>Inbound Date:</label><br/>
+                        <input id="arrival" name="arrival" type="date" />
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-offset-2 col-md-10">
                     <div class="form-group">
-                    <input type="submit" value="Search Flight" class="btn btn-default" />
+                        <br />
+                        <input type="submit" value="Search Flight" class="btn btn-default" />
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col">
-    @Html.ActionLink("Back to List", "Index")
-                </div>
-            </div>
+         
         </div>
         <div class="form-group">
         </div>
     </div>
 }
+<link href="~/Content/css/popUp.css" rel="stylesheet" />
 
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header" >
+                <span class="close">&times;</span>
+                <p ><b>Today's Special Offer</b></p>
+            </div>
+            <div class="modal-body">
+                <h3><b>Take a Flight to</b></h3>
+                <h3><b>@ViewBag.FaveStation</b></h3>
+                <p><b>and you won't gonna regret it</b></p>
+            </div>
+            <div class="modal-footer">
+                <p ><b>Don't Miss It !!</b></p>
+            </div>
+        </div>
+    </div>
+
+    @section Scripts {
+<script src="~/Content/js/popUp.js"></script>
+<script>if ('@ViewBag.FaveStation') {popUp(); }</script>
+
+@Scripts.Render("~/bundles/jqueryval")
+        
+    }
 

@@ -1,64 +1,38 @@
-﻿@model IEnumerable<SpaceWay.Models.Passenger>
-
+﻿
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Passengers</h2>
+<div>
+    <form>
+        <fieldset>
+            <input type="radio" class="rButtons" id="stars" value="stars" name="search" /><label>min stars</label><br />
+            <input type="radio" class="rButtons" id="reservations" value="reservations" name="search" /><label>min reservations</label><br />
+            <input type="radio" class="rButtons" id="name" value="name" name="search" /><label>name</label><br />
+            <input type="text" id="input" name="input" /><br /><br />
+            <input type="submit" value="Update" , id="sendSearch" class="btn btn-default" /><br />
+        </fieldset>
+    </form>
+</div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
+<table class="table" id="resultsTable">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>UserName</th>
+            <th>Stars</th>
+            <th>IsAdmin</th>
+            <th>TotalDistance</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
 
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Username)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Password)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Stars)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsAdmin)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TotalDistance)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Username)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Password)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Stars)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsAdmin)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TotalDistance)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.PassengerID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.PassengerID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.PassengerID })
-        </td>
-    </tr>
+@section Scripts{
+    <script type="text/javascript" src="~/Content/js/PassengerSearch.js"></script>
 }
 
-</table>
+

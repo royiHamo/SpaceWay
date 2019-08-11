@@ -39,10 +39,10 @@
         @Html.HiddenFor(model => model.IsAdmin)
         @Html.HiddenFor(model => model.TotalDistance)
 
-        @for (int i = 0; i < Model.Reservations.Count; i++)
+        @*@for (int i = 0; i < Model.Reservations.Count; i++)
         {
             @Html.HiddenFor(model => Model.Reservations[i].ReservationID)
-        }
+        }*@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -51,5 +51,7 @@
         </div>
     </div>
 }
-
+@section Scripts{
+    <script>document.getElementById('Reservations').value;</script>
+}
 
