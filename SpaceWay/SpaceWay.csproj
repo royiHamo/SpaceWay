@@ -156,6 +156,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\grayscale.css" />
     <Content Include="Content\css\grayscale.min.css" />
+    <Content Include="Content\css\popUp.css" />
     <Content Include="Content\Images\Home.png" />
     <Content Include="Content\img\bg-masthead-view.jpg" />
     <Content Include="Content\img\bg-masthead2.jpg" />
@@ -172,6 +173,7 @@
     <Content Include="Content\js\grayscale.js" />
     <Content Include="Content\js\grayscale.min.js" />
     <Content Include="Content\js\PassengerSearch.js" />
+    <Content Include="Content\js\popUp.js" />
     <Content Include="Content\vendor\bootstrap\css\bootstrap-grid.css" />
     <Content Include="Content\vendor\bootstrap\css\bootstrap-grid.min.css" />
     <Content Include="Content\vendor\bootstrap\css\bootstrap-reboot.css" />
@@ -239,6 +241,7 @@
     <Content Include="Content\vendor\jquery\jquery.slim.min.map" />
     <Content Include="fonts\Aviano Future W01 Regular.ttf" />
     <Content Include="fonts\Ailerons-Regular.otf" />
+    <Content Include="fonts\Anja Eliane.ttf" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
