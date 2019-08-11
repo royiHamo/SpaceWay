@@ -194,6 +194,17 @@ namespace SpaceWay.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Flight flight = db.Flights.Find(id);
+            var output = from   r in db.Reservations.ToList()
+                         where  r.InboundID == flight.FlightID ||
+                                r.OutboundID == flight.FlightID
+                         select r;
+
+            if(output.Any())
+            {
+                ModelState.AddModelError(string.Empty, "This flight is attached to a reservation");
+                return View(flight);
+            }
+
             db.Flights.Remove(flight);
             db.SaveChanges();
             return RedirectToAction("Index");
