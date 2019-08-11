@@ -157,7 +157,6 @@
     <Content Include="Content\css\grayscale.css" />
     <Content Include="Content\css\grayscale.min.css" />
     <Content Include="Content\Images\Home.png" />
-    <Content Include="Content\img\bg-masthead-view.jpg" />
     <Content Include="Content\img\bg-masthead2.jpg" />
     <Content Include="Content\img\bg-signup.jpg" />
     <Content Include="Content\img\blue-space-background.jpg" />
@@ -316,6 +315,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\vendor\bootstrap\css\Original\" />
     <Folder Include="Content\videos\" />
+    <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

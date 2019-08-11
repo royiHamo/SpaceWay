@@ -92,18 +92,21 @@ namespace SpaceWay.Controllers
         [HttpPost]
         public ActionResult Login(string UN, string PW)
         {
-            var passengerLoggedIn = db.Passengers.SingleOrDefault(x => x.Username == UN && x.Password == PW);
+            var passengerLoggedIn = db.Passengers.Where(x => string.Equals(x.Username,UN) 
+                                                                    && string.Equals(x.Password,PW)).AsEnumerable()
+                                                                    .FirstOrDefault(x => string.Equals(x.Username, UN)
+                                                                    && string.Equals(x.Password, PW));
 
             if (ModelState.IsValid)
             {
                 if (passengerLoggedIn == null)
                 {
-                    var passengerNotLoggedIn = db.Passengers.SingleOrDefault(x => x.Username == UN);
+                    var passengerNotLoggedIn = db.Passengers.Where(x => string.Equals(x.Username,UN)).AsEnumerable().FirstOrDefault(x => string.Equals(x.Username, UN));
                     if (passengerNotLoggedIn==null)
                     {
                         ModelState.AddModelError("Password", "Wrong Username and/or Password");
                     }
-                    else if (!(passengerNotLoggedIn.Password == PW))
+                    else if (!string.Equals(passengerNotLoggedIn.Password,PW))
                     {
                         ModelState.AddModelError("Password", "Wrong Username and/or Password");
                     }

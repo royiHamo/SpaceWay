@@ -9,17 +9,26 @@
 }
 else
 {
-    <h2>Aircrafts</h2>
-    using (Html.BeginForm("Search", "Aircrafts", FormMethod.Post))
-    {
-        <input type="text" name="lvl" />
-        <button type="submit">Filter</button>
-    }
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+            <h4>Aircrafts</h4>
+            @using (Html.BeginForm("Search", "Aircrafts", FormMethod.Post))
+            {
+            <input type="text" name="lvl" />
+            <button type="submit">Filter</button>
+            }
+            <p>
+                @Html.ActionLink("Create New", "Create")
+            </p>
+            </div>
+        </div>
+    <div class="row">
     <table class="table">
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AircraftID)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Level)
             </th>
@@ -32,6 +41,9 @@ else
         @foreach (var item in Model)
         {
             <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AircraftID)
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Level)
                 </td>
@@ -47,4 +59,6 @@ else
         }
 
     </table>
+</div>
+    </div>
 }

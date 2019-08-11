@@ -106,11 +106,18 @@
     <section class="contact-section bg-black">
 
         <div class="container">
-            <div class="row">
-                <button id="mapButton" class="navbar-toggler text-white-50">toggle map</button>
-                <div id="map"></div>
-
-            </div>
+                  <div>
+                      <div class="row">
+                          <div class="col-md-12 col-lg-12 align-items-start mx-auto text-center">
+                                <div id="map"></div><br/>
+                          </div>
+                      </div>
+                      <div class="row ">
+                          <div class="col-md-12 col-lg-12 align-items-start mx-auto text-center">
+                                <button id="mapButton" class="btn text-white-50">Our Stations</button>
+                          </div>
+                      </div>
+                  </div>
         </div>
     </section>
 
@@ -194,20 +201,21 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 col-lg-12 align-items-start mx-auto text-center">
-
-
-                    <button id="videoButton" class="navbar-toggler text-white-50">toggle video</button>
                     <video id="video" width="700" height="400" src="~/Content/Images/video.mp4" title="Explore the amazing space" controls />
-                    @*<i class="far fa-paper-plane fa-2x mb-2 text-white"></i>
-                        <h2 class="text-white mb-5">Subscribe to receive updates!</h2>
-
-                        <form class="form-inline d-flex">
-                            <input type="email" class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" id="inputEmail" placeholder="Enter email address...">
-                            <button type="submit" class="btn btn-primary mx-auto">Subscribe</button>
-                        </form>*@
-
+                </div>
+            </div><br />
+            <div class="row">
+                <div class="col-md-12 col-lg-12 align-items-start mx-auto text-center">
+                    <button id="videoButton" class="btn text-white-50">Amazing Space</button>
                 </div>
             </div>
+                @*<i class="far fa-paper-plane fa-2x mb-2 text-white"></i>
+            <h2 class="text-white mb-5">Subscribe to receive updates!</h2>
+
+            <form class="form-inline d-flex">
+                <input type="email" class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" id="inputEmail" placeholder="Enter email address...">
+                <button type="submit" class="btn btn-primary mx-auto">Subscribe</button>
+            </form>*@
         </div>
     </section>
 
@@ -304,7 +312,6 @@
         $("#videoButton").click(function () {
             $("#video").toggle('slow');
         });
-
     </script>
 
 </body>
