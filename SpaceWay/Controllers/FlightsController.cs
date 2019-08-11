@@ -20,8 +20,10 @@ namespace SpaceWay.Controllers
         {
             var flights = db.Flights.Include(f => f.Aircraft);
 
+            // send OriginID and DestinationID to the View
             ViewBag.OriginID = new SelectList(db.Stations, "StationID", "Name");
             ViewBag.DestinationID = new SelectList(db.Stations, "StationID", "Name");
+
             return View(flights.ToList());
         }
 
@@ -40,19 +42,31 @@ namespace SpaceWay.Controllers
             return View(flight);
         }
 
+        //show the passenger the destination which is the most commom in all reservations 
+        //that other passengers with the same star level as the user ordered
         public ActionResult LearnFromStatistics()
         {
             Station fave = null;
             string username = (string)Session["Username"];
+            
+            //find the user's star level
             int stars = db.Passengers.FirstOrDefault(p => p.Username == username).Stars;
+
+            //find all the reservations where the user's star level is equals to the passengers'
+            //star level which made the reservation
             var resList = db.Reservations.Where(r => r.Passenger.Stars == stars);
 
+            //if the list contains any passenger
             if (resList.Any())
             {
+                //find the destination which is most common among all the reservations with
+                //the passenger with the same star level
                 fave = resList.Select(x => x.Outbound.Destination).GroupBy(i => i)
                                                     .OrderByDescending(grp => grp.Count())
                                                     .Select(grp => grp.Key).First();
             }
+
+            //return the favorite station's name to the popup in Search Flight
             if (fave != null)
             {
                 return RedirectToAction("SearchFlight", new { @faveStation = fave.Name });
@@ -63,6 +77,7 @@ namespace SpaceWay.Controllers
         // GET: Flights/Create
         public ActionResult Create()
         {
+            //send AircardtID, OriginID and DestinationID to the View
             ViewBag.AircraftID = new SelectList(db.Aircrafts, "AircraftID", "Level");
             ViewBag.OriginID = new SelectList(db.Stations, "StationID", "Name");
             ViewBag.DestinationID = new SelectList(db.Stations, "StationID", "Name");
@@ -77,12 +92,13 @@ namespace SpaceWay.Controllers
         //[ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "FlightID,NumOfPassengers,AircraftID,OriginID,DestinationID,Duration,Distance,Departure,Arrival,Price")] Flight flight)
         {
-       
             if (ModelState.IsValid)
             {
                 flight.Aircraft = db.Aircrafts.FirstOrDefault(a=>a.AircraftID==flight.AircraftID);
                 flight.Origin = db.Stations.FirstOrDefault(s => s.StationID == flight.OriginID);
                 flight.Destination = db.Stations.FirstOrDefault(s => s.StationID == flight.DestinationID);
+               
+                //add flight to DB
                 db.Flights.Add(flight);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -117,6 +133,7 @@ namespace SpaceWay.Controllers
         {
             if (ModelState.IsValid)
             {
+                //save the changes in the DB
                 db.Entry(flight).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

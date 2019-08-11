@@ -18,24 +18,30 @@ namespace SpaceWay.Controllers
         // GET: Aircrafts
         public ActionResult Index(int? levelToFilter)
         {
-    
             List<Aircraft> airs = new List<Aircraft>();
-            if (levelToFilter == null || levelToFilter == -1)                        //if just opened the page
+
+            //if the user just opened the page
+            if (levelToFilter == null || levelToFilter == -1)                        
             {
                 return View(db.Aircrafts.ToList());
             }
-            if (levelToFilter == 0)                        //if bad input
+
+            //if input is not valid
+            if (levelToFilter == 0)                        
             {
                 ModelState.AddModelError(string.Empty, "Please enter a valid input");
                 return View(new List<Aircraft>());
             }
 
+            //search by user's input 'levelToFilter'
             airs = db.Aircrafts.ToList().Where(a => a.Level == levelToFilter).ToList();
-            if (!airs.Any())                               //no match         
+
+            //no results
+            if (!airs.Any())                                       
             {
                 return View(new List<Aircraft>());
             }
-            return View(airs);                              //filter
+            return View(airs);                              
         }
 
         // POST: Aircrafts
@@ -44,16 +50,20 @@ namespace SpaceWay.Controllers
         {
             int n;
             bool isNumeric = int.TryParse(lvl, out n);
+
+            //if input is empty
             if (string.IsNullOrEmpty(lvl))
             {
                 return RedirectToAction("Index", new { @levelToFilter = -1 });
             }
 
+            //if the input is not valid
             if (!isNumeric)
             { 
                 return RedirectToAction("Index", new { @levelToFilter = 0 });
             }
 
+            //redirect to GET action Index with the input which turned to int
             int level = Convert.ToInt16(lvl);
             return RedirectToAction("Index", new { @levelToFilter = level });
         }
@@ -89,6 +99,7 @@ namespace SpaceWay.Controllers
         {
             if (ModelState.IsValid)
             {
+                //save new aircraft to DB
                 db.Aircrafts.Add(aircraft);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -121,6 +132,7 @@ namespace SpaceWay.Controllers
         {
             if (ModelState.IsValid)
             {
+                //save changes in the DB
                 db.Entry(aircraft).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -149,6 +161,8 @@ namespace SpaceWay.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Aircraft aircraft = db.Aircrafts.Find(id);
+
+            //removes the aircraft from the DB
             db.Aircrafts.Remove(aircraft);
             db.SaveChanges();
             return RedirectToAction("Index");
