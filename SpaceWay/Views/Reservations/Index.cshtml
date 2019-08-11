@@ -10,6 +10,11 @@
 else
 {
     <h2>Index</h2>
+    using (Html.BeginForm("Search", "Reservations", FormMethod.Post))
+    {
+        <input type="text" name="name">
+        <button type="submit">Filter</button>
+    }
 
     <p>
         @Html.ActionLink("Create New", "AdminCreate")

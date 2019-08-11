@@ -10,9 +10,9 @@
 else
 {
     <h2>Flights</h2>
-    using (Html.BeginForm("Search", "Aircrafts", FormMethod.Post))
+    using (Html.BeginForm("Search", "Flights", FormMethod.Post))
     {
-        <input type="text" name="lvl" />
+        <input type="text" name="flID" />
         <button type="submit">Filter</button>
     }
     @Html.ActionLink("Display Aircraft Capacity Status", "JoinFlightsAndAircrafts")

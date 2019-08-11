@@ -16,15 +16,45 @@ namespace SpaceWay.Controllers
         private SpaceWayDbContext db = new SpaceWayDbContext();
 
         // GET: Flights
-        public ActionResult Index()
+        public ActionResult Index(int? flightID)
         {
             var flights = db.Flights.Include(f => f.Aircraft);
+
+            if (flightID == null)
+            {
+                return View(db.Flights.ToList());
+            }
+            //checks if the input in the filter equlas to the planet
+            var filteredFlights = from f in db.Flights.ToList()
+                                  where f.FlightID == flightID
+                                  select f;
+
+            //checks if the filter didn't return any result ,then return all the stations
+            if (!filteredFlights.Any())
+            {
+                return View(new List<Flight>());
+            }
 
             // send OriginID and DestinationID to the View
             ViewBag.OriginID = new SelectList(db.Stations, "StationID", "Name");
             ViewBag.DestinationID = new SelectList(db.Stations, "StationID", "Name");
 
-            return View(flights.ToList());
+            //return the filter results
+            return View(filteredFlights);
+        }
+
+        // POST: Flights
+        [HttpPost]
+        public ActionResult Search(string flID)
+        {
+            //if the input is empty, redirect to GET action index without the input
+            if (string.IsNullOrEmpty(flID))
+            {
+                return RedirectToAction("Index");
+            }
+
+            //redirect to the GET action index, in order to search in the DB and return results
+            return RedirectToAction("Index", new { @flightID = flID });
         }
 
         // GET: Flights/Details/5
@@ -35,6 +65,7 @@ namespace SpaceWay.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Flight flight = db.Flights.Find(id);
+            if (flight == null)
             if (flight == null)
             {
                 return HttpNotFound();
@@ -236,6 +267,8 @@ namespace SpaceWay.Controllers
             List<Flight> flightsToDisplay = null;
 
             flightsToDisplay = db.Flights.ToList().Where(f => f.AircraftID == lvl &&
+                                                              f.Aircraft.Seats > 0 &&
+                                                              f.Aircraft.Seats >= 0 &&
                                                               DateTime.Compare(f.Departure.Date, departure.Date) == 0 &&
                                                               f.OriginID == orig &&
                                                               f.DestinationID == dest).ToList();

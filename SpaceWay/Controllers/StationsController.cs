@@ -18,15 +18,19 @@ namespace SpaceWay.Controllers
         // GET: Stations
         public ActionResult Index(string planetToFilter)
         {
+            if(planetToFilter == null)
+            {
+                return View(db.Stations.ToList());
+            }
             //checks if the input in the filter equlas to the planet
             var filteredStations = from s in db.Stations.ToList()
-                                   where s.Planet == planetToFilter
+                                   where string.Equals(s.Planet,planetToFilter,StringComparison.OrdinalIgnoreCase)
                                    select s;
 
             //checks if the filter didn't return any result ,then return all the stations
             if (!filteredStations.Any())
             {
-                return View(db.Stations.ToList());
+                return View(new List<Station>());
             }
 
             //return the filter results

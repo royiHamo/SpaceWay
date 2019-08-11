@@ -51,7 +51,7 @@ namespace SpaceWay.Controllers
             int n;
             bool isNumeric = int.TryParse(lvl, out n);
 
-            //if input is empty
+            //if input is empty ε for example
             if (string.IsNullOrEmpty(lvl))
             {
                 return RedirectToAction("Index", new { @levelToFilter = -1 });
