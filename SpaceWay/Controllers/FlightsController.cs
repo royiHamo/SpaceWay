@@ -44,13 +44,15 @@ namespace SpaceWay.Controllers
         {
             string username = (string)Session["Username"];
             int stars = db.Passengers.FirstOrDefault(p => p.Username == username).Stars;   
+            if(db.Reservations.ToList().Count == 0)
+                return RedirectToAction("SearchFlight");
             Station fave = db.Reservations.Where(r => r.Passenger.Stars == stars).ToList()
                                                     .Select(x => x.Outbound.Destination).GroupBy(i => i)
                                                     .OrderByDescending(grp => grp.Count())
                                                     .Select(grp => grp.Key).First();
             if (fave != null)
             {
-            return RedirectToAction("SearchFlight", new { @faveStation =  fave.Name});
+                return RedirectToAction("SearchFlight", new { @faveStation =  fave.Name});
             }
             return RedirectToAction("SearchFlight");
         }
@@ -208,14 +210,25 @@ namespace SpaceWay.Controllers
             int lvl = Convert.ToInt16(TempData.Peek("lvl"));
             int orig = Convert.ToInt16(TempData.Peek("orig"));
             int dest = Convert.ToInt16(TempData.Peek("dest"));
-            DateTime departure = DateTime.Parse((string)TempData.Peek("dept"));
+            //DateTime departure; = DateTime.Parse((string)TempData.Peek("dept"));
+            DateTime departure;
+            if (!DateTime.TryParse((string)TempData.Peek("dept"), out departure))
+                return View(new List<Flight>());
             //DateTime arrival = (DateTime)TempData["arri"];
+
+
             List<Flight> flightsToDisplay = null;
 
             flightsToDisplay = db.Flights.ToList().Where(f => f.AircraftID == lvl &&
                                                               DateTime.Compare(f.Departure.Date, departure.Date) == 0 &&
                                                               f.OriginID == orig &&
                                                               f.DestinationID == dest).ToList();
+
+            if (flightsToDisplay == null || flightsToDisplay.Count == 0)
+            {
+                ViewBag.A = "t";
+                return View();
+            }
 
             return View(flightsToDisplay);
         }

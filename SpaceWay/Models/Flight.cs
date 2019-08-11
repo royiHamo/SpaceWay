@@ -38,6 +38,7 @@ namespace SpaceWay.Models
         public double Distance { get; set; }
 
         [DataType(DataType.DateTime)]
+        [Required]
         public DateTime Departure { get; set; }
 
         [DataType(DataType.DateTime)]

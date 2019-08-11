@@ -36,7 +36,7 @@ namespace SpaceWay.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(String type, String input)
+        public ActionResult Index(string type, string input)
         {
             List<Passenger> ps = new List<Passenger>();
 
@@ -145,11 +145,12 @@ namespace SpaceWay.Controllers
         public ActionResult Search(string input, FormCollection fc)
         {
             var result = fc["search"];
-            if(result == null)
+            //if radio is not chosen or input is empty(3)
+            if (string.IsNullOrEmpty(result) || string.IsNullOrEmpty(input))
             {
-                return View(new List<Passenger>());
+                return View(db.Passengers.ToList());
             }
-            if (result.Equals("stars"))
+            if (result.Equals("stars")) 
             {
                 return View(db.Passengers.ToList().Where(p => p.Stars >= int.Parse(input)).ToList());
             }
