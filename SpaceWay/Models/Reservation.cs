@@ -14,7 +14,8 @@ namespace SpaceWay.Models
         public int PassengerID { get; set; }
         public virtual Passenger Passenger { get; set; }
 
-        [DataType(DataType.DateTime)]
+        
+        [Required,DataType(DataType.DateTime)]
         public DateTime OrderDate { get; set; }
 
         //[ForeignKey("Flight")]
@@ -28,8 +29,8 @@ namespace SpaceWay.Models
         [Range(1, Int32.MaxValue, ErrorMessage = "Invalid Number Of Tickets Enterd Please Enter Positive Number")]
         public int NumOfTickets { get; set; }
 
-        [Range(0, Int32.MaxValue, ErrorMessage = "Invalid Total Price Enterd Please Enter Positive Number")]
-        [DataType(DataType.Currency)]
+        
+        [DataType(DataType.Currency), Range(0, Int32.MaxValue, ErrorMessage = "Invalid Total Price Enterd Please Enter Positive Number")]
         public double TotalPrice { get; set; }
 
     }
