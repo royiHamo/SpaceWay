@@ -45,8 +45,6 @@ namespace SpaceWay.Controllers
         }
 
         // POST: Reservations/ClientCreate
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult ClientCreate([Bind(Include = "ReservationID,PassengerID,OrderDate,OutboundID,InboundID,NumOfTickets,TotalPrice")] Reservation reservation)
@@ -154,6 +152,7 @@ namespace SpaceWay.Controllers
         // GET: Reservations/AdminCreate
         public ActionResult AdminCreate()
         {
+            //send PassengerID and FlightID through ViewBag to View
             ViewBag.PassengerID = new SelectList(db.Passengers, "PassengerID", "Name");
             ViewBag.FlightID = new SelectList(db.Flights, "FlightID", "FlightID");
             return View();

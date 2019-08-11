@@ -186,10 +186,13 @@ namespace SpaceWay.Controllers
 
         public ActionResult PassengerProfile()
         {
+            if (Session["Username"]!= null)
+            {
             var usernameSession = Session["Username"].ToString();
             var passengerLoggedIn = db.Passengers.SingleOrDefault(x => x.Username == usernameSession);
-
             return View(passengerLoggedIn);
+            }
+            return View();
         }
 
         // GET: Passengers/Create
@@ -320,7 +323,7 @@ namespace SpaceWay.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View();
             }
             Passenger passenger = db.Passengers.Find(id);
             if (passenger == null)
