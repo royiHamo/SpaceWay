@@ -3,9 +3,15 @@
 @{
     ViewBag.Title = "SearchFlightResultsOut";
 }
-
 <h2>SearchFlightResultsOut</h2>
 
+@if (ViewBag.A == "t")
+{
+    <h4>Unfortunately, there are no flights matching your search.</h4>
+}
+
+else
+{
 <div class="container">
     @using (Html.BeginForm())
     {
@@ -100,6 +106,4 @@
         </div>
     }
 </div>
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+}

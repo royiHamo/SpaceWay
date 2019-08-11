@@ -12,15 +12,16 @@ else
     <div class="container">
         <div class="row">
             <div class="col">
-            <h4>Aircrafts</h4>
-            @using (Html.BeginForm("Search", "Aircrafts", FormMethod.Post))
-            {
-            <input type="text" name="lvl" />
-            <button type="submit">Filter</button>
-            }
-            <p>
-                @Html.ActionLink("Create New", "Create")
-            </p>
+                <h4>Aircrafts</h4>
+                @using (Html.BeginForm("Search", "Aircrafts", FormMethod.Post))
+                {
+                    <input id="lvl" name="lvl" type="text" />
+                    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                    <button type="submit">Filter</button>
+                }
+                <p>
+                    @Html.ActionLink("Create New", "Create")
+                </p>
             </div>
         </div>
     <div class="row">

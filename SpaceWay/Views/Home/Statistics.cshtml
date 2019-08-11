@@ -6,77 +6,15 @@
     SpaceWayDbContext db = new SpaceWayDbContext();
 }
 
+@* Check Admin Permissions and Session *@
 @if ((string)Session["isAdmin"] == "0" || Session["Username"] == null)
 {
     <h4>You have no permissions to display this page.</h4>
 }
 else
 {
-
-    <head>
-        <style>
-            body {
-                width: auto;
-                margin: auto;
-            }
-
-            path {
-                stroke: #fff;
-            }
-
-                path:hover {
-                    opacity: 0.9;
-                }
-
-            rect:hover {
-                fill: blue;
-            }
-
-            .axis {
-                font: 15px sans-serif;
-            }
-
-            .legend tr {
-                border-bottom: 1px solid grey;
-            }
-
-                .legend tr:first-child {
-                    border-top: 1px solid grey;
-                }
-
-            .axis path,
-            .axis line {
-                fill: none;
-                stroke: rgba(0,0,0,0);
-                shape-rendering: crispEdges;
-            }
-
-            .x.axis path {
-                display: none;
-            }
-
-            .legend {
-                margin-bottom: 76px;
-                display: inline-block;
-                border-collapse: collapse;
-                border-spacing: 0px;
-            }
-
-                .legend td {
-                    padding: 4px 5px;
-                    vertical-align: bottom;
-                    color: white;
-                }
-
-            .legendFreq, .legendPerc {
-                align-self: initial;
-                width: 50px;
-                color: white;
-            }
-        </style>
-    </head>
-
-    <body>
+    <!--design for Statistics -->
+<link href ="~/Content/css/Statistics.css" rel="stylesheet" />
 
         <div id='dashboard'></div>
 
@@ -300,7 +238,7 @@ else
         <script>
 
         @{
-            int[] oneStar =
+               int[] oneStar =
             {
                 db.Reservations.Count(p=>p.Passenger.Stars==1 && p.OrderDate.Month==1),
                 db.Reservations.Count(p=>p.Passenger.Stars==1 && p.OrderDate.Month==2),
@@ -496,7 +434,7 @@ else
 
         dashboard('#dashboard', freqData);
         </script>
-    </body>
+   
 }
 
 

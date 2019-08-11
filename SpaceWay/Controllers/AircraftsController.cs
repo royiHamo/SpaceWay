@@ -18,44 +18,44 @@ namespace SpaceWay.Controllers
         // GET: Aircrafts
         public ActionResult Index(int? levelToFilter)
         {
-
-            var airs = from a in db.Aircrafts.ToList()
-                       where a.Level == levelToFilter
-                       select a;
-            if (!airs.Any())
+    
+            List<Aircraft> airs = new List<Aircraft>();
+            if (levelToFilter == null || levelToFilter == -1)                        //if just opened the page
             {
                 return View(db.Aircrafts.ToList());
             }
-            return View(airs);
+            if (levelToFilter == 0)                        //if bad input
+            {
+                ModelState.AddModelError(string.Empty, "Please enter a valid input");
+                return View(new List<Aircraft>());
+            }
 
-            //List<Aircraft> airs = new List<Aircraft>();
-            //airs = db.Aircrafts.ToList().Where(a => a.Level == levelToFilter).ToList();
-
-            //if (!airs.Any())
-            //{
-            //    return View(db.Aircrafts.ToList());
-            //}
-
-            //return View(airs);
+            airs = db.Aircrafts.ToList().Where(a => a.Level == levelToFilter).ToList();
+            if (!airs.Any())                               //no match         
+            {
+                return View(new List<Aircraft>());
+            }
+            return View(airs);                              //filter
         }
 
         // POST: Aircrafts
         [HttpPost]
         public ActionResult Search(string lvl)
         {
+            int n;
+            bool isNumeric = int.TryParse(lvl, out n);
             if (string.IsNullOrEmpty(lvl))
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { @levelToFilter = -1 });
             }
 
-            if (lvl.All(char.IsNumber))
-            {
-                int level = Convert.ToInt16(lvl);
-                return RedirectToAction("Index", new { @levelToFilter = level });
+            if (!isNumeric)
+            { 
+                return RedirectToAction("Index", new { @levelToFilter = 0 });
             }
-            
-            return RedirectToAction("Index");
 
+            int level = Convert.ToInt16(lvl);
+            return RedirectToAction("Index", new { @levelToFilter = level });
         }
 
 
@@ -64,12 +64,12 @@ namespace SpaceWay.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("Error");
             }
             Aircraft aircraft = db.Aircrafts.Find(id);
             if (aircraft == null)
             {
-                return HttpNotFound();
+                return View("Error");
             }
             return View(aircraft);
         }
@@ -102,12 +102,12 @@ namespace SpaceWay.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("Error");
             }
             Aircraft aircraft = db.Aircrafts.Find(id);
             if (aircraft == null)
             {
-                return HttpNotFound();
+                return View("Error");
             }
             return View(aircraft);
         }
@@ -133,12 +133,12 @@ namespace SpaceWay.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("Error");
             }
             Aircraft aircraft = db.Aircrafts.Find(id);
             if (aircraft == null)
             {
-                return HttpNotFound();
+                return View("Error");
             }
             return View(aircraft);
         }

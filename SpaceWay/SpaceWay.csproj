@@ -158,6 +158,7 @@
     <Content Include="Content\css\grayscale.min.css" />
     <Content Include="Content\css\Loader.css" />
     <Content Include="Content\css\popUp.css" />
+    <Content Include="Content\css\Statistics.css" />
     <Content Include="Content\Images\Home.png" />
     <Content Include="Content\img\bg-masthead2.jpg" />
     <Content Include="Content\img\bg-signup.jpg" />
