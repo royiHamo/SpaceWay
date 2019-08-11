@@ -95,6 +95,9 @@ else
                         </fieldset>
                     </div>
                 </table>
+                <div>
+                    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
         <div class="row justify-content-center">

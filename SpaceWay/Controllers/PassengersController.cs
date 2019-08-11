@@ -39,7 +39,7 @@ namespace SpaceWay.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(String type, String input)
+        public ActionResult Index(string type, string input)
         {
             List<Passenger> ps = new List<Passenger>();
 
@@ -48,8 +48,7 @@ namespace SpaceWay.Controllers
             var jsonData = Json(new { passengers = allPassengers.Select(x => new { x.Name, x.Username, x.Stars, x.IsAdmin, x.TotalDistance, x.PassengerID }) }, JsonRequestBehavior.AllowGet);
 
             //check if input is a number, if true, intInput = input
-            int intInput;
-            var isNumeric = int.TryParse(input, out intInput);
+            var isNumeric = int.TryParse(input, out int intInput);
 
 
             //if no input or no radio button chosed

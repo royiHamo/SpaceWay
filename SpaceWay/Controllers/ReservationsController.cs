@@ -16,10 +16,43 @@ namespace SpaceWay.Controllers
         private SpaceWayDbContext db = new SpaceWayDbContext();
 
         // GET: Reservations
-        public ActionResult Index()
+        public ActionResult Index(string passengerName)
         {
-            var reservations = db.Reservations.Include(r => r.Passenger);
-            return View(reservations.ToList());
+            // var reservations = db.Reservations.Include(r => r.Passenger);
+
+            if (passengerName == null)
+            {
+                return View(db.Reservations.ToList());
+            }
+
+            var output = from res in db.Reservations.ToList()
+                         where string.Equals(res.Passenger.Name, passengerName, StringComparison.OrdinalIgnoreCase)
+                         select res;
+
+            if (!output.Any())
+            {
+                return View(new List<Reservation>());
+            }
+
+            return View(output);
+
+            
+            //return View(reservations.ToList());
+        }
+
+
+        // POST: Reservations
+        [HttpPost]
+        public ActionResult Search(string name)
+        {
+            //if the input is empty, redirect to GET action index without the input
+            if (string.IsNullOrEmpty(name))
+            {
+                return RedirectToAction("Index");
+            }
+
+            //redirect to the GET action index, in order to search in the DB and return results
+            return RedirectToAction("Index", new { @passengerName = name });
         }
 
         // GET: Reservations/Details/5
@@ -154,8 +187,8 @@ namespace SpaceWay.Controllers
         public ActionResult AdminCreate()
         {
             //send PassengerID and FlightID through ViewBag to View
-            ViewBag.PassengerID = new SelectList(db.Passengers, "PassengerID", "Name");
-            ViewBag.FlightID = new SelectList(db.Flights, "FlightID", "FlightID");
+            ViewBag.PassengerID = new SelectList(db.Passengers.ToList(), "PassengerID", "Name");
+            ViewBag.FlightID = new SelectList(db.Flights.ToList(), "FlightID", "FlightID");
             return View();
         }
 
@@ -189,6 +222,15 @@ namespace SpaceWay.Controllers
             //updating stars
             reservation.Passenger.Stars = (int)(reservation.Passenger.TotalDistance / 50000) + 1;
 
+            if(reservation.Outbound.Aircraft.Seats < reservation.NumOfTickets ||
+                reservation.Inbound.Aircraft.Seats < reservation.NumOfTickets)
+            {
+                // ModelState.AddModelError(string.Empty, "No available seats.");
+                ModelState.AddModelError("NumOfTickets", "No available seats.");
+                ViewBag.PassengerID = new SelectList(db.Passengers.ToList(), "PassengerID", "Name");
+                ViewBag.FlightID = new SelectList(db.Flights.ToList(), "FlightID", "FlightID");
+                return View();
+            }
 
             if (ModelState.IsValid)
             {

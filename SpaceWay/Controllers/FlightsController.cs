@@ -16,15 +16,45 @@ namespace SpaceWay.Controllers
         private SpaceWayDbContext db = new SpaceWayDbContext();
 
         // GET: Flights
-        public ActionResult Index()
+        public ActionResult Index(int? flightID)
         {
             var flights = db.Flights.Include(f => f.Aircraft);
+
+            if (flightID == null)
+            {
+                return View(db.Flights.ToList());
+            }
+            //checks if the input in the filter equlas to the planet
+            var filteredFlights = from f in db.Flights.ToList()
+                                  where f.FlightID == flightID
+                                  select f;
+
+            //checks if the filter didn't return any result ,then return all the stations
+            if (!filteredFlights.Any())
+            {
+                return View(new List<Flight>());
+            }
 
             // send OriginID and DestinationID to the View
             ViewBag.OriginID = new SelectList(db.Stations, "StationID", "Name");
             ViewBag.DestinationID = new SelectList(db.Stations, "StationID", "Name");
 
-            return View(flights.ToList());
+            //return the filter results
+            return View(filteredFlights);
+        }
+
+        // POST: Flights
+        [HttpPost]
+        public ActionResult Search(string flID)
+        {
+            //if the input is empty, redirect to GET action index without the input
+            if (string.IsNullOrEmpty(flID))
+            {
+                return RedirectToAction("Index");
+            }
+
+            //redirect to the GET action index, in order to search in the DB and return results
+            return RedirectToAction("Index", new { @flightID = flID });
         }
 
         // GET: Flights/Details/5
@@ -35,6 +65,7 @@ namespace SpaceWay.Controllers
                 return View("Error");
             }
             Flight flight = db.Flights.Find(id);
+            if (flight == null)
             if (flight == null)
             {
                 return HttpNotFound();
@@ -230,16 +261,14 @@ namespace SpaceWay.Controllers
             int lvl = Convert.ToInt16(TempData.Peek("lvl"));
             int orig = Convert.ToInt16(TempData.Peek("orig"));
             int dest = Convert.ToInt16(TempData.Peek("dest"));
-            //DateTime departure; = DateTime.Parse((string)TempData.Peek("dept"));
-            DateTime departure;
-            if (!DateTime.TryParse((string)TempData.Peek("dept"), out departure))
+            if (!DateTime.TryParse((string)TempData.Peek("dept"), out DateTime departure))
                 return View(new List<Flight>());
-            //DateTime arrival = (DateTime)TempData["arri"];
-
 
             List<Flight> flightsToDisplay = null;
 
             flightsToDisplay = db.Flights.ToList().Where(f => f.AircraftID == lvl &&
+                                                              f.Aircraft.Seats > 0 &&
+                                                              f.Aircraft.Seats >= 0 &&
                                                               DateTime.Compare(f.Departure.Date, departure.Date) == 0 &&
                                                               f.OriginID == orig &&
                                                               f.DestinationID == dest).ToList();
@@ -249,7 +278,7 @@ namespace SpaceWay.Controllers
                 ViewBag.A = "t";
                 return View();
             }
-
+            TempData["ftd"] = flightsToDisplay;
             return View(flightsToDisplay);
         }
 
@@ -258,12 +287,13 @@ namespace SpaceWay.Controllers
         [HttpPost]
         public ActionResult SearchFlightResultsOut(FormCollection form)
         {
-
+            if (form["OutRadio"] == null)
+            {
+                List<Flight> toDisplay = (List<Flight>)TempData["ftd"];
+                ModelState.AddModelError(string.Empty, "Please select a flight");
+                return View(toDisplay);
+            }
             TempData["selectedOutID"] = Convert.ToInt16(form["OutRadio"]);
-            //int selectedOutFlightID = Convert.ToInt16(form["OutRadio"]);
-            //int selectedInFlightID = Convert.ToInt16(form["InRadio"]);
-
-            //return RedirectToAction("NewReservation", "Reservations", new { @Outid = selectedOutFlightID, @Inid = selectedInFlightID });
             return RedirectToAction("SearchFlightResultsIn");
         }
 
@@ -284,7 +314,7 @@ namespace SpaceWay.Controllers
                                                             DateTime.Compare(f.Departure.Date, departure.Date) == 0 &&
                                                               f.OriginID == orig &&
                                                               f.DestinationID == dest).ToList();
-
+            TempData["ftd"] = flightsToDisplay;
             return View(flightsToDisplay);
         }
 
@@ -292,6 +322,12 @@ namespace SpaceWay.Controllers
         [HttpPost]
         public ActionResult SearchFlightResultsIn(FormCollection form)
         {
+            if (form["InRadio"] == null)
+            {
+                List<Flight> toDisplay = (List<Flight>)TempData["ftd"];
+                ModelState.AddModelError(string.Empty, "Please select a flight");
+                return View(toDisplay);
+            }
             TempData["selectedInID"] = Convert.ToInt16(form["InRadio"]);
 
             return RedirectToAction("NewReservation", "Reservations", new { @Outid = TempData["selectedOutID"], @Inid = TempData["selectedInID"] });
