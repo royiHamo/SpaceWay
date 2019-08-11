@@ -4,87 +4,108 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+@if ((string)Session["isAdmin"] == "0" || Session["Username"] == null)
+{
+    <h4>You have no permissions to display this page.</h4>
+}
+else
+{
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h4>Flight Details</h4>
+                <hr />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <dl >
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Aircraft.AircraftID)
+                    </dt>
 
-<div>
-    <h4>Flight</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Aircraft.AircraftID)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Aircraft.AircraftID)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Aircraft.AircraftID)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.NumOfPassengers)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.NumOfPassengers)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.NumOfPassengers)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.NumOfPassengers)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.OriginID)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.OriginID)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.OriginID)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.OriginID)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.DestinationID)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DestinationID)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.DestinationID)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.DestinationID)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Duration)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Duration)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Duration)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Duration)
-        </dd>
+                </dl>
+            </div>
+            <div class="col">
+                <dl>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Distance)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Distance)
+                    </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Distance)
-        </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Departure)
+                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Distance)
-        </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Departure)
+                    </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Departure)
-        </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Arrival)
+                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Departure)
-        </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Arrival)
+                    </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Arrival)
-        </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Price)
+                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Arrival)
-        </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Price)
+                    </dd>
+                </dl>
+            </div>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.FlightID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+        <div class="row">
+        <div class="col">
+            <p>
+                @Html.ActionLink("Edit", "Edit", new { id = Model.FlightID }) |
+                @Html.ActionLink("Back to List", "Index")
+            </p>
+        </div>
+        </div>
+    </div>
+}

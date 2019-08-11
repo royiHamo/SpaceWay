@@ -12,7 +12,7 @@ namespace SpaceWay.Models
         [Range(1,3)]
         public int Level { get; set; } //level of luxury 1-3
 
-        [Range(0, Int32.MaxValue, ErrorMessage = "Invalid Seats Enterd Please Enter Positive Number")]
+        [Range(0, Int32.MaxValue, ErrorMessage = "Invalid Seats Entered Please Enter Positive Number")]
         public int Seats { get; set; }
 
     }
