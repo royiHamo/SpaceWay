@@ -18,27 +18,43 @@ namespace SpaceWay.Controllers
         // GET: Aircrafts
         public ActionResult Index(int? levelToFilter)
         {
+    
             List<Aircraft> airs = new List<Aircraft>();
-            airs = db.Aircrafts.ToList().Where(a => a.Level == levelToFilter).ToList();
-
-            if (!airs.Any())
+            if (levelToFilter == null || levelToFilter == -1)                        //if just opened the page
             {
                 return View(db.Aircrafts.ToList());
             }
+            if (levelToFilter == 0)                        //if bad input
+            {
+                ModelState.AddModelError(string.Empty, "Please enter a valid input");
+                return View(new List<Aircraft>());
+            }
 
-            return View(airs);
+            airs = db.Aircrafts.ToList().Where(a => a.Level == levelToFilter).ToList();
+            if (!airs.Any())                               //no match         
+            {
+                return View(new List<Aircraft>());
+            }
+            return View(airs);                              //filter
         }
 
         // POST: Aircrafts
         [HttpPost]
         public ActionResult Search(string lvl)
         {
+            int n;
+            bool isNumeric = int.TryParse(lvl, out n);
             if (string.IsNullOrEmpty(lvl))
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { @levelToFilter = -1 });
             }
-            int level = Convert.ToInt16(lvl);
 
+            if (!isNumeric)
+            { 
+                return RedirectToAction("Index", new { @levelToFilter = 0 });
+            }
+
+            int level = Convert.ToInt16(lvl);
             return RedirectToAction("Index", new { @levelToFilter = level });
         }
 

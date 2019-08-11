@@ -18,15 +18,18 @@ namespace SpaceWay.Controllers
         // GET: Passengers
         public ActionResult Index(string Username)
         {
+            //if user is logged in , send the username to the view
             if (Session["Username"] != null)
             {
                 ViewBag.Username = Username;
 
             }
+            //calls the function that returns all the passengers in ajax
             IndexGetAjax();
             return View();
         }
 
+        //returns ajax to get-ajax function, to show all passengers in the beginning in the table
         public ActionResult IndexGetAjax()
         {
             //all passengers list
@@ -52,21 +55,24 @@ namespace SpaceWay.Controllers
             //if no input or no radio button chosed
             if (type == null || input == null)
                 return jsonData;
-            //radio button is stars
+            //radio button min stars is checked
             if (type.Equals("stars") && isNumeric)
             {
                 ps = allPassengers.Where(p => p.Stars >= intInput).ToList();
             }
-            //radio button is reservations
+            //radio button min reservations is checked
             else if (type.Equals("reservations") && isNumeric)
             {
                 ps = allPassengers.Where(p => p.Reservations != null).ToList();
+
+                // checks if the user has reservations
                 if (ps != null)
                 {
+                    //all the passengers which have more reservations than the input
                     ps = ps.Where(p => p.Reservations.Count() >= intInput).ToList();
                 }
             }
-            //radio button is name
+            //radio button name is checked
             else if (type.Equals("name"))
             {
                 ps = allPassengers.Where(p => p.Name.Contains(input)).ToList();
@@ -79,6 +85,7 @@ namespace SpaceWay.Controllers
 
         public ActionResult Login()
         {
+            //checks the session ,if it is not empty the user is already logged in 
             if(Session["Username"] != null)
             {
                 return RedirectToAction("Index", "Home", new { Username = Session["Username"].ToString() });
@@ -89,9 +96,11 @@ namespace SpaceWay.Controllers
             } 
         }
 
+        //the Login Process
         [HttpPost]
         public ActionResult Login(string UN, string PW)
         {
+            //check if the username and password are  both correct
             var passengerLoggedIn = db.Passengers.Where(x => string.Equals(x.Username,UN) 
                                                                     && string.Equals(x.Password,PW)).AsEnumerable()
                                                                     .FirstOrDefault(x => string.Equals(x.Username, UN)
@@ -99,23 +108,30 @@ namespace SpaceWay.Controllers
 
             if (ModelState.IsValid)
             {
+                //if the passenger is not logged in yet
                 if (passengerLoggedIn == null)
                 {
                     var passengerNotLoggedIn = db.Passengers.Where(x => string.Equals(x.Username,UN)).AsEnumerable().FirstOrDefault(x => string.Equals(x.Username, UN));
+                    //username does not exist
                     if (passengerNotLoggedIn==null)
                     {
                         ModelState.AddModelError("Password", "Wrong Username and/or Password");
                     }
+                    //password incorrect
                     else if (!string.Equals(passengerNotLoggedIn.Password,PW))
                     {
                         ModelState.AddModelError("Password", "Wrong Username and/or Password");
                     }
                     return View();
                 }
+                //username and password are both correct
                 else
                 {
+                    //create the session
                     Session["Username"] = UN;
                     Session["PassengerID"] = passengerLoggedIn.PassengerID;
+
+                    //create the session which indicates if the user is admin
                     Session["isAdmin"] = "0";
                     if (passengerLoggedIn.IsAdmin)
                         Session["isAdmin"] = "1";
@@ -130,43 +146,9 @@ namespace SpaceWay.Controllers
 
         public  ActionResult Logout()
         {
+            //remove the user's session
             Session["Username"] = null;
             return RedirectToAction("Index", "Home");
-        }
-
-            // GET: Search
-            public ActionResult Search()
-        {
-            
-            return View(db.Passengers.ToList());
-        }
-
-        [HttpPost]
-        public ActionResult Search(string input, FormCollection fc)
-        {
-            var result = fc["search"];
-            if(result == null)
-            {
-                return View(new List<Passenger>());
-            }
-            if (result.Equals("stars"))
-            {
-                return View(db.Passengers.ToList().Where(p => p.Stars >= int.Parse(input)).ToList());
-            }
-            if (result.Equals("reservations"))
-            {
-                List<Passenger> passengers = db.Passengers.ToList().Where(p => p.Reservations != null).ToList();
-                if(passengers != null)
-                {
-                return View(passengers.Where(p => p.Reservations.Count() >= int.Parse(input)).ToList());
-                }
-                return View(new List<Passenger>());
-            }
-            if (result.Equals("name"))
-            {
-                return View(db.Passengers.ToList().Where(p => p.Name.Contains(input)).ToList());
-            }
-            return View(new List<Passenger>());
         }
 
         // GET: Passengers/Details/5
@@ -186,10 +168,14 @@ namespace SpaceWay.Controllers
 
         public ActionResult PassengerProfile()
         {
+            //checks id the user is logged in, if he is ,show he's properties
             if (Session["Username"]!= null)
             {
+            //get username from session  
             var usernameSession = Session["Username"].ToString();
             var passengerLoggedIn = db.Passengers.SingleOrDefault(x => x.Username == usernameSession);
+
+            //send passenger to view
             return View(passengerLoggedIn);
             }
             return View();
@@ -210,15 +196,21 @@ namespace SpaceWay.Controllers
         {
             if (ModelState.IsValid)
             {
+                    //checks if the username already exists in the DB
                     if (db.Passengers.Any(x => x.Username == passenger.Username))
                     {
                         ModelState.AddModelError("Username", "Username already exists");
                         return View();
                     }
+                //save passenger in the DB
                 db.Passengers.Add(passenger);
                 db.SaveChanges();
+
+                //after the signing up, the user is logged in, update session
                 Session["Username"] = passenger.Username;
                 Session["isAdmin"] = "0";
+                
+                //checks if the use has admin permissions
                 if (passenger.IsAdmin)
                     Session["isAdmin"] = "1";
                 return RedirectToAction("Index","Home");
@@ -227,8 +219,10 @@ namespace SpaceWay.Controllers
             return View(passenger);
         }
 
+        //joins passenger properties with the destination of the flights he ordered
         public ActionResult JoinPassengersAndDestinations()
         {
+            //the passenger's destinations
             var passengersDests = (
                 from p in db.Passengers
                 join r in db.Reservations
@@ -266,6 +260,7 @@ namespace SpaceWay.Controllers
         {
             if (ModelState.IsValid)
             {
+                //save passenger changes in the DB
                 db.Entry(passenger).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -295,23 +290,22 @@ namespace SpaceWay.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult PassengerEdit([Bind(Include = "PassengerID,Name,Username,Password,Stars,IsAdmin,TotalDistance")] Passenger passenger)
         {
-            if (ModelState.IsValid)         //need to enable option for editing the password only
+            if (ModelState.IsValid)         
             {
-                ////assigning reservations
-                //for (int i =0;i< passenger.Reservations.Count;i++)
-                //{
-                //    int id = passenger.Reservations[i].ReservationID;
-                //    passenger.Reservations[i] = db.Reservations.FirstOrDefault(x => x.ReservationID == id);
-                //}
-
+                //boolean which checks if the passenger exist
                 var exists = db.Passengers.FirstOrDefault(x => x.Username == passenger.Username && x.PassengerID != passenger.PassengerID);
+                
+                //checks if the user exists in the DB
                 if (exists != null)
                 {
                         ModelState.AddModelError("Username", "Username already exists");
                         return View(passenger);
                 }
+                //save changes in DB
                 db.Entry(passenger).State = EntityState.Modified;
                 db.SaveChanges();
+
+                //update session the the username has changed
                 Session["Username"] = passenger.Username;
                 return RedirectToAction("Index", "Home");
             }
