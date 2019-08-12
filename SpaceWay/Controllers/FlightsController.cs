@@ -68,7 +68,7 @@ namespace SpaceWay.Controllers
 
             if (flight == null)
             {
-                return HttpNotFound();
+                return View("Error");
             }
             return View(flight);
         }
@@ -144,12 +144,12 @@ namespace SpaceWay.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("Error");
             }
             Flight flight = db.Flights.Find(id);
             if (flight == null)
             {
-                return HttpNotFound();
+                return View("Error");
             }
             ViewBag.AircraftID = new SelectList(db.Aircrafts, "AircraftID", "AircraftID", flight.AircraftID);
             return View(flight);

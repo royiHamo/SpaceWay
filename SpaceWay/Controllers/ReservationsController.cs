@@ -62,7 +62,7 @@ namespace SpaceWay.Controllers
             Reservation reservation = db.Reservations.Find(id);
             if (reservation == null)
             {
-                return HttpNotFound();
+                return View("Error");
             }
             return View(reservation);
         }
@@ -269,7 +269,7 @@ namespace SpaceWay.Controllers
             Reservation reservation = db.Reservations.Find(id);
             if (reservation == null)
             {
-                return HttpNotFound();
+                return View("Error");
             }
             ViewBag.PassengerID = new SelectList(db.Passengers, "PassengerID", "Name", reservation.PassengerID);
             return View(reservation);
@@ -303,7 +303,7 @@ namespace SpaceWay.Controllers
             Reservation reservation = db.Reservations.Find(id);
             if (reservation == null)
             {
-                return HttpNotFound();
+                return View("Error");
             }
             return View(reservation);
         }

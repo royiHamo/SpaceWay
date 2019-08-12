@@ -54,7 +54,7 @@ namespace SpaceWay.Controllers
             Station station = db.Stations.Find(id);
             if (station == null)
             {
-                return HttpNotFound();
+                return View("Error");
             }
             return View(station);
         }
@@ -93,7 +93,7 @@ namespace SpaceWay.Controllers
             Station station = db.Stations.Find(id);
             if (station == null)
             {
-                return HttpNotFound();
+                return View("Error");
             }
             return View(station);
         }
@@ -125,7 +125,7 @@ namespace SpaceWay.Controllers
             Station station = db.Stations.Find(id);
             if (station == null)
             {
-                return HttpNotFound();
+                return View("Error");
             }
             return View(station);
         }

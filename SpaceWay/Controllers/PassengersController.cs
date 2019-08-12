@@ -166,7 +166,7 @@ namespace SpaceWay.Controllers
             Passenger passenger = db.Passengers.Find(id);
             if (passenger == null)
             {
-                return HttpNotFound();
+                return View("Error");
             }
             return View(passenger);
         }
@@ -251,7 +251,7 @@ namespace SpaceWay.Controllers
             Passenger passenger = db.Passengers.Find(id);
             if (passenger == null)
             {
-                return HttpNotFound();
+                return View("Error");
             }
             return View(passenger);
         }
@@ -283,7 +283,7 @@ namespace SpaceWay.Controllers
             Passenger passenger = db.Passengers.Find(id);
             if (passenger == null)
             {
-                return HttpNotFound();
+                return View("Error");
             }
             return View(passenger);
         }
@@ -327,7 +327,7 @@ namespace SpaceWay.Controllers
             Passenger passenger = db.Passengers.Find(id);
             if (passenger == null)
             {
-                return HttpNotFound();
+                return View("Error");
             }
             return View(passenger);
         }
