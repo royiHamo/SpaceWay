@@ -4,8 +4,6 @@
     ViewBag.Title = "SearchFlightResultsIn";
 }
 
-<h2>SearchFlightResultsIn</h2>
-
 <div class="container">
     @using (Html.BeginForm())
     {
@@ -98,8 +96,12 @@
                 </div>
             </div>
         </div>
+        <div class="row justify-content-center">
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    @Html.ActionLink("Back to Search", "SearchFlight")
+                </div>
+            </div>
+        </div>
     }
-</div>
-<div>
-    @Html.ActionLink("Back to Search", "SearchFlight")
 </div>

@@ -3,7 +3,6 @@
 @{
     ViewBag.Title = "SearchFlightResultsOut";
 }
-<h2>SearchFlightResultsOut</h2>
 
 @if (ViewBag.A == "t")
 {
@@ -12,104 +11,108 @@
 
 else
 {
-<div class="container">
-    @using (Html.BeginForm())
-    {
-        <div class="row">
-            <div class="col">
-                <h3><font color="#ccc"><b>Choose Outbound Flight:</b></font></h3><br />
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <table class="table">
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Aircraft.AircraftID)
-                        </th>
-                        <th>
-                            @Html.DisplayName("Available Seats")
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Duration)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Distance)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Origin)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Destination)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Departure)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Arrival)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Price)
-                        </th>
-
-                        <th></th>
-                    </tr>
-
-                    <div>
-                        <fieldset id="selectedOutbound">
-                            @foreach (var item in Model)
-                            {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Aircraft.AircraftID)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.NumOfPassengers)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Duration)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Distance)
-                                    </td>
-                                    <th>
-                                        @Html.DisplayFor(modelItem => item.Origin.Name)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayFor(modelItem => item.Destination.Name)
-                                    </th>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Departure)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Arrival)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Price)
-                                    </td>
-                                    <td>
-                                        @Html.RadioButton("OutRadio", item.FlightID)
-                                    </td>
-                                </tr>
-                            }
-                        </fieldset>
+    <div class="container">
+        @using (Html.BeginForm())
+        {
+                    <div class="row">
+                        <div class="col">
+                            <h3><font color="#ccc"><b>Choose Outbound Flight:</b></font></h3><br />
+                        </div>
                     </div>
-                </table>
-                <div>
-                    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                    <div class="row">
+                        <div class="col">
+                            <table class="table">
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Aircraft.AircraftID)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("Available Seats")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Duration)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Distance)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Origin)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Destination)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Departure)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Arrival)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Price)
+                                    </th>
+
+                                    <th></th>
+                                </tr>
+
+                                <div>
+                                    <fieldset id="selectedOutbound">
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Aircraft.AircraftID)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.NumOfPassengers)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Duration)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Distance)
+                                                </td>
+                                                <th>
+                                                    @Html.DisplayFor(modelItem => item.Origin.Name)
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayFor(modelItem => item.Destination.Name)
+                                                </th>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Departure)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Arrival)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Price)
+                                                </td>
+                                                <td>
+                                                    @Html.RadioButton("OutRadio", item.FlightID)
+                                                </td>
+                                            </tr>
+                                        }
+                                    </fieldset>
+                                </div>
+                            </table>
+                            <div>
+                                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Confirm Selection" class="btn btn-default" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="form-group">
+                            <div>
+                                @Html.ActionLink("Back to Search", "SearchFlight")
+                            </div>
+                        </div>
+                    </div>
+                    }
                 </div>
-            </div>
-        </div>
-        <div class="row justify-content-center">
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Confirm Selection" class="btn btn-default" />
-                </div>
-            </div>
-        </div>
-    }
-</div>
-}
-<div>
-    @Html.ActionLink("Back to Search", "SearchFlight")
-</div>
+                }

@@ -1,18 +1,31 @@
 ﻿@{
     ViewBag.Title = "Nasa";
 }
-<h2 class="text-white mb-4">NASA Astronomy Picture Of The Day</h2>
-<h2 class="text-white mb-4" id="title"></h2>
-<div class="nasa">
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            <h3>Date: <span id="date"></span></h3><br />
-            <img id="img" src="" alt="NASA Picture Of The Day" height="50%" width="50%"><br />
-
-            <p id="explanation"></p><br />
-        </dt>
-    </dl>
+<div class="container d-flex align-content-end flex-wrap mt-5">
+    <div class="row ">
+        <div class="col">
+            <h4 class="text-white mb-1">NASA Astronomy Picture Of The Day</h4><br/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h4 class="text-white mb-1" id="title"></h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="nasa">
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                                <h3>Date: <span id="date"></span></h3><br />
+                                <img id="img" src="" alt="NASA Picture Of The Day" height="50%" width="50%"><br />
+                                <p id="explanation"></p><br />
+                    </dt>
+                </dl>
+            </div>
+        </div>
+    </div>
 </div>
 
 

@@ -3,40 +3,50 @@
 @{
     ViewBag.Title = "Details";
 }
+@if ((string)Session["isAdmin"] == "0" || Session["Username"] == null)
+{
+    <h4>You have no permissions to display this page.</h4>
+}
+else
+{
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div>
+                    <h4>Station Details</h4>
+                    <hr />
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Planet)
+                        </dt>
 
-<h2>Details</h2>
+                        <dd>
+                            @Html.DisplayFor(model => model.Planet)
+                        </dd>
 
-<div>
-    <h4>Station</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Planet)
-        </dt>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Name)
+                        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Planet)
-        </dd>
+                        <dd>
+                            @Html.DisplayFor(model => model.Name)
+                        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Address)
+                        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+                        <dd>
+                            @Html.DisplayFor(model => model.Address)
+                        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Address)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.StationID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+                    </dl>
+                </div>
+                <p>
+                    @Html.ActionLink("Edit", "Edit", new { id = Model.StationID }) |
+                    @Html.ActionLink("Back to List", "Index")
+                </p>
+            </div>
+        </div>
+    </div>
+}

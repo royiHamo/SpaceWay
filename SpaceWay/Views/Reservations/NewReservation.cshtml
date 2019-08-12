@@ -1,99 +1,98 @@
 ﻿@model SpaceWay.Models.Reservation
 
-<div>
-    <h4>Reservation</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Passenger.Name)
-        </dt>
+<div class="row mt-5">
+    <div class="col">
+        <h4>Reservation</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Passenger.Name)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Passenger.Name)
-        </dd>
-        <dt>
-            <b>@Html.Label("Outbound:")</b>
-        </dt>
-        <dd>
+            <dd>
+                @Html.DisplayFor(model => model.Passenger.Name)
+            </dd>
+            <dt>
+                <b>@Html.Label("Outbound:")</b>
+            </dt>
+            <dd>
 
-        </dd>
-        <dt>
-            @Html.Label("From ")
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Outbound.Origin.Name)
-            @Html.DisplayFor(model => model.Outbound.Departure)
-        </dd>
-        <dt>
-            @Html.Label("To ")
-        </dt>
+            </dd>
+            <dt>
+                @Html.Label("From ")
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Outbound.Origin.Name)
+                @Html.DisplayFor(model => model.Outbound.Departure)
+            </dd>
+            <dt>
+                @Html.Label("To ")
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Outbound.Destination.Name)
-            @Html.DisplayFor(model => model.Outbound.Arrival)
-        </dd>
-        <div>
-            <hr />
-        </div>
-        @*-------------------------------------------------------------*@
-
-        <dt>
-            <b>@Html.Label("Inbound:")</b>
-        </dt>
-        <dd>
-
-        </dd>
-        <dt>
-            @Html.Label("From ")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Inbound.Origin.Name)
-            @Html.DisplayFor(model => model.Inbound.Departure)
-        </dd>
-        <dt>
-            @Html.Label("To ")
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Inbound.Destination.Name)
-            @Html.DisplayFor(model => model.Inbound.Arrival)
-        </dd>
-
-    </dl>
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-        @Html.HiddenFor(model => model.PassengerID)
-        @Html.HiddenFor(model => model.OrderDate)
-        @Html.HiddenFor(model => model.OutboundID)
-        @Html.HiddenFor(model => model.InboundID)
-        @Html.HiddenFor(model => model.Outbound)
-        @Html.HiddenFor(model => model.Inbound)
-        @Html.HiddenFor(model => model.Passenger)
-
-        <div class="form-horizontal">
-            <dl class="dl-horizontal">
-                <dt>
-                    @Html.Label("Number Of Passengers:")
-
-                </dt>
-
-                <dd>
-                    <div class="col-md-10">
-                    @Html.DisplayFor(model => model.NumOfTickets)
-                    </div>
-
-                </dd>
-            </dl>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Go to Payment" class="btn btn-default" />
+            <dd>
+                @Html.DisplayFor(model => model.Outbound.Destination.Name)
+                @Html.DisplayFor(model => model.Outbound.Arrival)
+            </dd>
+            <div>
+                <hr />
             </div>
-        </div>
-    }
+            @*-------------------------------------------------------------*@
 
+            <dt>
+                <b>@Html.Label("Inbound:")</b>
+            </dt>
+            <dd>
 
-</div>
+            </dd>
+            <dt>
+                @Html.Label("From ")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Inbound.Origin.Name)
+                @Html.DisplayFor(model => model.Inbound.Departure)
+            </dd>
+            <dt>
+                @Html.Label("To ")
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Inbound.Destination.Name)
+                @Html.DisplayFor(model => model.Inbound.Arrival)
+            </dd>
+
+        </dl>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.PassengerID)
+            @Html.HiddenFor(model => model.OrderDate)
+            @Html.HiddenFor(model => model.OutboundID)
+            @Html.HiddenFor(model => model.InboundID)
+            @Html.HiddenFor(model => model.Outbound)
+            @Html.HiddenFor(model => model.Inbound)
+            @Html.HiddenFor(model => model.Passenger)
+
+            <div class="form-horizontal">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.Label("Number Of Passengers:")
+
+                    </dt>
+
+                    <dd>
+                        <div class="col-md-10">
+                            @Html.DisplayFor(model => model.NumOfTickets)
+                        </div>
+
+                    </dd>
+                </dl>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Go to Payment" class="btn btn-default" />
+                </div>
+            </div>
+        }
+    </div>
+    </div>
 
