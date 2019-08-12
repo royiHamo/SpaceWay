@@ -19,22 +19,17 @@ namespace SpaceWay.Controllers
         public ActionResult Index(string planetToFilter)
         {
             if(planetToFilter == null)
-            {
                 return View(db.Stations.ToList());
-            }
+
             //checks if the input in the filter equlas to the planet
             var filteredStations = from s in db.Stations.ToList()
                                    where string.Equals(s.Planet,planetToFilter,StringComparison.OrdinalIgnoreCase)
                                    select s;
 
             //checks if the filter didn't return any result ,then return all the stations
-            if (!filteredStations.Any())
-            {
-                return View(new List<Station>());
-            }
 
-            //return the filter results
-            return View(filteredStations);
+           return !filteredStations.Any() ? View(new List<Station>()) : View(filteredStations);
+
         }
 
         // POST: Stations
@@ -43,9 +38,7 @@ namespace SpaceWay.Controllers
         {
             //if the input is empty, redirect to GET action index without the input
             if (string.IsNullOrEmpty(planet))
-            {
                 return RedirectToAction("Index");
-            }
 
             //redirect to the GET action index, in order to search in the DB and return results
             return RedirectToAction("Index", new { @planetToFilter = planet });
@@ -143,6 +136,17 @@ namespace SpaceWay.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Station station = db.Stations.Find(id);
+
+            var exists = from   f in db.Flights.ToList()
+                         where  station.StationID == f.Origin.StationID ||
+                                station.StationID == f.Destination.StationID
+                         select f;
+
+            if (exists.Any())
+            {
+                ModelState.AddModelError(string.Empty, "This station is attached to a flight");
+                return View(station);
+            }
 
             //removes station from the DB
             db.Stations.Remove(station);

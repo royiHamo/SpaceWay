@@ -1,12 +1,12 @@
 ﻿function initMap() {
-    var centerLatLng = { lat: 32.434048, lng: 34.919651 };
+    var centerLatLng = { lat: 32.434048, lng: 34.919651 };                  // define map's center view
 
-    var map = new google.maps.Map(document.getElementById('map'), {
+    var map = new google.maps.Map(document.getElementById('map'), {         // init map
         zoom: 9,
         center: centerLatLng
     });
 
-    var marker = new google.maps.Marker({
+    var marker = new google.maps.Marker({                                   // init markers (out stations)
         position: { lat: 32.085300, lng: 34.781769 },
         map: map,
     });
