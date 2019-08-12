@@ -9,13 +9,13 @@
 }
 else
 {
-    <div class="container">
-        <div class="row">
+    <div class="container mt-5">
+        <div class="row mt-5">
             <div class="col">
                 <h4>Flights</h4>
             </div>
         </div>
-        <div class="row">
+        <div class="row mt-5">
             <div class="col-2">
                 @Html.ActionLink("Display Aircraft Capacity Status", "JoinFlightsAndAircrafts")
             </div>
@@ -28,14 +28,14 @@ else
             <div class="col-2">
                 @Html.ActionLink("Search for a Flight", "SearchFlight")
             </div>
-            @using (Html.BeginForm("Search", "Aircrafts", FormMethod.Post))
+            @using (Html.BeginForm("Search", "Flights", FormMethod.Post))
             {
                 <div class="row">
                     <div class="col">
                         <label>Level:</label>
                     </div>
                     <div class="col">
-                        <input type="text" name="lvl" />
+                        <input type="text" name="flID" />
                     </div>
                     <div class="col">
                         <button type="submit">Filter</button>

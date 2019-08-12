@@ -1,33 +1,48 @@
-﻿@model IEnumerable<Tuple<int,int>>
+﻿@model IEnumerable<Tuple<int, int>>
 @{
     ViewBag.Title = "JoinFlightsAndAircrafts";
 }
+@if ((string)Session["isAdmin"] == "0" || Session["Username"] == null)
+{
+    <h4>You have no permissions to display this page.</h4>
+}
+else
+{
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h4>Available Seats</h4>
+                <hr />
+                <table class="table">
+                    <tr>
+                        <td>
+                            Aircraft serial number
+                        </td>
+                        <td>
+                            Available Seats
+                        </td>
+                    </tr>
+                    @foreach (Tuple<int, int> tuple in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(t => tuple.Item1)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(t => tuple.Item2)
+                            </td>
+                        </tr>
 
-<h2>Available Seats</h2>
+                    }
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        </div>
+    </div>
 
-<table class="table">
-    <tr>
-        <td>
-            Aircraft serial number
-        </td>
-        <td>
-            Available Seats
-        </td>
-    </tr>
-    @foreach (Tuple<int, int> tuple in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(t => tuple.Item1)
-            </td>
-            <td>
-                @Html.DisplayFor(t => tuple.Item2)
-            </td>
-        </tr>
 
-    }
-</table>
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+}

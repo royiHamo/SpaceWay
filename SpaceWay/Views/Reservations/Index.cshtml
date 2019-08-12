@@ -9,80 +9,86 @@
 }
 else
 {
-    <h2>Index</h2>
-    using (Html.BeginForm("Search", "Reservations", FormMethod.Post))
-    {
-        <input type="text" name="name">
-        <button type="submit">Filter</button>
-    }
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h4>Reservations</h4>
+                @using (Html.BeginForm("Search", "Reservations", FormMethod.Post))
+                {
+                <input type="text" name="name">
+                <button type="submit">Filter</button>
+                }
 
-    <p>
-        @Html.ActionLink("Create New", "AdminCreate")
-    </p>
+                <p>
+                    @Html.ActionLink("Create New", "AdminCreate")
+                </p>
 
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Passenger.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OrderDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Outbound.Origin)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Outbound.Destination)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Inbound.Origin)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Inbound.Destination)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NumOfTickets)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TotalPrice)
-            </th>
-            <th></th>
-        </tr>
+                <table class="table">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Passenger.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.OrderDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Outbound.Origin)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Outbound.Destination)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Inbound.Origin)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Inbound.Destination)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.NumOfTickets)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TotalPrice)
+                        </th>
+                        <th></th>
+                    </tr>
 
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Passenger.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.OrderDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Outbound.Origin.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Outbound.Destination.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Inbound.Origin.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Inbound.Destination.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NumOfTickets)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TotalPrice)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.ReservationID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.ReservationID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.ReservationID })
-                </td>
-            </tr>
-        }
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Passenger.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.OrderDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Outbound.Origin.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Outbound.Destination.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Inbound.Origin.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Inbound.Destination.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NumOfTickets)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TotalPrice)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.ReservationID }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.ReservationID }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.ReservationID })
+                            </td>
+                        </tr>
+                    }
 
-    </table>
+                </table>
+            </div>
+        </div>
+    </div>
 }

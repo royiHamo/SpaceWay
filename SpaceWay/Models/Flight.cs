@@ -12,7 +12,7 @@ namespace SpaceWay.Models
     {
         public int FlightID { get; set; }
 
-        [Range(1, Int32.MaxValue, ErrorMessage = "Invalid Number Of Passengers Enterd Please Enter Positive Number")]
+        [Range(0, int.MaxValue, ErrorMessage = "Invalid Number Of Passengers Enterd Please Enter Positive Number")]
         public int NumOfPassengers { get; set; } // <= seats
         
         //ForeignKey

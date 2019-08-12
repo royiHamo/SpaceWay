@@ -37,11 +37,7 @@ namespace SpaceWay.Controllers
             airs = db.Aircrafts.ToList().Where(a => a.Level == levelToFilter).ToList();
 
             //no results
-            if (!airs.Any())                                       
-            {
-                return View(new List<Aircraft>());
-            }
-            return View(airs);                              
+            return !airs.Any() ? View(new List<Aircraft>()) : View(airs);
         }
 
         // POST: Aircrafts
@@ -161,6 +157,15 @@ namespace SpaceWay.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Aircraft aircraft = db.Aircrafts.Find(id);
+            var exists = from   f in db.Flights.ToList()
+                          where  aircraft.AircraftID == f.AircraftID ||
+                                 aircraft.AircraftID == f.AircraftID
+                          select f;
+            if(exists.Any())
+            {
+                ModelState.AddModelError(string.Empty, "This aircaft is attached to a flight");
+                return View(aircraft);
+            }
 
             //removes the aircraft from the DB
             db.Aircrafts.Remove(aircraft);

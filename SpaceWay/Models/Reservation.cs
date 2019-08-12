@@ -26,11 +26,11 @@ namespace SpaceWay.Models
         public int InboundID { get; set; }
         public virtual Flight Inbound { get; set; }
 
-        [Range(1, Int32.MaxValue, ErrorMessage = "Invalid Number Of Tickets Entered Please Enter Positive Number")]
+        [Range(1, int.MaxValue, ErrorMessage = "Invalid Number Of Tickets Entered Please Enter Positive Number")]
         public int NumOfTickets { get; set; }
 
         
-        [DataType(DataType.Currency), Range(0, Int32.MaxValue, ErrorMessage = "Invalid Total Price Entered Please Enter Positive Number")]
+        [DataType(DataType.Currency), Range(0, int.MaxValue, ErrorMessage = "Invalid Total Price Entered Please Enter Positive Number")]
         public double TotalPrice { get; set; }
 
     }
