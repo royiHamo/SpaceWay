@@ -13,15 +13,10 @@
 }
 else
 {
-    <!--design for Statistics -->
-<link href ="~/Content/css/Statistics.css" rel="stylesheet" />
+        <div id='dashboard'>
+            <h4 class="blah">Reservations by Month &emsp;&emsp;&emsp;Amount of Passengers For Each Star</h4>
+        </div>
 
-        <div id='dashboard'></div>
-
-        @*D3 API Online source*@
-        @*<script src="http://d3js.org/d3.v3.min.js"></script>*@
-
-        @*D3 API Offline source*@
         <script src="~/Content/js/d3.v3.min.js"></script>
 
         <script>
@@ -397,44 +392,48 @@ else
         ];
 
 
-        //The real code from the database
-
-        var freqData = [
-            { State: 'Jan', freq: { one: JSoneStar[0], two: JStwoStars[0], three: JSthreeStars[0], four: JSfourStars[0], five: JSfiveStars[0] } }
-            , { State: 'Feb', freq: { one: JSoneStar[1], two: JStwoStars[1], three: JSthreeStars[1], four: JSfourStars[1], five: JSfiveStars[1] } }
-            , { State: 'Mar', freq: { one: JSoneStar[2], two: JStwoStars[2], three: JSthreeStars[2], four: JSfourStars[2], five: JSfiveStars[2] } }
-            , { State: 'Apr', freq: { one: JSoneStar[3], two: JStwoStars[3], three: JSthreeStars[3], four: JSfourStars[3], five: JSfiveStars[3] } }
-            , { State: 'May', freq: { one: JSoneStar[4], two: JStwoStars[4], three: JSthreeStars[4], four: JSfourStars[4], five: JSfiveStars[4] } }
-            , { State: 'Jun', freq: { one: JSoneStar[5], two: JStwoStars[5], three: JSthreeStars[5], four: JSfourStars[5], five: JSfiveStars[5] } }
-            , { State: 'Jul', freq: { one: JSoneStar[6], two: JStwoStars[6], three: JSthreeStars[6], four: JSfourStars[6], five: JSfiveStars[6] } }
-            , { State: 'Aug', freq: { one: JSoneStar[7], two: JStwoStars[7], three: JSthreeStars[7], four: JSfourStars[7], five: JSfiveStars[7] } }
-            , { State: 'Sep', freq: { one: JSoneStar[8], two: JStwoStars[8], three: JSthreeStars[8], four: JSfourStars[8], five: JSfiveStars[8] } }
-            , { State: 'Oct', freq: { one: JSoneStar[9], two: JStwoStars[9], three: JSthreeStars[9], four: JSfourStars[9], five: JSfiveStars[9] } }
-            , { State: 'Nov', freq: { one: JSoneStar[10], two: JStwoStars[10], three: JSthreeStars[10], four: JSfourStars[10], five: JSfiveStars[10] } }
-            , { State: 'Dec', freq: { one: JSoneStar[11], two: JStwoStars[11], three: JSthreeStars[11], four: JSfourStars[11], five: JSfiveStars[11] } }
-        ];
-
-
-        //Test without database.
+        ////The real code from the database
 
         //var freqData = [
-        //    { State: 'Jan', freq: { one: 32, two: 454, three: 565, four:343 ,five:454 } }
-        //    , { State: 'Feb', freq: { one: 43, two: 65, three: 334, four: 332, five: 777 } }
-        //    , { State: 'Mar', freq: { one: 465, two: 34, three: 45, four:324, five: 555 } }
-        //    , { State: 'Apr', freq: { one: 32, two: 65, three: 67, four:545, five: 432} }
-        //    , { State: 'May', freq: { one: 233, two: 545, three: 767, four:787, five: 234 } }
-        //    , { State: 'Jun', freq: { one: 45, two: 32, three: 546, four:656, five: 111 } }
-        //    , { State: 'Jul', freq: { one: 43, two: 24, three: 56, four:545, five: 222 } }
-        //    , { State: 'Aug', freq: { one: 98, two: 656, three: 234, four:787, five: 534 } }
-        //    , { State: 'Sep', freq: { one: 232, two: 456, three: 343, four:343, five: 534 } }
-        //    , { State: 'Oct', freq: { one: 342, two: 565, three: 354, four:343, five: 534 } }
-        //    , { State: 'Nov', freq: { one: 344, two: 67, three: 345, four:687, five: 534 } }
-        //    , { State: 'Dec', freq: { one: 34, two: 11, three: 130, four:343, five: 534 } }
+        //    { State: 'Jan', freq: { one: JSoneStar[0], two: JStwoStars[0], three: JSthreeStars[0], four: JSfourStars[0], five: JSfiveStars[0] } }
+        //    , { State: 'Feb', freq: { one: JSoneStar[1], two: JStwoStars[1], three: JSthreeStars[1], four: JSfourStars[1], five: JSfiveStars[1] } }
+        //    , { State: 'Mar', freq: { one: JSoneStar[2], two: JStwoStars[2], three: JSthreeStars[2], four: JSfourStars[2], five: JSfiveStars[2] } }
+        //    , { State: 'Apr', freq: { one: JSoneStar[3], two: JStwoStars[3], three: JSthreeStars[3], four: JSfourStars[3], five: JSfiveStars[3] } }
+        //    , { State: 'May', freq: { one: JSoneStar[4], two: JStwoStars[4], three: JSthreeStars[4], four: JSfourStars[4], five: JSfiveStars[4] } }
+        //    , { State: 'Jun', freq: { one: JSoneStar[5], two: JStwoStars[5], three: JSthreeStars[5], four: JSfourStars[5], five: JSfiveStars[5] } }
+        //    , { State: 'Jul', freq: { one: JSoneStar[6], two: JStwoStars[6], three: JSthreeStars[6], four: JSfourStars[6], five: JSfiveStars[6] } }
+        //    , { State: 'Aug', freq: { one: JSoneStar[7], two: JStwoStars[7], three: JSthreeStars[7], four: JSfourStars[7], five: JSfiveStars[7] } }
+        //    , { State: 'Sep', freq: { one: JSoneStar[8], two: JStwoStars[8], three: JSthreeStars[8], four: JSfourStars[8], five: JSfiveStars[8] } }
+        //    , { State: 'Oct', freq: { one: JSoneStar[9], two: JStwoStars[9], three: JSthreeStars[9], four: JSfourStars[9], five: JSfiveStars[9] } }
+        //    , { State: 'Nov', freq: { one: JSoneStar[10], two: JStwoStars[10], three: JSthreeStars[10], four: JSfourStars[10], five: JSfiveStars[10] } }
+        //    , { State: 'Dec', freq: { one: JSoneStar[11], two: JStwoStars[11], three: JSthreeStars[11], four: JSfourStars[11], five: JSfiveStars[11] } }
         //];
+
+
+
+       //Test without database.
+        var freqData = [
+            { State: 'Jan', freq: { one: 32, two: 454, three: 565, four:343 ,five:454 } }
+            , { State: 'Feb', freq: { one: 43, two: 65, three: 334, four: 332, five: 777 } }
+            , { State: 'Mar', freq: { one: 465, two: 34, three: 45, four:324, five: 555 } }
+            , { State: 'Apr', freq: { one: 32, two: 65, three: 67, four:545, five: 432} }
+            , { State: 'May', freq: { one: 233, two: 545, three: 767, four:787, five: 234 } }
+            , { State: 'Jun', freq: { one: 45, two: 32, three: 546, four:656, five: 111 } }
+            , { State: 'Jul', freq: { one: 43, two: 24, three: 56, four:545, five: 222 } }
+            , { State: 'Aug', freq: { one: 98, two: 656, three: 234, four:787, five: 534 } }
+            , { State: 'Sep', freq: { one: 232, two: 456, three: 343, four:343, five: 534 } }
+            , { State: 'Oct', freq: { one: 342, two: 565, three: 354, four:343, five: 534 } }
+            , { State: 'Nov', freq: { one: 344, two: 67, three: 345, four:687, five: 534 } }
+            , { State: 'Dec', freq: { one: 34, two: 11, three: 130, four:343, five: 534 } }
+        ];
 
         dashboard('#dashboard', freqData);
         </script>
    
 }
+
+   <!--design for Statistics -->
+<link href="~/Content/css/Statistics.css" rel="stylesheet" />
+
 
 

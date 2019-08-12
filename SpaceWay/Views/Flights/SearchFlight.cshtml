@@ -3,7 +3,6 @@
     ViewBag.Title = "SearchFlight";
 }
 
-
 @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "MyForm" }))
 {
     @Html.AntiForgeryToken()
@@ -53,7 +52,7 @@
                 <div class="col">
                     <div class="form-group">
                         <label>Inbound Date:</label><br />
-                        <input id="arrival" name="arrival" type="date" />
+                        <input id="arrival" name="arrival" type="date" required/>
                     </div>
                 </div>
                 <div class="col form-group">
@@ -66,7 +65,7 @@
                     <div class="form-group">
                         <br />
                         <input type="button" id="fakeSubmit" onclick="load();" value="Search Flight" class="btn btn-default" />
-                        <input type="submit" style="display: none;" />
+                        <input type="submit" id="realS" style="display: none;" />  
                     </div>
                 </div>
             </div>
@@ -103,8 +102,6 @@
         </div>
     </div>
 </div>
-
-
 
 @section Scripts {
     <!-- PopUp js -->
