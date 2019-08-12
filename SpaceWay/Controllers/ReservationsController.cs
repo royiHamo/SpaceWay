@@ -29,14 +29,11 @@ namespace SpaceWay.Controllers
                          where string.Equals(res.Passenger.Name, passengerName, StringComparison.OrdinalIgnoreCase)
                          select res;
 
-            if (!output.Any())
-            {
-                return View(new List<Reservation>());
-            }
-
-            return View(output);
-
             
+            // no results
+            return !output.Any() ? View(new List<Reservation>()) : View(output);
+
+
             //return View(reservations.ToList());
         }
 
@@ -168,19 +165,19 @@ namespace SpaceWay.Controllers
             {
                 if(reservation.Outbound.NumOfPassengers > reservation.NumOfTickets)//if there are seats available
                 {
-                //occupy seats on flights
-                reservation.Outbound.NumOfPassengers -= reservation.NumOfTickets;
-                reservation.Inbound.NumOfPassengers -= reservation.NumOfTickets;
+                    //occupy seats on flights
+                    reservation.Outbound.NumOfPassengers -= reservation.NumOfTickets;
+                    reservation.Inbound.NumOfPassengers -= reservation.NumOfTickets;
 
-                //updating passenger's total distance
-                reservation.Passenger.TotalDistance += reservation.Outbound.Distance + reservation.Inbound.Distance;
+                    //updating passenger's total distance
+                    reservation.Passenger.TotalDistance += reservation.Outbound.Distance + reservation.Inbound.Distance;
 
-                //updating stars
-                reservation.Passenger.Stars = (int)(reservation.Passenger.TotalDistance / 50000) + 1; 
+                    //updating stars
+                    reservation.Passenger.Stars = (int)(reservation.Passenger.TotalDistance / 50000) + 1; 
 
-                //updating db
-                db.Reservations.Add(reservation);
-                db.SaveChanges(); 
+                    //updating db
+                    db.Reservations.Add(reservation);
+                    db.SaveChanges(); 
                 }
             }
             return RedirectToAction("Index", "Home");
@@ -210,6 +207,18 @@ namespace SpaceWay.Controllers
             reservation.Outbound = db.Flights.ToList().FirstOrDefault(f => f.FlightID == reservation.OutboundID);
             reservation.Inbound = db.Flights.ToList().FirstOrDefault(f => f.FlightID == reservation.InboundID);
 
+            if (reservation.Outbound.NumOfPassengers < reservation.NumOfTickets ||
+                reservation.Inbound.NumOfPassengers < reservation.NumOfTickets)
+            {
+                // ModelState.AddModelError(string.Empty, "No available seats.");
+                ModelState.AddModelError("NumOfTickets", "No available seats.");
+                ViewBag.PassengerID = new SelectList(db.Passengers.ToList(), "PassengerID", "Name");
+                ViewBag.FlightID = new SelectList(db.Flights.ToList(), "FlightID", "FlightID");
+                return View();
+            }
+
+
+
             //assigning date of order
             reservation.OrderDate = DateTime.Now;
 
@@ -226,15 +235,8 @@ namespace SpaceWay.Controllers
             //updating stars
             reservation.Passenger.Stars = (int)(reservation.Passenger.TotalDistance / 50000) + 1;
 
-            if(reservation.Outbound.Aircraft.Seats < reservation.NumOfTickets ||
-                reservation.Inbound.Aircraft.Seats < reservation.NumOfTickets)
-            {
-                // ModelState.AddModelError(string.Empty, "No available seats.");
-                ModelState.AddModelError("NumOfTickets", "No available seats.");
-                ViewBag.PassengerID = new SelectList(db.Passengers.ToList(), "PassengerID", "Name");
-                ViewBag.FlightID = new SelectList(db.Flights.ToList(), "FlightID", "FlightID");
-                return View();
-            }
+            
+
 
             if (ModelState.IsValid)
             {

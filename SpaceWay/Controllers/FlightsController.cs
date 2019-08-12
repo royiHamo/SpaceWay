@@ -65,7 +65,7 @@ namespace SpaceWay.Controllers
                 return View("Error");
             }
             Flight flight = db.Flights.Find(id);
-            if (flight == null)
+
             if (flight == null)
             {
                 return HttpNotFound();
@@ -273,23 +273,32 @@ namespace SpaceWay.Controllers
             int lvl = Convert.ToInt16(TempData.Peek("lvl"));
             int orig = Convert.ToInt16(TempData.Peek("orig"));
             int dest = Convert.ToInt16(TempData.Peek("dest"));
-            int tickets = Convert.ToInt16(TempData.Peek("tickets"));
+            // int? tickets = Convert.ToInt16(TempData.Peek("tickets"));
+            string tickets = (string)TempData.Peek("tickets");
+
+            if (tickets == null || tickets == "")
+                return HttpNotFound();
+
             if (!DateTime.TryParse((string)TempData.Peek("dept"), out DateTime departure))
                 return View(new List<Flight>());
+
+            if (!DateTime.TryParse((string)TempData.Peek("arri"), out DateTime arrival))
+                return View(new List<Flight>());
+
 
             List<Flight> flightsToDisplay = null;
 
             flightsToDisplay = db.Flights.ToList().Where(f => f.Aircraft.Level == lvl &&
                                                               f.Aircraft.Seats > 0 &&
                                                               f.Aircraft.Seats >= 0 &&
-                                                              f.NumOfPassengers >= tickets &&
+                                                              f.NumOfPassengers >= int.Parse(tickets) &&
                                                               DateTime.Compare(f.Departure.Date, departure.Date) == 0 &&
                                                               f.OriginID == orig &&
                                                               f.DestinationID == dest).ToList();
-
+            
             if (flightsToDisplay == null || flightsToDisplay.Count == 0)
             {
-                ViewBag.A = "t";
+                ViewBag.NoFlights = "true";
                 return View();
             }
             TempData["ftd"] = flightsToDisplay;
