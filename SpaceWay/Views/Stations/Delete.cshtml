@@ -45,11 +45,12 @@ else
                     @using (Html.BeginForm())
                     {
                         @Html.AntiForgeryToken()
-                        <div class="form-actions text-center no-color">
-                            <h4>Are you sure you want to delete this?</h4>
-                            <input type="submit" value="Delete" class="btn btn-default" /> |
-                            @Html.ActionLink("Back to List", "Index")
-                        </div>
+                    <div class="form-actions text-center no-color">
+                        <h4>Are you sure you want to delete this?</h4>
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <input type="submit" value="Delete" class="btn btn-default" /> |
+                        @Html.ActionLink("Back to List", "Index")
+                    </div>
                     }
                 </div>
             </div>

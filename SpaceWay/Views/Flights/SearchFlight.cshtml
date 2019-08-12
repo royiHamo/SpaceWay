@@ -27,10 +27,24 @@
                         </select>
                     </div>
                 </div>
+                <div class="col form-group">
+                    <label>Tickets:</label><br />
+                    <input id="tickets" name="tickets" type="text" required />
+                </div>
+                
+            </div>
+            <div class="row">
                 <div class="col">
                     <div class="form-group">
                         <label>Origin:</label>
                         @Html.DropDownList("OriginID", null, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+   
+                <div class="col">
+                    <div class="form-group">
+                        <label>Outbound Date:</label><br />
+                        <input id="outDate" name="outDate" type="date" required>
                     </div>
                 </div>
             </div>
@@ -43,22 +57,11 @@
                 </div>
                 <div class="col">
                     <div class="form-group">
-                        <label>Outbound Date:</label><br />
-                        <input id="departure" name="departure" type="date" required>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="form-group">
                         <label>Inbound Date:</label><br />
-                        <input id="arrival" name="arrival" type="date" required/>
+                        <input id="inDate" name="inDate" type="date" required />
                     </div>
                 </div>
-                <div class="col form-group">
-                    <label>Tickets:</label><br />
-                    <input id="tickets" name="tickets" type="text" required />
-                </div>
+
             </div>
             <div class="row">
                 <div class="col text-center">

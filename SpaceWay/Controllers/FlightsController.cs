@@ -230,8 +230,8 @@ namespace SpaceWay.Controllers
             TempData["lvl"] = form["lvl"];
             TempData["orig"] = form["OriginID"];
             TempData["dest"] = form["DestinationID"];
-            TempData["dept"] = form["departure"];
-            TempData["arri"] = form["arrival"];
+            TempData["outDate"] = form["outDate"];
+            TempData["inDate"] = form["inDate"];
             TempData["tickets"] = form["tickets"];
             if (ModelState.IsValid)
             {
@@ -273,36 +273,48 @@ namespace SpaceWay.Controllers
             int lvl = Convert.ToInt16(TempData.Peek("lvl"));
             int orig = Convert.ToInt16(TempData.Peek("orig"));
             int dest = Convert.ToInt16(TempData.Peek("dest"));
-            // int? tickets = Convert.ToInt16(TempData.Peek("tickets"));
             string tickets = (string)TempData.Peek("tickets");
 
-            if (tickets == null || tickets == "")
-                return HttpNotFound();
 
-            if (!DateTime.TryParse((string)TempData.Peek("dept"), out DateTime departure))
+            //in parameters
+            int origIn = Convert.ToInt16(TempData.Peek("dest"));
+            int destIn = Convert.ToInt16(TempData.Peek("orig"));
+            DateTime departureIn = DateTime.Parse((string)TempData.Peek("inDate"));
+
+            if (!DateTime.TryParse((string)TempData.Peek("outDate"), out DateTime outDate))
                 return View(new List<Flight>());
 
-            if (!DateTime.TryParse((string)TempData.Peek("arri"), out DateTime arrival))
+            if (!DateTime.TryParse((string)TempData.Peek("inDate"), out DateTime inDate))
                 return View(new List<Flight>());
 
 
-            List<Flight> flightsToDisplay = null;
+            List<Flight> flightsToDisplayOut = null;
+            List<Flight> flightsToDisplayIn = null;
 
-            flightsToDisplay = db.Flights.ToList().Where(f => f.Aircraft.Level == lvl &&
-                                                              f.Aircraft.Seats > 0 &&
-                                                              f.Aircraft.Seats >= 0 &&
+            flightsToDisplayOut = db.Flights.ToList().Where(f => f.Aircraft.Level == lvl &&
+                                                              f.NumOfPassengers > 0 &&
                                                               f.NumOfPassengers >= int.Parse(tickets) &&
-                                                              DateTime.Compare(f.Departure.Date, departure.Date) == 0 &&
+                                                              DateTime.Compare(f.Departure.Date, outDate.Date) == 0 &&
                                                               f.OriginID == orig &&
                                                               f.DestinationID == dest).ToList();
-            
-            if (flightsToDisplay == null || flightsToDisplay.Count == 0)
+
+
+            flightsToDisplayIn = db.Flights.ToList().Where(f => f.Aircraft.Level == lvl &&
+                                                           f.NumOfPassengers > 0 &&
+                                                           f.NumOfPassengers >= int.Parse(tickets) &&
+                                                           DateTime.Compare(f.Arrival.Date, departureIn.Date) == 0 &&
+                                                           f.OriginID == origIn &&
+                                                           f.DestinationID == destIn).ToList();
+
+            if (flightsToDisplayOut == null || flightsToDisplayOut.Count == 0 ||
+                flightsToDisplayIn == null || flightsToDisplayIn.Count == 0)
             {
                 ViewBag.NoFlights = "true";
                 return View();
             }
-            TempData["ftd"] = flightsToDisplay;
-            return View(flightsToDisplay);
+            TempData["ftdo"] = flightsToDisplayOut;
+            TempData["ftdi"] = flightsToDisplayIn;
+            return View(flightsToDisplayOut);
         }
 
 
@@ -312,7 +324,7 @@ namespace SpaceWay.Controllers
         {
             if (form["OutRadio"] == null)
             {
-                List<Flight> toDisplay = (List<Flight>)TempData["ftd"];
+                List<Flight> toDisplay = (List<Flight>)TempData["ftdo"];
                 ModelState.AddModelError(string.Empty, "Please select a flight");
                 return View(toDisplay);
             }
@@ -325,22 +337,23 @@ namespace SpaceWay.Controllers
         //GET:
         public ActionResult SearchFlightResultsIn()
         {
-            List<Flight> flightsToDisplay = null;              // Israel (orig)01/07 -> London (dest)
-                                                                //
+            //List<Flight> flightsToDisplay = null;              // Israel (orig)01/07 -> London (dest)
+            //                                                    //
 
-            int lvl = Convert.ToInt16(TempData.Peek("lvl"));
-            int orig = Convert.ToInt16(TempData.Peek("dest"));
-            int dest = Convert.ToInt16(TempData.Peek("orig"));
-            int tickets = Convert.ToInt16(TempData.Peek("tickets"));
-            DateTime departure = DateTime.Parse((string)TempData.Peek("arri"));
+            //int lvl = Convert.ToInt16(TempData.Peek("lvl"));
+            //int orig = Convert.ToInt16(TempData.Peek("dest"));
+            //int dest = Convert.ToInt16(TempData.Peek("orig"));
+            //int tickets = Convert.ToInt16(TempData.Peek("tickets"));
+            //DateTime departure = DateTime.Parse((string)TempData.Peek("inDate"));
 
-            flightsToDisplay = db.Flights.ToList().Where(f => f.Aircraft.Level == lvl &&
-                                                              f.NumOfPassengers >= tickets &&
-                                                              DateTime.Compare(f.Departure.Date, departure.Date) == 0 &&
-                                                              f.OriginID == orig &&
-                                                              f.DestinationID == dest).ToList();
-            TempData["ftd"] = flightsToDisplay;
-            return View(flightsToDisplay);
+            //flightsToDisplay = db.Flights.ToList().Where(f => f.Aircraft.Level == lvl &&
+            //                                                  f.NumOfPassengers >= tickets &&
+            //                                                  DateTime.Compare(f.Departure.Date, departure.Date) == 0 &&
+            //                                                  f.OriginID == orig &&
+            //                                                  f.DestinationID == dest).ToList();
+
+            //TempData["ftdo"] = flightsToDisplay;
+            return View((List<Flight>)TempData["ftdi"]);
         }
 
         //POST:
@@ -349,7 +362,7 @@ namespace SpaceWay.Controllers
         {
             if (form["InRadio"] == null)
             {
-                List<Flight> toDisplay = (List<Flight>)TempData["ftd"];
+                List<Flight> toDisplay = (List<Flight>)TempData["ftdi"];
                 ModelState.AddModelError(string.Empty, "Please select a flight");
                 return View(toDisplay);
             }
