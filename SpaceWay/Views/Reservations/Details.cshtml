@@ -3,64 +3,75 @@
 @{
     ViewBag.Title = "Details";
 }
+@if ((string)Session["isAdmin"] == "0" || Session["Username"] == null)
+{
+    <h4>You have no permissions to display this page.</h4>
+}
+else
+{
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div>
+                    <h4>Reservation Details</h4>
+                    <hr />
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Passenger.Name)
+                        </dt>
 
-<h2>Details</h2>
+                        <dd>
+                            @Html.DisplayFor(model => model.Passenger.Name)
+                        </dd>
 
-<div>
-    <h4>Reservation</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Passenger.Name)
-        </dt>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.OrderDate)
+                        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Passenger.Name)
-        </dd>
+                        <dd>
+                            @Html.DisplayFor(model => model.OrderDate)
+                        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.OrderDate)
-        </dt>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.OutboundID)
+                        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.OrderDate)
-        </dd>
+                        <dd>
+                            @Html.DisplayFor(model => model.OutboundID)
+                        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.OutboundID)
-        </dt>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.InboundID)
+                        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.OutboundID)
-        </dd>
+                        <dd>
+                            @Html.DisplayFor(model => model.InboundID)
+                        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.InboundID)
-        </dt>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.NumOfTickets)
+                        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.InboundID)
-        </dd>
+                        <dd>
+                            @Html.DisplayFor(model => model.NumOfTickets)
+                        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.NumOfTickets)
-        </dt>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.TotalPrice)
+                        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.NumOfTickets)
-        </dd>
+                        <dd>
+                            @Html.DisplayFor(model => model.TotalPrice)
+                        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TotalPrice)
-        </dt>
+                    </dl>
+                </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.TotalPrice)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ReservationID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+                <p>
+                    @Html.ActionLink("Edit", "Edit", new { id = Model.ReservationID }) |
+                    @Html.ActionLink("Back to List", "Index")
+                </p>
+            </div>
+        </div>
+    </div>
+}

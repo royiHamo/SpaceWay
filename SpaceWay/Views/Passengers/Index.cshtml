@@ -2,37 +2,71 @@
 @{
     ViewBag.Title = "Index";
 }
-
-<h2>Passengers</h2>
-<div>
-    <form>
-        <fieldset>
-            <input type="radio" class="rButtons" id="stars" value="stars" name="search" /><label>min stars</label><br />
-            <input type="radio" class="rButtons" id="reservations" value="reservations" name="search" /><label>min reservations</label><br />
-            <input type="radio" class="rButtons" id="name" value="name" name="search" /><label>name</label><br />
-            <input type="text" id="input" name="input" /><br /><br />
-            <input type="submit" value="Update" , id="sendSearch" class="btn btn-default" /><br />
-        </fieldset>
-    </form>
-</div>
-@Html.ActionLink("Display Passengers' Destination List", "JoinPassengersAndDestinations")
-<table class="table" id="resultsTable">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>UserName</th>
-            <th>Stars</th>
-            <th>IsAdmin</th>
-            <th>TotalDistance</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody></tbody>
-</table>
-
-
-@section Scripts{
-    <script type="text/javascript" src="~/Content/js/PassengerSearch.js"></script>
+@if ((string)Session["isAdmin"] == "0" || Session["Username"] == null)
+{
+    <h4>You have no permissions to display this page.</h4>
 }
+else
+{
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h4>Passengers</h4>
+                <hr/>
+            </div>
+        </div>
+        <div class="row">
+            <form class="row">
+                <div class="col-1 ">
+                    <input type="radio" class="rButtons" id="stars" value="stars" name="search" />
+                </div>
+                <div class="col-1 ">
+                    <label>min stars</label>
+                </div>
+                <div class="col-1">
+                    <input type="radio" class="rButtons" id="reservations" value="reservations" name="search" />
+                </div>
+                <div class="col-1">
+                   <label>min reservations</label>
+                </div>
+                <div class="col-1 ">
+                    <input type="radio" class="rButtons" id="name" value="name" name="search" />
+                </div>
+                <div class="col-1">
+                    <label>name</label>
+                </div>
+                <div class="col-3">
+                    <input type="text" id="input" name="input" />
+                </div>
+                <div class="col-3">
+                    <input type="submit" value="Update" , id="sendSearch" class="btn btn-default" />
+                </div>
+            </form>
+        </div>
+        <div class="row">
+            <div class="col">
+                @Html.ActionLink("Display Passengers' Destination List", "JoinPassengersAndDestinations")
+                <table class="table" id="resultsTable">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>UserName</th>
+                            <th>Stars</th>
+                            <th>IsAdmin</th>
+                            <th>TotalDistance</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+                }
+
+                @section Scripts{
+                    <script type="text/javascript" src="~/Content/js/PassengerSearch.js"></script>
+                }
 
 

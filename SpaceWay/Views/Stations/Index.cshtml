@@ -9,48 +9,65 @@
 }
 else
 {
-    <h2>Index</h2>
-    using (Html.BeginForm("Search", "Stations", FormMethod.Post))
-    {
-        <input type="text" name="planet" />
-        <button type="submit">Filter</button>
-    }
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Planet)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Address)
-            </th>
-            <th></th>
-        </tr>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <p>
+                    <h4>Stations</h4>
+                    @Html.ActionLink("Create New", "Create")
+                </p>
+                @using (Html.BeginForm("Search", "Stations", FormMethod.Post))
+                {
+                    <label>Planet:</label>
+                    <input type="text" name="planet" />
+                    <button type="submit">Filter</button>
+                }
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col">
+                <table class="table">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.StationID)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Planet)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Address)
+                        </th>
+                        <th></th>
+                    </tr>
 
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Planet)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Address)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.StationID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.StationID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.StationID })
-                </td>
-            </tr>
-        }
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StationID)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Planet)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Address)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.StationID }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.StationID }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.StationID })
+                            </td>
+                        </tr>
+                    }
 
-    </table>
+                </table>
+            </div>
+        </div>
+    </div>
 }
