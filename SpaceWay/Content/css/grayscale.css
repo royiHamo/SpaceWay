@@ -150,6 +150,8 @@ h4 {
 }
 .nasa p {
     column-count: 3;
+    width:85%;
+    font-size:100%;
 }
 
 .nasa h3 {
