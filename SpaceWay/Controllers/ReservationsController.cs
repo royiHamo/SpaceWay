@@ -57,7 +57,7 @@ namespace SpaceWay.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("Error");
             }
             Reservation reservation = db.Reservations.Find(id);
             if (reservation == null)
@@ -233,10 +233,9 @@ namespace SpaceWay.Controllers
             reservation.Passenger.TotalDistance += reservation.Outbound.Distance + reservation.Inbound.Distance;
 
             //updating stars
-            reservation.Passenger.Stars = (int)(reservation.Passenger.TotalDistance / 50000) + 1;
-
-            
-
+            int starsUpdated = (int)(reservation.Passenger.TotalDistance / 50000) + 1;
+            int result = (starsUpdated + reservation.Passenger.Stars) > 5 ? 5 : starsUpdated + reservation.Passenger.Stars;
+            reservation.Passenger.Stars = result ;
 
             if (ModelState.IsValid)
             {
@@ -264,7 +263,7 @@ namespace SpaceWay.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("Error");
             }
             Reservation reservation = db.Reservations.Find(id);
             if (reservation == null)
@@ -298,7 +297,7 @@ namespace SpaceWay.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("Error");
             }
             Reservation reservation = db.Reservations.Find(id);
             if (reservation == null)

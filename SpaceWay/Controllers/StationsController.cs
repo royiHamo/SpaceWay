@@ -49,7 +49,7 @@ namespace SpaceWay.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("Error");
             }
             Station station = db.Stations.Find(id);
             if (station == null)
@@ -88,7 +88,7 @@ namespace SpaceWay.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("Error");
             }
             Station station = db.Stations.Find(id);
             if (station == null)
@@ -120,7 +120,7 @@ namespace SpaceWay.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("Error");
             }
             Station station = db.Stations.Find(id);
             if (station == null)

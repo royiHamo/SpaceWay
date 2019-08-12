@@ -243,7 +243,8 @@ namespace SpaceWay.Controllers
 
         public ActionResult JoinFlightsAndAircrafts()
         {
-            var aircraftsFlightsAvailableSeats = (
+            // Joining Flights And Aircrafts
+               var aircraftsFlightsAvailableSeats = (
                 from a in db.Aircrafts
                 join f in db.Flights
                 on a.AircraftID equals f.AircraftID
@@ -256,6 +257,7 @@ namespace SpaceWay.Controllers
             return View(aircraftsFlightsAvailableSeats);
         }
 
+        //group all the flights by the destination
         public ActionResult GroupFlightsByDestination()
         {
             var flightByDestsGroups = 
