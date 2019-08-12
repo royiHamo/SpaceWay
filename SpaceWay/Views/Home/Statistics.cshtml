@@ -13,15 +13,8 @@
 }
 else
 {
-    <!--design for Statistics -->
-<link href ="~/Content/css/Statistics.css" rel="stylesheet" />
-
         <div id='dashboard'></div>
 
-        @*D3 API Online source*@
-        @*<script src="http://d3js.org/d3.v3.min.js"></script>*@
-
-        @*D3 API Offline source*@
         <script src="~/Content/js/d3.v3.min.js"></script>
 
         <script>
@@ -414,27 +407,13 @@ else
             , { State: 'Dec', freq: { one: JSoneStar[11], two: JStwoStars[11], three: JSthreeStars[11], four: JSfourStars[11], five: JSfiveStars[11] } }
         ];
 
-
-        //Test without database.
-
-        //var freqData = [
-        //    { State: 'Jan', freq: { one: 32, two: 454, three: 565, four:343 ,five:454 } }
-        //    , { State: 'Feb', freq: { one: 43, two: 65, three: 334, four: 332, five: 777 } }
-        //    , { State: 'Mar', freq: { one: 465, two: 34, three: 45, four:324, five: 555 } }
-        //    , { State: 'Apr', freq: { one: 32, two: 65, three: 67, four:545, five: 432} }
-        //    , { State: 'May', freq: { one: 233, two: 545, three: 767, four:787, five: 234 } }
-        //    , { State: 'Jun', freq: { one: 45, two: 32, three: 546, four:656, five: 111 } }
-        //    , { State: 'Jul', freq: { one: 43, two: 24, three: 56, four:545, five: 222 } }
-        //    , { State: 'Aug', freq: { one: 98, two: 656, three: 234, four:787, five: 534 } }
-        //    , { State: 'Sep', freq: { one: 232, two: 456, three: 343, four:343, five: 534 } }
-        //    , { State: 'Oct', freq: { one: 342, two: 565, three: 354, four:343, five: 534 } }
-        //    , { State: 'Nov', freq: { one: 344, two: 67, three: 345, four:687, five: 534 } }
-        //    , { State: 'Dec', freq: { one: 34, two: 11, three: 130, four:343, five: 534 } }
-        //];
-
         dashboard('#dashboard', freqData);
         </script>
    
 }
+
+   <!--design for Statistics -->
+<link href="~/Content/css/Statistics.css" rel="stylesheet" />
+
 
 
