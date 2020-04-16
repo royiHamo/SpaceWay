@@ -96,7 +96,9 @@
                   <div>
                       <div class="row">
                           <div id="mapCont" class="col-md-12 col-lg-12 align-items-start mx-auto text-center">
-                                <div id="map"></div>
+                              @* <div id="map"></div>*@
+                              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1689.8208696757551!2d34.80305234199912!3d32.10596699529499!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzLCsDA2JzIxLjUiTiAzNMKwNDgnMDcuMSJF!5e0!3m2!1siw!2sil!4v1586984195905!5m2!1siw!2sil"
+                                      width="450" height="300" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
                           </div>
                       </div><br />
                       <div class="row ">
@@ -117,7 +119,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 col-lg-12 align-items-start mx-auto text-center">
-                    <video id="video" width="700" height="400" src="~/Content/Images/video.mp4" title="Explore the amazing space" controls />
+                    <video id="video" width="700" height="400" src="~/Content/Images/video.mp4" title="Explore the amazing space" controls playsinline autoplay loop/>
                 </div>
             </div><br />
             <div class="row">
@@ -192,7 +194,7 @@
             <div class="fb-like" data-href="https://www.facebook.com/Space-Way-102264297798615"
                  data-width="" data-layout="button_count" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div>
             <br /><br /><br />
-            Copyright &copy; Royi, Jonathan, Michal, Uri 2019
+            Copyright &copy; Royi, Jonathan, Michal, Uri @DateTime.Now.Year
         </div>
     </footer>
 

@@ -10,13 +10,9 @@ namespace SpaceWay.Context
     public class SpaceWayDbContext : DbContext
     {
         public DbSet<Aircraft> Aircrafts { get; set; }
-
         public DbSet<Flight> Flights { get; set; }
-
         public DbSet<Station> Stations { get; set; }
-
         public DbSet<Passenger> Passengers { get; set; }
-
         public DbSet<Reservation> Reservations { get; set; }
     }
 }
